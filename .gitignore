@@ -60,3 +60,23 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# xcodeproj
+
+**/*.xcodeproj
+
+# env
+
+**/*.env
+Source/MovieBrowser/Supporting/**
+
+# Macos
+
+.DS_Store
+
+# Certs
+
+**.crt
+**.cert
+**.der
+.fake

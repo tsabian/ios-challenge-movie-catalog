@@ -1,0 +1,5 @@
+options:
+  bundleIdPrefix: ${BUNDLE_ID_PREFIX}
+  deploymentTarget:
+    iOS: "17.0"
+  minimumXcodeGenVersion: 2.35

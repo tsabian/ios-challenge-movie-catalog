@@ -1,0 +1,7 @@
+--disable wrapArguments
+--exclude Pods
+--indent 2
+--xcode-indentation enabled
+--enable isEmpty
+--acronyms
+--trailing-commas never

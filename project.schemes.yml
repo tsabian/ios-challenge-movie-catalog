@@ -1,0 +1,28 @@
+schemes:
+  MovieBrowser:
+    build:
+      targets:
+        MovieBrowser: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - MovieBrowserTests
+        - MovieBrowserUITests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+configs:
+  Debug:
+    settings:
+      DEBUG_INFORMATION_FORMAT: dwarf
+      SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+  Release:
+    settings:
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
