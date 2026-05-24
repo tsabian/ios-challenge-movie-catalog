@@ -73,4 +73,4 @@ make reset
 
 ## ApiClient Layer
 
-Para aplicar certificate pinning, validei o certificado do servidor durante o handshake TLS criando um URLSessionDelegate que intercepta o URLAuthenticationChallenge e compara os certificados do servidor com uma lista de certificados “pinados”.
+Este projeto implementa pinning de chave pública para conexões HTTPS usando URLSessionDelegate. Em vez de fixar o certificado inteiro, fixamos o hash SHA‑256 da SubjectPublicKeyInfo (SPKI) da chave pública do servidor.

@@ -12,8 +12,9 @@ import SwiftUI
 struct MovieBrowserApp: App {
   var sharedModelContainer: ModelContainer = {
     let schema = Schema([
-      Item.self,
+      Item.self
     ])
+
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
     do {
