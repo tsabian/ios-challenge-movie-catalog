@@ -11,6 +11,7 @@ targets:
     info:
       path: MovieBrowser/Supporting/Info.plist
       properties:
+        UILaunchStoryboardName: LaunchScreen
         TMDB_SSL_PINNING_KEY: $(TMDB_SSL_PINNING_KEY)
         TMDB_API_KEY: $(API_KEY)
         TMDB_API_TOKEN: $(API_TOKEN)

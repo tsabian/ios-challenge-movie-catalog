@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct MovieBrowserApp: App {
+  @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+
   var sharedModelContainer: ModelContainer = {
     let schema = Schema([
       Item.self
