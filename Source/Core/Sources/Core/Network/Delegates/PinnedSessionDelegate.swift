@@ -34,8 +34,7 @@ final class PinnedSessionDelegate: NSObject, URLSessionDelegate {
 
   func urlSession(_: URLSession,
                   didReceive challenge: URLAuthenticationChallenge,
-                  completionHandler: @escaping URLSessionHandler)
-  {
+                  completionHandler: @escaping URLSessionHandler) {
     guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
           let serverTrust = challenge.protectionSpace.serverTrust
     else {
@@ -52,7 +51,8 @@ final class PinnedSessionDelegate: NSObject, URLSessionDelegate {
 
   func isPinned(serverTrust: SecTrust) -> Bool {
     var error: CFError?
-    guard SecTrustEvaluateWithError(serverTrust, &error), error == nil else {
+    guard SecTrustEvaluateWithError(serverTrust, &error), error == nil
+    else {
       return false
     }
 
@@ -79,7 +79,8 @@ final class PinnedSessionDelegate: NSObject, URLSessionDelegate {
     }
 
     var cfError: Unmanaged<CFError>?
-    guard let keyBytes = SecKeyCopyExternalRepresentation(publicKey, &cfError) as Data? else {
+    guard let keyBytes = SecKeyCopyExternalRepresentation(publicKey, &cfError) as Data?
+    else {
       return nil
     }
 

@@ -1,9 +1,9 @@
 -include .env
-export
+-include .env.Debug
 
 PROJECT_NAME := MovieBrowser
 XCCONFIG_DIR := Source/$(PROJECT_NAME)/Supporting/Configs
-DEV_TMDB_KEY := $(shell echo | openssl s_client -servername developer.themoviedb.org -connect developer.themoviedb.org:443 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64)
+IMG_TMDB_KEY := $(shell echo | openssl s_client -servername image.tmdb.org -connect image.tmdb.org:443 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64)
 API_TMDB_KEY := $(shell echo | openssl s_client -servername api.themoviedb.org -connect api.themoviedb.org:443 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64)
 DEBUG_CONFIG := $(XCCONFIG_DIR)/Debug.xcconfig
 RELEASE_CONFIG := $(XCCONFIG_DIR)/Release.xcconfig
@@ -30,14 +30,18 @@ setup: install clean
 	@echo "✅ Projeto configurado."
 
 generate:
-	@echo "🔐 Injetando chaves e gerando o projeto com XcodeGen..."
+	@echo "🔧 Gerando arquivos de configuração..."
 	@mkdir -p $(XCCONFIG_DIR)
-	@echo "TMDB_SSL_PINNING_KEY = $(DEV_TMDB_KEY)" > $(DEBUG_CONFIG)
-	@echo "TMDB_SSL_PINNING_KEY = $(API_TMDB_KEY)" > $(RELEASE_CONFIG)
-	@echo "API_TOKEN = $(API_TOKEN)" >> $(DEBUG_CONFIG)
-	@echo "API_TOKEN = $(API_TOKEN)" >> $(RELEASE_CONFIG)
-	@echo "API_KEY = $(API_KEY)" >> $(DEBUG_CONFIG)
-	@echo "API_KEY = $(API_KEY)" >> $(RELEASE_CONFIG)
+	@cat .env.Debug > $(DEBUG_CONFIG)
+	@cat .env > $(RELEASE_CONFIG)
+	@echo "" >> $(DEBUG_CONFIG)
+	@echo "" >> $(RELEASE_CONFIG)
+	@echo "✅ Configurações geradas."
+	@echo "🔐 Injetando chaves e gerando o projeto com XcodeGen..."
+	@echo "TMDB_IMG_SSL_PINNING_KEY = $(IMG_TMDB_KEY)" >> $(DEBUG_CONFIG)
+	@echo "TMDB_API_SSL_PINNING_KEY = $(API_TMDB_KEY)" >> $(DEBUG_CONFIG)
+	@echo "TMDB_IMG_SSL_PINNING_KEY = $(IMG_TMDB_KEY)" >> $(RELEASE_CONFIG)
+	@echo "TMDB_API_SSL_PINNING_KEY = $(API_TMDB_KEY)" >> $(RELEASE_CONFIG)
 	@echo "✅ chaves injetadas."
 	@echo "🔧 Gerando o projeto Xcode..."
 	@xcodegen generate --project Source/

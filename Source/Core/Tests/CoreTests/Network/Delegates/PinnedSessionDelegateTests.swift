@@ -180,7 +180,8 @@ struct PinnedSessionDelegateTests {
     let status = SecTrustCreateWithCertificates(certificate, SecPolicyCreateBasicX509(), &optionalTrust)
     #expect(status == errSecSuccess)
 
-    guard let trust = optionalTrust else {
+    guard let trust = optionalTrust
+    else {
       throw TestError.missingTrust
     }
 

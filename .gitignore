@@ -68,7 +68,8 @@ fastlane/test_output
 # env
 
 **/*.env
-Source/MovieBrowser/Supporting/**
+**/*.env.*
+Source/MovieBrowser/Supporting/Configs/**
 
 # Macos
 

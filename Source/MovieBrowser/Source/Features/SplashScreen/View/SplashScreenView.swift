@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct SplashScreenView: View {
+  @State private var scale: CGFloat = 0.8
+  @State private var opacity: Double = 0.5
+
   var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    VStack(spacing: 12) {
+      Image("popcorn")
+      Text("\(.loading) ...")
+        .font(Font.callout.bold())
+    }
+    .onAppear {
+      withAnimation(.easeIn(duration: 0.8).repeatForever(autoreverses: true)) {
+        scale = 1.0
+        opacity = 1.0
+      }
+    }
   }
 }
 

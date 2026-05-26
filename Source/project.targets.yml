@@ -1,6 +1,10 @@
+include:
+  - project.templates.yml
+
 targets:
   MovieBrowser:
     type: application
+    supportedDestinations: iOS
     platform: iOS
     sources:
       - path: MovieBrowser
@@ -8,16 +12,32 @@ targets:
           - "**/Info.plist"
       - path: MovieBrowser/Supporting/Info.plist
         buildPhase: "none"
+      # - path: MovieBrowser/Resources/Fonts
+      #   buildPhase: resources
     info:
       path: MovieBrowser/Supporting/Info.plist
       properties:
         UILaunchStoryboardName: LaunchScreen
-        TMDB_SSL_PINNING_KEY: $(TMDB_SSL_PINNING_KEY)
+        UIRequiresFullScreen: true
+        UIUserInterfaceStyle: Dark
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIAppFonts:
+          - "Montserrat-Regular.ttf"
+          - "Montserrat-Bold.ttf"
+          - "Montserrat-Light.ttf"
+          - "SpaceGrotesk-Regular.ttf"
+          - "SpaceGrotesk-Bold.ttf"
+          - "SpaceGrotesk-Light.ttf"
+        TMDB_IMG_SSL_PINNING_KEY: $(TMDB_IMG_SSL_PINNING_KEY)
+        TMDB_API_SSL_PINNING_KEY: $(TMDB_API_SSL_PINNING_KEY)
         TMDB_API_KEY: $(API_KEY)
         TMDB_API_TOKEN: $(API_TOKEN)
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.entertainment
+        INFOPLIST_KEY_CFBundleDisplayName: $(PRODUCT_NAME)
         INFOPLIST_FILE: MovieBrowser/Supporting/Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
@@ -28,6 +48,7 @@ targets:
         ENABLE_PREVIEWS: YES
         PRODUCT_NAME: "$(TARGET_NAME)"
         STRING_CATALOG_GENERATE_SYMBOLS: YES
+        SWIFT_GENERATE_STRING_CATALOG_SYMBOLS: YES
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_EMIT_LOC_STRINGS: YES
@@ -35,18 +56,17 @@ targets:
         SWIFT_VERSION: "6.0.3"
         TARGETED_DEVICE_FAMILY: "1,2"
         ENABLE_USER_SCRIPT_SANDBOXING: NO
+        ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS: YES
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        LOCALIZATION_EXPORT_SUPPORTED_LANGUAGE_STRINGS: YES
     configFiles:
       Debug: MovieBrowser/Supporting/Configs/Debug.xcconfig
       Release: MovieBrowser/Supporting/Configs/Release.xcconfig
     dependencies:
       - package: Core
-    postBuildScripts:
-      - path: Scripts/lint.sh
-        name: "[Run] SwiftLint"
-        basedOnDependencyAnalysis: false
-      - path: Scripts/format.sh
-        name: "[Run] SwiftFormat"
-        basedOnDependencyAnalysis: false
+    templates:
+      - LintAndFormat
 
   MovieBrowserTests:
     type: bundle.unit-test
@@ -69,13 +89,8 @@ targets:
       SWIFT_VERSION: "6.0.3"
       TARGETED_DEVICE_FAMILY: "1,2"
       TEST_HOST: "$(BUILT_PRODUCTS_DIR)/MovieBrowser.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MovieBrowser"
-    postBuildScripts:
-      - path: Scripts/lint.sh
-        name: "[Run] SwiftLint"
-        basedOnDependencyAnalysis: false
-      - path: Scripts/format.sh
-        name: "[Run] SwiftFormat"
-        basedOnDependencyAnalysis: false
+    templates:
+      - LintAndFormat
 
   MovieBrowserUITests:
     type: bundle.ui-testing
@@ -97,10 +112,5 @@ targets:
       SWIFT_VERSION: "6.0.3"
       TARGETED_DEVICE_FAMILY: "1,2"
       TEST_TARGET_NAME: MovieBrowser
-    postBuildScripts:
-      - path: Scripts/lint.sh
-        name: "[Run] SwiftLint"
-        basedOnDependencyAnalysis: false
-      - path: Scripts/format.sh
-        name: "[Run] SwiftFormat"
-        basedOnDependencyAnalysis: false
+    templates:
+      - LintAndFormat``

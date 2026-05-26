@@ -1,0 +1,18 @@
+# Reusable templates
+targetTemplates:
+  LintAndFormat:
+    postBuildScripts:
+      - path: Scripts/lint.sh
+        name: "[Run] SwiftLint"
+        basedOnDependencyAnalysis: false
+      - path: Scripts/format.sh
+        name: "[Run] Swiftformat"
+        basedOnDependencyAnalysis: false
+  Crashlytics:
+    postBuildScripts:
+      - path: Scripts/crashlytics.sh
+        name: "[Run] Crashlytics"
+        inputFiles:
+          - "$(SRCROOT)/$(TARGET_NAME)/SupportingFiles/GoogleService-Info.plist"
+        shell: /bin/sh
+        basedOnDependencyAnalysis: false

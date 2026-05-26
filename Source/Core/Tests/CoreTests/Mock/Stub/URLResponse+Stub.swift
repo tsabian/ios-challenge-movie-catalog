@@ -10,8 +10,7 @@ import Foundation
 extension URLResponse {
   static func stub(url: URL = .stub(),
                    statusCode: Int = 200,
-                   headers: [String: String]? = nil) -> URLResponse
-  {
+                   headers: [String: String]? = nil) -> URLResponse {
     HTTPURLResponse(url: url,
                     statusCode: statusCode,
                     httpVersion: nil,
