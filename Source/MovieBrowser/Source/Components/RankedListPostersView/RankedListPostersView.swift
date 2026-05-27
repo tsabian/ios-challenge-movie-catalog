@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct RankedListPostersView: View {
-  private let posterWidth: CGFloat = 140
-  private let posterHeight: CGFloat = 235
+  private let posterWidth: CGFloat = 144
+  private let posterHeight: CGFloat = 210
   @Environment(\.onMovieSelectAction) var onMovieSelectAction
   let movies: [HomeMovieModel]
 
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
-      HStack(spacing: 15) {
+      HStack {
         ForEach(movies, id: \.id) { movie in
           MovieRankCardView(posterWidth: posterWidth,
                             posterHeight: posterHeight,
@@ -23,7 +23,7 @@ struct RankedListPostersView: View {
                             rank: movie.rank,
                             isRankHidden: false)
             .contentShape(Rectangle())
-            .padding(10)
+            .padding(.bottom, 10)
             .onTapGesture {
               onMovieSelectAction?(movie)
             }

@@ -18,7 +18,7 @@ struct LazyMovieGridView: View {
   let movies: [HomeMovieModel]
 
   var body: some View {
-    LazyVGrid(columns: colunas, spacing: 16) {
+    LazyVGrid(columns: colunas) {
       ForEach(movies) { movie in
         MovieRankCardView(posterWidth: 100,
                           posterHeight: 145,
@@ -29,8 +29,8 @@ struct LazyMovieGridView: View {
           .onTapGesture {
             onMovieSelectAction?(movie)
           }
-      } //: ForEach
-    } //: LazyVGrid
+      }
+    }
   }
 }
 

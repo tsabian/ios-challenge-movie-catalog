@@ -14,11 +14,11 @@ struct CategoryView: View {
 
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
-      HStack(alignment: .top, spacing: 18) {
+      HStack(alignment: .top, spacing: 7) {
         ForEach(MovieCategory.allCases, id: \.self) { element in
           VStack(spacing: 4) {
             Text(element.title)
-              .font(MovieBrowserFontsStyle.body)
+              .font(MovieBrowserFontsStyle.footnote)
             Rectangle()
               .foregroundStyle(Color.accentColor)
               .frame(height: currentCategory == element ? 5.0 : 0)
@@ -28,6 +28,7 @@ struct CategoryView: View {
           .frame(width: 100)
           .contentShape(Rectangle())
           .onTapGesture {
+            guard currentCategory != element else { return }
             currentCategory = element
             onCategorySelectAction?(element)
           }

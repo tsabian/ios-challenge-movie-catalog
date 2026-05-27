@@ -9,10 +9,10 @@ import SwiftUI
 
 @MainActor
 protocol HomeViewModelProtocol: ObservableObject {
+  var state: HomeState { get }
   var searchText: String { get set }
   var currentCategory: MovieCategory { get set }
-  var rankedMovies: [HomeMovieModel] { get }
-  var movies: [HomeMovieModel] { get }
 
-  func fetch()
+  func load() async
+  func select(category: MovieCategory) async
 }

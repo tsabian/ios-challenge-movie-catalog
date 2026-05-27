@@ -9,14 +9,19 @@ import SwiftData
 import SwiftUI
 
 struct RootView: View {
+  private let appContainer: AppContainer
   @State private var isShowingSplash = true
+
+  init(appContainer: AppContainer = AppContainer()) {
+    self.appContainer = appContainer
+  }
 
   var body: some View {
     ZStack {
       if isShowingSplash {
         SplashScreenView()
       } else {
-        ContentView()
+        ContentView(appContainer: appContainer)
       }
     }
     .animation(.easeInOut(duration: 0.5), value: isShowingSplash)

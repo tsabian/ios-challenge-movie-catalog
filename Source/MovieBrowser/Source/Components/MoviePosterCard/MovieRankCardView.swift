@@ -12,7 +12,7 @@ struct MovieRankCardView: View {
   let posterHeight: CGFloat
   let imageName: String
   let rank: Int
-  let outLinetextOffSet = CGPoint(x: -5, y: 30)
+  let outLinetextOffSet = CGPoint(x: -10, y: 40)
   let isRankHidden: Bool
 
   var body: some View {
@@ -24,14 +24,14 @@ struct MovieRankCardView: View {
         .cornerRadius(12)
       if !isRankHidden {
         Text("\(rank)")
-          .font(MontserratFont.bold.size(100))
+          .font(MontserratFont.bold.size(90))
           .outline(color: Color.accentBlue, width: 1,
                    fillColor: Color.accentColor)
           .offset(x: outLinetextOffSet.x, y: outLinetextOffSet.y)
           .shadow(color: Color.black.opacity(0.10), radius: 2, x: 8, y: 2)
       }
     }
-    .frame(width: posterWidth, height: posterHeight)
+    .padding([.leading, .bottom])
   }
 }
 
@@ -39,7 +39,7 @@ struct MovieRankCardView: View {
   let catalog = PreviewFactory.shared.makeMovieCatalog(for: .topRated)
   let movie = MovieAdapter().adapt(dto: catalog.results, for: .topRated)
   let imageName = movie.first?.posterPath ?? "popcorn"
-  MovieRankCardView(posterWidth: 140, posterHeight: 235,
+  MovieRankCardView(posterWidth: 144, posterHeight: 210,
                     imageName: imageName, rank: 24,
                     isRankHidden: false)
 }

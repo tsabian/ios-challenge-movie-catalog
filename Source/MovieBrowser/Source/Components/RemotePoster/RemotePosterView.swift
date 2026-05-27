@@ -22,13 +22,13 @@ struct RemotePosterView: View {
       case let .success(image):
         image
           .resizable()
-          .scaledToFill()
+          .scaledToFit()
           .frame(width: width, height: height)
           .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 
       case .failure:
         RoundedRectangle(cornerRadius: 10)
-          .fill(.gray.opacity(0.3))
+          .fill(Color.accentGray.opacity(0.3))
           .frame(width: width, height: height)
           .overlay {
             Image(systemName: "photo")
@@ -43,6 +43,6 @@ struct RemotePosterView: View {
 }
 
 #Preview {
-  RemotePosterView(imageURL: "https://api.themoviedb.org/3/wMrV8SLne1jHLeYS0lLrA1Tf86P.jpg",
+  RemotePosterView(imageURL: "https://image.tmdb.org/t/p/w185/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
                    width: 145.0, height: 235.0)
 }

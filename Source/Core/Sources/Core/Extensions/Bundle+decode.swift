@@ -10,7 +10,8 @@ public extension Bundle {
   /// - Parameters:
   ///   - type: Tipo destino que implementa Decodable.
   ///   - file: Nome do arquivo (com extensão) dentro do bundle.
-  /// - Throws: DecodingError.fileNotFound quando o arquivo não é encontrado, DecodingError.decodingFailed para falhas de decodificação ou leitura.
+  /// - Throws: DecodingError.fileNotFound quando o arquivo não é encontrado,
+  /// DecodingError.decodingFailed para falhas de decodificação ou leitura.
   /// - Returns: Instância decodificada do tipo T.
   func decode<T: Decodable>(_ file: String) throws -> T {
     try decode(file, using: JSONDecoder())
@@ -21,7 +22,8 @@ public extension Bundle {
   ///   - type: Tipo destino que implementa Decodable.
   ///   - file: Nome do arquivo (com extensão) dentro do bundle.
   ///   - decoder: Instância de JSONDecoder a ser utilizada.
-  /// - Throws: DecodingError.fileNotFound quando o arquivo não é encontrado, DecodingError.decodingFailed para falhas de decodificação ou leitura.
+  /// - Throws: DecodingError.fileNotFound quando o arquivo não é encontrado,
+  /// DecodingError.decodingFailed para falhas de decodificação ou leitura.
   /// - Returns: Instância decodificada do tipo T.
   func decode<T: Decodable>(_ file: String, using decoder: JSONDecoder) throws -> T {
     guard let url = url(forResource: file, withExtension: nil) else {

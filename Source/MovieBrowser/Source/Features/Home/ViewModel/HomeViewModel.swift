@@ -8,22 +8,40 @@
 import Combine
 import SwiftUI
 
+enum HomeState {
+  case idle
+  case loading
+  case loaded(content: HomeContent)
+  case empty
+  case error(String)
+}
+
 final class HomeViewModel: HomeViewModelProtocol {
-  private let adapter: MovieAdapter
+  private let useCase: FetchHomeMoviesUseCaseProtocol
+  @Published var state: HomeState = .idle
   @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .nowPlaying
-  @Published private(set) var rankedMovies: [HomeMovieModel] = []
-  @Published private(set) var movies: [HomeMovieModel] = []
 
-  init(adapter: MovieAdapter = MovieAdapter()) {
-    self.adapter = adapter
+  init(useCase: FetchHomeMoviesUseCaseProtocol) {
+    self.useCase = useCase
   }
 
-  func fetch() {
-    let topRated = PreviewFactory.shared.makeMovieCatalog(for: .topRated)
-    rankedMovies = adapter.adapt(dto: topRated.results, for: .topRated)
+  func load() async {
+    state = .loading
+    await fetch()
+  }
 
-    let nowPlaying = PreviewFactory.shared.makeMovieCatalog(for: .nowPlaying)
-    movies = adapter.adapt(dto: nowPlaying.results, for: .nowPlaying)
+  func select(category: MovieCategory) async {
+    currentCategory = category
+    await fetch()
+  }
+
+  private func fetch() async {
+    do {
+      let content = try await useCase.execute(category: currentCategory, page: 1)
+      state = .loaded(content: content)
+    } catch {
+      state = .error(error.localizedDescription)
+    }
   }
 }

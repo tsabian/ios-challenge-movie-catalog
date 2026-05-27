@@ -30,32 +30,50 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
           .onTextClear {
             print("clear")
           }
-        RankedListPostersView(movies: viewModel.rankedMovies)
-          .onMovieSelectAction { movie in
-            print(movie.id)
-          }
-        CategoryView(currentCategory: $viewModel.currentCategory)
-          .onCategorySelect { category in
-            print(category.rawValue)
-          }
-        if viewModel.movies.isEmpty {
-          CollectionEmptyStateView(title: String(localized: .noResultsTitle),
-                                   message: String(localized: .noResultsMessage))
-        } else {
-          LazyMovieGridView(movies: viewModel.movies)
-            .onMovieSelect { movie in
-              print(movie.id)
-            }
-        }
+        content
       } //: VStack
       .padding(12)
     } //: Scroll
-    .onAppear {
-      viewModel.fetch()
+    .task {
+      await viewModel.load()
+    }
+  }
+
+  @ViewBuilder
+  private var content: some View {
+    switch viewModel.state {
+    case .idle, .loading:
+      ProgressView()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    case let .loaded(content):
+      RankedListPostersView(movies: content.rankedMovies)
+        .onMovieSelectAction { movie in
+          print(movie.id)
+        }
+      CategoryView(currentCategory: $viewModel.currentCategory)
+        .onCategorySelect { category in
+          Task {
+            await viewModel.select(category: category)
+          }
+        }
+      if !content.movies.isEmpty {
+        LazyMovieGridView(movies: content.movies)
+          .onMovieSelect { movie in
+            print(movie.id)
+          }
+      } else {
+        CollectionEmptyStateView(title: String(localized: .noResultsTitle),
+                                 message: String(localized: .noResultsMessage))
+      }
+    case .empty:
+      CollectionEmptyStateView(title: String(localized: .noResultsTitle),
+                               message: String(localized: .noResultsMessage))
+    case .error:
+      EmptyView()
     }
   }
 }
 
 #Preview {
-  HomeView(viewModel: HomeViewModel())
+  HomeView(viewModel: HomeViewPreviewMockFactory.makeViewModelMock())
 }

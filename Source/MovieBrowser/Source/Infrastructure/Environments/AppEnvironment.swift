@@ -19,7 +19,14 @@ enum AppEnvironmentKeys: String {
 struct AppEnvironment {
   private let bundle: Bundle
 
-  static var current = AppEnvironment(bundle: .main)
+  static var current = AppEnvironment()
+
+  private init(bundle: Bundle = .main) {
+    self.bundle = bundle
+  }
+
+  let language = Locale.current.identifier.replacingOccurrences(of: "_", with: "-")
+  let region = Locale.current.region?.identifier
 
   func value(for key: AppEnvironmentKeys) -> String {
     guard let key = bundle.object(forInfoDictionaryKey: key.rawValue) as? String,

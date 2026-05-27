@@ -11,10 +11,12 @@ import SwiftUI
 @main
 struct MovieBrowserApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+  private let appContainer = AppContainer()
+
   var body: some Scene {
     WindowGroup {
       AppBackgroundView {
-        RootView()
+        RootView(appContainer: appContainer)
       }
       .tint(Color.accentColor)
     }

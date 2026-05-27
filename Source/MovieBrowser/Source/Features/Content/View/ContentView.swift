@@ -9,11 +9,15 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-  @Environment(\.homeViewModel) var homeViewModel
+  private let appContainer: AppContainer
+
+  init(appContainer: AppContainer = AppContainer()) {
+    self.appContainer = appContainer
+  }
 
   var body: some View {
     TabView {
-      HomeView(viewModel: homeViewModel)
+      HomeView(viewModel: appContainer.makeHomeViewModel())
         .tabItem {
           Image(systemName: "house.fill")
           Text(.home)

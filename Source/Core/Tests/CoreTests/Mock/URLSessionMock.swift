@@ -8,7 +8,7 @@
 import Core
 import Foundation
 
-final class URLSessionMock: URLSessionProtocol {
+final class URLSessionMock: URLSessionProtocol, @unchecked Sendable {
   var dataResult: (Data, URLResponse)?
   var errorToThrow: Error?
   private(set) var dataCount = 0

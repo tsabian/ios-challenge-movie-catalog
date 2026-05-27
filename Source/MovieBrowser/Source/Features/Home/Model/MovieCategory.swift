@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum MovieCategory: String, CaseIterable {
-  case nowPlaying, upComing, topRated, popular, latest
+  case nowPlaying, upComing, topRated, popular
 
   var title: String {
     switch self {
@@ -20,8 +20,6 @@ enum MovieCategory: String, CaseIterable {
       String(localized: .topRated)
     case .popular:
       String(localized: .popular)
-    case .latest:
-      String(localized: .latest)
     }
   }
 }
