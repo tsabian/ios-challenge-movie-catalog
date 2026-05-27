@@ -10,19 +10,25 @@ import SwiftUI
 struct SearchField: View {
   private let placeholder: LocalizedStringKey
   private let debounceDuration: Duration
+  private let onSearch: (String) -> Void
+  private let onTextChange: (String) -> Void
+  private let onClear: () -> Void
 
   @State private var searchText = ""
   @State private var debounceTask: Task<Void, Never>?
   @FocusState private var isSearchFocused: Bool
-  @Environment(\.onTextChangeAction) private var onTextChange
-  @Environment(\.onTextClearAction) private var onTextClear
-  @Environment(\.onSearchAction) private var onMovieSearch
 
   init(_ placeholder: LocalizedStringKey = "\(.search)",
-       debounceDuration: Duration = .milliseconds(350)
+       debounceDuration: Duration = .milliseconds(350),
+       onSearch: @escaping (String) -> Void = { _ in },
+       onTextChange: @escaping (String) -> Void = { _ in },
+       onClear: @escaping () -> Void = {}
   ) {
     self.placeholder = placeholder
     self.debounceDuration = debounceDuration
+    self.onSearch = onSearch
+    self.onTextChange = onTextChange
+    self.onClear = onClear
   }
 
   var body: some View {
@@ -77,7 +83,7 @@ struct SearchField: View {
     debounceTask?.cancel()
     let query = sanitized(text)
     guard !query.isEmpty else {
-      onTextChange?("")
+      onTextChange("")
       return
     }
     debounceTask = Task {
@@ -85,7 +91,7 @@ struct SearchField: View {
         try await Task.sleep(for: debounceDuration)
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          onTextChange?(query)
+          onTextChange(query)
         }
       } catch {
         // Task cancelada pelo debounce.
@@ -100,34 +106,20 @@ struct SearchField: View {
       clearSearch()
       return
     }
-    onMovieSearch?(query)
+    onSearch(query)
     isSearchFocused = false
   }
 
   private func clearSearch() {
     debounceTask?.cancel()
     searchText = ""
-    onTextClear?()
-    onTextChange?("")
+    onClear()
+    onTextChange("")
     isSearchFocused = false
   }
 
   private func sanitized(_ text: String) -> String {
     text.trimmingCharacters(in: .whitespacesAndNewlines)
-  }
-}
-
-extension View {
-  func onMovieSearch(perform action: @escaping (String) -> Void) -> some View {
-    environment(\.onSearchAction, action)
-  }
-
-  func onTextChange(perform action: @escaping (String) -> Void) -> some View {
-    environment(\.onTextChangeAction, action)
-  }
-
-  func onTextClear(perform action: @escaping () -> Void) -> some View {
-    environment(\.onTextClearAction, action)
   }
 }
 

@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct CategoryView: View {
-  @State private var opacity: Double = 1
+  private let onCategorySelect: (MovieCategory) -> Void
+
   @Binding var currentCategory: MovieCategory
-  @Environment(\.onCategorySelectAction) private var onCategorySelectAction
+
+  init(currentCategory: Binding<MovieCategory>,
+       onCategorySelect: @escaping (MovieCategory) -> Void = { _ in }) {
+    _currentCategory = currentCategory
+    self.onCategorySelect = onCategorySelect
+  }
 
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
@@ -30,17 +36,11 @@ struct CategoryView: View {
           .onTapGesture {
             guard currentCategory != element else { return }
             currentCategory = element
-            onCategorySelectAction?(element)
+            onCategorySelect(element)
           }
         } //: ForEach
       } //: HStack
     } //: ScrollView
-  }
-}
-
-extension CategoryView {
-  func onCategorySelect(perform action: @escaping (MovieCategory) -> Void) -> some View {
-    environment(\.onCategorySelectAction, action)
   }
 }
 

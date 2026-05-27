@@ -5,7 +5,6 @@
 //  Created by Tiago de Oliveira on 24/05/26.
 //
 
-import Foundation
 import SwiftUI
 
 struct HomeView<ViewModel: HomeViewModelProtocol>: View {
@@ -20,16 +19,9 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       VStack(alignment: .leading, spacing: 16) {
         Text(.whatDoYouWantToWatch)
           .font(MovieBrowserFontsStyle.title)
-        SearchField()
-          .onMovieSearch { query in
-            print("Search: \(query)")
-          }
-          .onTextChange { query in
-            print(query)
-          }
-          .onTextClear {
-            print("clear")
-          }
+        SearchField(onSearch: handleSearch,
+                    onTextChange: handleSearchTextChange,
+                    onClear: handleSearchClear)
         content
       }
       .padding(12)
@@ -45,27 +37,20 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     case .idle, .loading:
       RankedListPostersView(isLoading: .constant(true),
                             movies: viewModel.makeSkelleton(count: 5))
-      CategoryView(currentCategory: $viewModel.currentCategory)
+      CategoryView(currentCategory: $viewModel.currentCategory,
+                   onCategorySelect: handleCategorySelect)
       LazyMovieGridView(isLoading: .constant(true),
                         movies: viewModel.makeSkelleton(count: 9))
     case let .loaded(content):
       RankedListPostersView(isLoading: .constant(false),
-                            movies: content.rankedMovies)
-        .onMovieSelectAction { movie in
-          print(movie.id)
-        }
-      CategoryView(currentCategory: $viewModel.currentCategory)
-        .onCategorySelect { category in
-          Task {
-            await viewModel.select(category: category)
-          }
-        }
+                            movies: content.rankedMovies,
+                            onMovieSelect: handleMovieSelect)
+      CategoryView(currentCategory: $viewModel.currentCategory,
+                   onCategorySelect: handleCategorySelect)
       if !content.movies.isEmpty {
         LazyMovieGridView(isLoading: .constant(false),
-                          movies: content.movies)
-          .onMovieSelect { movie in
-            print(movie.id)
-          }
+                          movies: content.movies,
+                          onMovieSelect: handleMovieSelect)
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
@@ -75,6 +60,31 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                                message: String(localized: .noResultsMessage))
     case .error:
       EmptyView()
+    }
+  }
+
+  private func handleSearch(_ query: String) {
+    viewModel.searchText = query
+    print("Search: \(query)")
+  }
+
+  private func handleSearchTextChange(_ query: String) {
+    viewModel.searchText = query
+    print(query)
+  }
+
+  private func handleSearchClear() {
+    viewModel.searchText = ""
+    print("clear")
+  }
+
+  private func handleMovieSelect(_ movie: HomeMovieModel) {
+    print(movie.id)
+  }
+
+  private func handleCategorySelect(_ category: MovieCategory) {
+    Task {
+      await viewModel.select(category: category)
     }
   }
 }

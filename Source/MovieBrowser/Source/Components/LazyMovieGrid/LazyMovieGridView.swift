@@ -13,10 +13,18 @@ struct LazyMovieGridView: View {
     GridItem(.flexible(), spacing: 12),
     GridItem(.flexible(), spacing: 12)
   ]
+  private let onMovieSelect: (HomeMovieModel) -> Void
 
   @Binding var isLoading: Bool
-  @Environment(\.onMovieSelectAction) var onMovieSelectAction
   let movies: [HomeMovieModel]
+
+  init(isLoading: Binding<Bool>,
+       movies: [HomeMovieModel],
+       onMovieSelect: @escaping (HomeMovieModel) -> Void = { _ in }) {
+    _isLoading = isLoading
+    self.movies = movies
+    self.onMovieSelect = onMovieSelect
+  }
 
   var body: some View {
     LazyVGrid(columns: colunas) {
@@ -29,16 +37,10 @@ struct LazyMovieGridView: View {
                           isRankHidden: true)
           .contentShape(Rectangle())
           .onTapGesture {
-            onMovieSelectAction?(movie)
+            onMovieSelect(movie)
           }
       }
     }
-  }
-}
-
-extension LazyMovieGridView {
-  func onMovieSelect(perform action: @escaping (HomeMovieModel) -> Void) -> some View {
-    environment(\.onMovieSelectAction, action)
   }
 }
 
