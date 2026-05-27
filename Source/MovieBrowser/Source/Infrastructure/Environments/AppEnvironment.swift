@@ -8,8 +8,8 @@
 import Foundation
 
 enum AppEnvironmentKeys: String {
-  case tmdbApiBaseUrl = "API_BASE_URL"
-  case tmdbImageBaseUrl = "IMG_HOST"
+  case tmdbApiBaseUrl = "TMDB_API_BASE_URL"
+  case tmdbImageBaseUrl = "TMDB_IMG_BASE_URL"
   case tmdbApiSslPinningKey = "TMDB_API_SSL_PINNING_KEY"
   case tmdbImageSslPinningKey = "TMDB_IMG_SSL_PINNING_KEY"
   case tmdbApiKey = "TMDB_API_KEY"

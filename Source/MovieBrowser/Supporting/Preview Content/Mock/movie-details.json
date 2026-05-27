@@ -1,0 +1,68 @@
+{
+  "adult": false,
+  "backdrop_path": "/7OedxK0BvSKJ0ZWCPRYADViTBx6.jpg",
+  "belongs_to_collection": null,
+  "budget": 165000000,
+  "genres": [
+    {
+      "id": 28,
+      "name": "Ação"
+    },
+    {
+      "id": 12,
+      "name": "Aventura"
+    },
+    {
+      "id": 878,
+      "name": "Ficção científica"
+    }
+  ],
+  "homepage": "https://tickets.disney.com.br/o-mandaloriano-e-grogu",
+  "id": 1228710,
+  "imdb_id": "tt30825738",
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_title": "The Mandalorian and Grogu",
+  "overview": "O maligno Império caiu e os senhores da guerra Imperiais ainda estão espalhados pela galáxia. Enquanto a jovem Nova República luta para proteger tudo pelo que a Rebelião batalhou, ela conta com a ajuda do lendário caçador de recompensas Mandaloriano Din Djarin e seu jovem aprendiz Grogu.",
+  "popularity": 186.7029,
+  "poster_path": "/dNwaS0tnwgQRaQFPY5MbGxdmYXr.jpg",
+  "production_companies": [
+    {
+      "id": 1,
+      "logo_path": "/tlVSws0RvvtPBwViUyOFAO0vcQS.png",
+      "name": "Lucasfilm Ltd.",
+      "origin_country": "US"
+    },
+    {
+      "id": 7297,
+      "logo_path": "/l29JYQVZbTcjZXoz4CUYFpKRmM3.png",
+      "name": "Fairview Entertainment",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2026-05-20",
+  "revenue": 167000000,
+  "runtime": 132,
+  "softcore": false,
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "",
+  "title": "Star Wars: O Mandaloriano e Grogu",
+  "video": false,
+  "vote_average": 6.771,
+  "vote_count": 256
+}

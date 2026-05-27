@@ -8,7 +8,7 @@
 // MARK: - Movie
 
 struct MovieCatalogDto: Decodable {
-  let dates: DatesDto
+  let dates: DatesDto?
   let page: Int
   let results: [MovieDto]
   let totalPages, totalResults: Int

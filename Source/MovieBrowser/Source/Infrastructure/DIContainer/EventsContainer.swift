@@ -1,5 +1,5 @@
 //
-//  View+MovieEvents.swift
+//  EventsContainer.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 26/05/26.

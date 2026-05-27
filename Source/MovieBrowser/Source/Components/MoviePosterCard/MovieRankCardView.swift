@@ -36,7 +36,10 @@ struct MovieRankCardView: View {
 }
 
 #Preview {
+  let catalog = PreviewFactory.shared.makeMovieCatalog(for: .topRated)
+  let movie = MovieAdapter().adapt(dto: catalog.results, for: .topRated)
+  let imageName = movie.first?.posterPath ?? "popcorn"
   MovieRankCardView(posterWidth: 140, posterHeight: 235,
-                    imageName: "popcorn", rank: 1,
+                    imageName: imageName, rank: 24,
                     isRankHidden: false)
 }

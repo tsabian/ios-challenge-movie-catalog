@@ -12,9 +12,13 @@ struct MovieAdapter {
       .compactMap { index, element in
         HomeMovieModel(id: element.id,
                        title: element.title,
-                       posterPath: element.backdropPath,
+                       posterPath: buildPosterPath(from: element.posterPath),
                        rank: index + 1,
                        category: category)
       }
+  }
+
+  private func buildPosterPath(from path: String) -> String {
+    "\(AppEnvironment.current.value(for: .tmdbImageBaseUrl))/\(TMDBImageSize.small.rawValue)/\(path)"
   }
 }
