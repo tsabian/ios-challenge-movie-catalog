@@ -15,14 +15,4 @@ final class HomeViewModelMock: HomeViewModelProtocol {
 
   func load() async {}
   func select(category _: MovieCategory) async {}
-  func makeSkelleton(count: Int) -> [HomeMovieModel] {
-    let model = HomeMovieModel(
-      id: 1,
-      title: "",
-      posterPath: "poster",
-      rank: 0,
-      category: .nowPlaying
-    )
-    return Array(repeating: model, count: count)
-  }
 }

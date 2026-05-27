@@ -12,13 +12,10 @@ struct RankedListPostersView: View {
   private let posterHeight: CGFloat = 210
   private let onMovieSelect: (HomeMovieModel) -> Void
 
-  @Binding var isLoading: Bool
   let movies: [HomeMovieModel]
 
-  init(isLoading: Binding<Bool>,
-       movies: [HomeMovieModel],
+  init(movies: [HomeMovieModel],
        onMovieSelect: @escaping (HomeMovieModel) -> Void = { _ in }) {
-    _isLoading = isLoading
     self.movies = movies
     self.onMovieSelect = onMovieSelect
   }
@@ -27,8 +24,7 @@ struct RankedListPostersView: View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
         ForEach(movies, id: \.id) { movie in
-          MovieRankCardView(isLoading: $isLoading,
-                            posterWidth: posterWidth,
+          MovieRankCardView(posterWidth: posterWidth,
                             posterHeight: posterHeight,
                             imageName: movie.posterPath,
                             rank: movie.rank,
@@ -56,6 +52,5 @@ struct RankedListPostersView: View {
     .init(id: 3, title: "Movie 3", posterPath: image3, rank: 3,
           category: .nowPlaying)
   ]
-  RankedListPostersView(isLoading: .constant(false),
-                        movies: movies)
+  RankedListPostersView(movies: movies)
 }

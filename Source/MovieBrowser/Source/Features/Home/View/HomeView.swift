@@ -35,21 +35,15 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   private var content: some View {
     switch viewModel.state {
     case .idle, .loading:
-      RankedListPostersView(isLoading: .constant(true),
-                            movies: viewModel.makeSkelleton(count: 5))
-      CategoryView(currentCategory: $viewModel.currentCategory,
-                   onCategorySelect: handleCategorySelect)
-      LazyMovieGridView(isLoading: .constant(true),
-                        movies: viewModel.makeSkelleton(count: 9))
+      HomeSkeletonView(currentCategory: $viewModel.currentCategory,
+                       onCategorySelect: handleCategorySelect(_:))
     case let .loaded(content):
-      RankedListPostersView(isLoading: .constant(false),
-                            movies: content.rankedMovies,
+      RankedListPostersView(movies: content.rankedMovies,
                             onMovieSelect: handleMovieSelect)
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
       if !content.movies.isEmpty {
-        LazyMovieGridView(isLoading: .constant(false),
-                          movies: content.movies,
+        LazyMovieGridView(movies: content.movies,
                           onMovieSelect: handleMovieSelect)
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
@@ -94,20 +88,20 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     viewModel: HomeViewPreviewMockFactory
       .makeViewModelMock(
         state:
-        .loaded(
-          content: HomeContent(
-            rankedMovies: MovieAdapter()
-              .adapt(dto: PreviewFactory.shared
-                .makeMovieCatalog(
-                  for: .topRated
-                ).results, for: .topRated),
-            movies: MovieAdapter()
-              .adapt(dto: PreviewFactory.shared
-                .makeMovieCatalog(
-                  for: .topRated
-                ).results, for: .topRated)
-          )
-        )
+            .loaded(
+              content: HomeContent(
+                rankedMovies: MovieAdapter()
+                  .adapt(dto: PreviewFactory.shared
+                    .makeMovieCatalog(
+                      for: .topRated
+                    ).results, for: .topRated),
+                movies: MovieAdapter()
+                  .adapt(dto: PreviewFactory.shared
+                    .makeMovieCatalog(
+                      for: .topRated
+                    ).results, for: .topRated)
+              )
+            )
       )
   )
 }

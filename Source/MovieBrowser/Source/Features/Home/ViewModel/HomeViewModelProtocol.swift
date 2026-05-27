@@ -15,5 +15,4 @@ protocol HomeViewModelProtocol: ObservableObject {
 
   func load() async
   func select(category: MovieCategory) async
-  func makeSkelleton(count: Int) -> [HomeMovieModel]
 }

@@ -15,13 +15,10 @@ struct LazyMovieGridView: View {
   ]
   private let onMovieSelect: (HomeMovieModel) -> Void
 
-  @Binding var isLoading: Bool
   let movies: [HomeMovieModel]
 
-  init(isLoading: Binding<Bool>,
-       movies: [HomeMovieModel],
+  init(movies: [HomeMovieModel],
        onMovieSelect: @escaping (HomeMovieModel) -> Void = { _ in }) {
-    _isLoading = isLoading
     self.movies = movies
     self.onMovieSelect = onMovieSelect
   }
@@ -29,8 +26,7 @@ struct LazyMovieGridView: View {
   var body: some View {
     LazyVGrid(columns: colunas) {
       ForEach(movies) { movie in
-        MovieRankCardView(isLoading: $isLoading,
-                          posterWidth: 100,
+        MovieRankCardView(posterWidth: 100,
                           posterHeight: 145,
                           imageName: movie.posterPath,
                           rank: movie.rank,
@@ -47,5 +43,5 @@ struct LazyMovieGridView: View {
 #Preview {
   let catalog = PreviewFactory.shared.makeMovieCatalog(for: .nowPlaying)
   let movies = MovieAdapter().adapt(dto: catalog.results, for: .nowPlaying)
-  LazyMovieGridView(isLoading: .constant(false), movies: movies)
+  LazyMovieGridView(movies: movies)
 }
