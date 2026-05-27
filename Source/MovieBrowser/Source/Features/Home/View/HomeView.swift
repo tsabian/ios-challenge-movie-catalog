@@ -31,9 +31,9 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
             print("clear")
           }
         content
-      } //: VStack
+      }
       .padding(12)
-    } //: Scroll
+    }
     .task {
       await viewModel.load()
     }
@@ -43,10 +43,14 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   private var content: some View {
     switch viewModel.state {
     case .idle, .loading:
-      ProgressView()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      RankedListPostersView(isLoading: .constant(true),
+                            movies: viewModel.makeSkelleton(count: 5))
+      CategoryView(currentCategory: $viewModel.currentCategory)
+      LazyMovieGridView(isLoading: .constant(true),
+                        movies: viewModel.makeSkelleton(count: 9))
     case let .loaded(content):
-      RankedListPostersView(movies: content.rankedMovies)
+      RankedListPostersView(isLoading: .constant(false),
+                            movies: content.rankedMovies)
         .onMovieSelectAction { movie in
           print(movie.id)
         }
@@ -57,7 +61,8 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
           }
         }
       if !content.movies.isEmpty {
-        LazyMovieGridView(movies: content.movies)
+        LazyMovieGridView(isLoading: .constant(false),
+                          movies: content.movies)
           .onMovieSelect { movie in
             print(movie.id)
           }
@@ -75,5 +80,24 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 }
 
 #Preview {
-  HomeView(viewModel: HomeViewPreviewMockFactory.makeViewModelMock())
+  HomeView(
+    viewModel: HomeViewPreviewMockFactory
+      .makeViewModelMock(
+        state:
+        .loaded(
+          content: HomeContent(
+            rankedMovies: MovieAdapter()
+              .adapt(dto: PreviewFactory.shared
+                .makeMovieCatalog(
+                  for: .topRated
+                ).results, for: .topRated),
+            movies: MovieAdapter()
+              .adapt(dto: PreviewFactory.shared
+                .makeMovieCatalog(
+                  for: .topRated
+                ).results, for: .topRated)
+          )
+        )
+      )
+  )
 }

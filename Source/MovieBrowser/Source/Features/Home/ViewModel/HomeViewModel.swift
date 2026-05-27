@@ -44,4 +44,13 @@ final class HomeViewModel: HomeViewModelProtocol {
       state = .error(error.localizedDescription)
     }
   }
+
+  func makeSkelleton(count: Int = 10) -> [HomeMovieModel] {
+    let model = HomeMovieModel(id: 0,
+                               title: "",
+                               posterPath: "poster",
+                               rank: 0,
+                               category: .nowPlaying)
+    return Array(repeating: model, count: count)
+  }
 }

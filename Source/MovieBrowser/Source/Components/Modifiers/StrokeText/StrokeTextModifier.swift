@@ -1,5 +1,5 @@
 //
-//  StrokeText.swift
+//  StrokeTextModifier.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 25/05/26.

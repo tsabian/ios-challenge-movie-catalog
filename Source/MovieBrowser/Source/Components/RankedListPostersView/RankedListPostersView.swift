@@ -10,6 +10,7 @@ import SwiftUI
 struct RankedListPostersView: View {
   private let posterWidth: CGFloat = 144
   private let posterHeight: CGFloat = 210
+  @Binding var isLoading: Bool
   @Environment(\.onMovieSelectAction) var onMovieSelectAction
   let movies: [HomeMovieModel]
 
@@ -17,7 +18,8 @@ struct RankedListPostersView: View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
         ForEach(movies, id: \.id) { movie in
-          MovieRankCardView(posterWidth: posterWidth,
+          MovieRankCardView(isLoading: $isLoading,
+                            posterWidth: posterWidth,
                             posterHeight: posterHeight,
                             imageName: movie.posterPath,
                             rank: movie.rank,
@@ -43,12 +45,14 @@ extension RankedListPostersView {
   let image1 = "https://image.tmdb.org/t/p/w185/uIb9Tvae5haF0XcQBaPyufmxbb0.jpg"
   let image2 = "https://image.tmdb.org/t/p/w185/6X4qFYBsG3bpWDG2XIKqr04kFJa.jpg"
   let image3 = "https://image.tmdb.org/t/p/w185/io7wVbm9VKaanIcuAymCDy9dmjU.jpg"
-  RankedListPostersView(movies: [
+  let movies: [HomeMovieModel] = [
     .init(id: 1, title: "Movie 1", posterPath: image1, rank: 1,
           category: .nowPlaying),
     .init(id: 2, title: "Movie 2", posterPath: image2, rank: 2,
           category: .nowPlaying),
     .init(id: 3, title: "Movie 3", posterPath: image3, rank: 3,
           category: .nowPlaying)
-  ])
+  ]
+  RankedListPostersView(isLoading: .constant(false),
+                        movies: movies)
 }

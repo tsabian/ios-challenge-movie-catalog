@@ -14,13 +14,15 @@ struct LazyMovieGridView: View {
     GridItem(.flexible(), spacing: 12)
   ]
 
+  @Binding var isLoading: Bool
   @Environment(\.onMovieSelectAction) var onMovieSelectAction
   let movies: [HomeMovieModel]
 
   var body: some View {
     LazyVGrid(columns: colunas) {
       ForEach(movies) { movie in
-        MovieRankCardView(posterWidth: 100,
+        MovieRankCardView(isLoading: $isLoading,
+                          posterWidth: 100,
                           posterHeight: 145,
                           imageName: movie.posterPath,
                           rank: movie.rank,
@@ -43,5 +45,5 @@ extension LazyMovieGridView {
 #Preview {
   let catalog = PreviewFactory.shared.makeMovieCatalog(for: .nowPlaying)
   let movies = MovieAdapter().adapt(dto: catalog.results, for: .nowPlaying)
-  LazyMovieGridView(movies: movies)
+  LazyMovieGridView(isLoading: .constant(false), movies: movies)
 }

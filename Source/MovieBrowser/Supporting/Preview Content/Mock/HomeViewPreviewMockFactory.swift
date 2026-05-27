@@ -9,12 +9,9 @@ import SwiftUI
 
 enum HomeViewPreviewMockFactory {
   @MainActor
-  static func makeViewModelMock() -> some HomeViewModelProtocol {
-    let useCaseSpy = FetchHomeMovieUseCaseMock()
-    let catalog = PreviewFactory.shared.makeMovieCatalog(for: .topRated)
-    let movies = MovieAdapter().adapt(dto: catalog.results, for: .nowPlaying)
-    useCaseSpy.result = HomeContent(rankedMovies: movies,
-                                    movies: movies)
-    return HomeViewModel(useCase: useCaseSpy)
+  static func makeViewModelMock(state: HomeState) -> HomeViewModelMock {
+    let viewModel = HomeViewModelMock()
+    viewModel.state = state
+    return viewModel
   }
 }

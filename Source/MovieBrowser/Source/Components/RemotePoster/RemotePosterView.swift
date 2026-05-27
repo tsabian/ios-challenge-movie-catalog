@@ -16,16 +16,17 @@ struct RemotePosterView: View {
     AsyncImage(url: URL(string: imageURL)) { phase in
       switch phase {
       case .empty:
-        ProgressView()
+        RoundedRectangle(cornerRadius: 10)
+          .fill(Color.accentGray.opacity(0.3))
           .frame(width: width, height: height)
-
+          .shimmer(isActive: true)
+          .redacted(reason: .placeholder)
       case let .success(image):
         image
           .resizable()
           .scaledToFit()
           .frame(width: width, height: height)
           .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-
       case .failure:
         RoundedRectangle(cornerRadius: 10)
           .fill(Color.accentGray.opacity(0.3))
@@ -34,7 +35,6 @@ struct RemotePosterView: View {
             Image(systemName: "photo")
               .foregroundStyle(.white.opacity(0.7))
           }
-
       @unknown default:
         EmptyView()
       }
