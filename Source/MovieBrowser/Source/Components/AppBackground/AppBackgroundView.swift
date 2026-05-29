@@ -7,21 +7,37 @@
 
 import SwiftUI
 
-struct AppBackgroundView<Content: View>: View {
-  @ViewBuilder let content: Content
+struct AppBackgroundView: View {
+  @Environment(\.appContainer) private var appContainer: AppContainer
+
+  let pathURLString: String
 
   var body: some View {
     ZStack {
-      Color.accentColor.ignoresSafeArea()
-      content
+      RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+                       pathURLString: pathURLString,
+                       width: .infinity,
+                       height: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .scaledToFill()
+        .blur(radius: 10)
+        .zIndex(0)
+
+      GeometryReader { _ in
+        LinearGradient(colors: [
+          .accentColor.opacity(0.5),
+          .accentColor.opacity(0.9865625)
+        ],
+        startPoint: .topLeading,
+        endPoint: .center)
+      }
+      .zIndex(3)
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .ignoresSafeArea()
   }
 }
 
 #Preview {
-  AppBackgroundView {
-    VStack {
-      Text("Hello, World!")
-    }
-  }
+  AppBackgroundView(pathURLString: "/uIb9Tvae5haF0XcQBaPyufmxbb0.jpg")
 }

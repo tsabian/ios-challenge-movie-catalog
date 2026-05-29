@@ -33,17 +33,26 @@ struct SearchField: View {
 
   var body: some View {
     HStack(spacing: 8) {
-      TextField(placeholder, text: $searchText)
-        .font(MovieBrowserFontsStyle.body)
-        .foregroundStyle(Color.white)
-        .tint(Color.white)
-        .focused($isSearchFocused)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled()
-        .submitLabel(.search)
-        .onSubmit {
-          handleSubmit()
+      ZStack(alignment: .leading) {
+        if searchText.isEmpty {
+          Text(placeholder)
+            .font(MovieBrowserFontsStyle.body)
+            .foregroundStyle(Color.accentLightGray)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 4)
         }
+        TextField("", text: $searchText)
+
+            .foregroundStyle(Color.white)
+            .tint(Color.white)
+            .focused($isSearchFocused)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .submitLabel(.search)
+            .onSubmit {
+              handleSubmit()
+            }
+      }
       if !searchText.isEmpty {
         Button {
           clearSearch()

@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias ApiClientResult = (data: Data, response: URLResponse)
-
 public enum ApiClientError: Error, Equatable {
   case invalidResponse
   case invalidStatusCode(Int, Data)
@@ -16,14 +14,16 @@ public enum ApiClientError: Error, Equatable {
 }
 
 public actor ApiClient: ApiClientProtocol {
+  private let host: String
   private let session: URLSessionProtocol
 
-  public init(session: URLSessionProtocol) {
+  public init(host: String, session: URLSessionProtocol) {
+    self.host = host
     self.session = session
   }
 
-  public func execute(endpoint: Endpoint) async throws -> ApiClientResult {
-    let request = try await endpoint.createRequest()
+  public func execute(endpoint: Endpoint) async throws -> Data {
+    let request = try await endpoint.createRequest(for: host)
     let (data, response) = try await session.data(for: request)
     guard let httpResponse = response as? HTTPURLResponse else {
       throw ApiClientError.invalidResponse
@@ -34,6 +34,6 @@ public actor ApiClient: ApiClientProtocol {
     guard (200 ... 299).contains(httpResponse.statusCode) else {
       throw ApiClientError.invalidStatusCode(httpResponse.statusCode, data)
     }
-    return ApiClientResult(data: data, response: httpResponse)
+    return data
   }
 }

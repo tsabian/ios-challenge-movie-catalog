@@ -12,16 +12,14 @@ public enum HTTPMethod: String {
   case post = "POST"
   case put = "PUT"
   case delete = "DELETE"
-  case path = "PATH"
+  case patch = "PATCH"
 }
 
 public enum ContentType: String {
   case json = "application/json"
 }
 
-@MainActor
 public protocol Endpoint: Sendable {
-  var baseURL: String { get }
   var path: String { get }
   var method: HTTPMethod { get }
   var headers: [String: String]? { get }
@@ -52,8 +50,8 @@ public extension Endpoint {
     .json
   }
 
-  internal func createRequest() async throws -> URLRequest {
-    guard var components = URLComponents(string: baseURL + path) else {
+  func createRequest(for host: String) async throws -> URLRequest {
+    guard var components = URLComponents(string: host + path) else {
       throw URLError(.badURL)
     }
     components.queryItems = queryItems

@@ -15,7 +15,8 @@ struct RankedListPostersSkeletonView: View {
       HStack {
         ForEach(0 ..< count, id: \.self) { _ in
           MoviePosterSkeletonCardView(width: 144, height: 210)
-            .padding(.bottom, 10)
+            .padding([.bottom, .trailing], 20)
+            .offset(x: 10)
         }
       }
     }

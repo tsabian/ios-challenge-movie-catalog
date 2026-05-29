@@ -16,25 +16,13 @@ struct FetchHomeMoviesUseCase: FetchHomeMoviesUseCaseProtocol {
   }
 
   func execute(category: MovieCategory, page: Int = 1) async throws -> HomeContent {
-    let topRatedMovies = try await repository.fetchMovies(service: .topRated(page: page))
+    let topRatedMovies = try await repository.fetchMovies(category: .topRated, page: 1)
     let catalog = try await repository.fetchMovies(
-      service: makeCatalogService(from: category, with: page)
+      category: category,
+      page: category == .topRated ? page + 1 : page
     )
-    let rankedMovies = adapter.adapt(dto: topRatedMovies.results, for: .topRated)
-    let movies = adapter.adapt(dto: catalog.results, for: category)
+    let rankedMovies = adapter.adapt(dto: topRatedMovies.results)
+    let movies = adapter.adapt(dto: catalog.results)
     return HomeContent(rankedMovies: rankedMovies, movies: movies)
-  }
-
-  private func makeCatalogService(from movieCategory: MovieCategory, with page: Int) -> HomeService {
-    switch movieCategory {
-    case .topRated:
-      .topRated(page: page)
-    case .popular:
-      .popular(page: page)
-    case .nowPlaying:
-      .nowPlaying(page: page)
-    case .upComing:
-      .upComing(page: page)
-    }
   }
 }

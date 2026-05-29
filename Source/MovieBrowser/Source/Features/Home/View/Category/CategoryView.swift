@@ -26,7 +26,7 @@ struct CategoryView: View {
             Text(element.title)
               .font(MovieBrowserFontsStyle.footnote)
             Rectangle()
-              .foregroundStyle(Color.accentColor)
+              .foregroundStyle(Color.accentGray)
               .frame(height: currentCategory == element ? 5.0 : 0)
               .opacity(currentCategory == element ? 1.0 : 0)
               .animation(.easeInOut(duration: 0.4), value: currentCategory)

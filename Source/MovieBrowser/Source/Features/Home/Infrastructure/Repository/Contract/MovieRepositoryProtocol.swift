@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MovieRepositoryProtocol {
-  func fetchMovies(service: HomeService) async throws -> MovieCatalogDto
+  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogDto
 }

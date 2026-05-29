@@ -8,13 +8,14 @@
 import SwiftUI
 
 public enum ApiClientFactory {
-  public static func make(pinnedPublicKeyBase64Hashes: [String],
+  public static func make(host: String,
+                          pinnedPublicKeyBase64Hashes: [String],
                           configuration: URLSessionConfiguration = .default) -> ApiClient {
     let delegate = PinnedSessionDelegate(
       pinnedPublicKeyBase64Hashes: pinnedPublicKeyBase64Hashes
     )
     let session = URLSession(configuration: configuration,
                              delegate: delegate, delegateQueue: nil)
-    return ApiClient(session: session)
+    return ApiClient(host: host, session: session)
   }
 }

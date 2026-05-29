@@ -8,38 +8,42 @@
 import SwiftUI
 
 struct MovieRankCardView: View {
+  @Environment(\.appContainer) private var container
+
   let posterWidth: CGFloat
   let posterHeight: CGFloat
   let imageName: String
   let rank: Int
-  let outLinetextOffSet = CGPoint(x: -10, y: 40)
+  let outLinetextOffSet = CGPoint(x: -10, y: 33)
   let isRankHidden: Bool
 
   var body: some View {
     ZStack(alignment: .bottomLeading) {
-      RemotePosterView(imageURL: imageName, width: posterWidth, height: posterHeight)
+      RemotePosterView(viewModel: container.viewModelFactory.makeRemotePoster(),
+                       pathURLString: imageName,
+                       width: posterWidth,
+                       height: posterHeight)
         .scaledToFill()
         .frame(width: posterWidth, height: posterHeight)
         .shadow(color: Color.accentColor.opacity(0.8), radius: 8, x: 0, y: 8)
         .cornerRadius(12)
       if !isRankHidden {
         Text("\(rank)")
-          .font(MontserratFont.bold.size(90))
+          .font(MontserratFont.bold.size(98))
           .outline(color: Color.accentBlue, width: 1,
                    fillColor: Color.accentColor)
           .offset(x: outLinetextOffSet.x, y: outLinetextOffSet.y)
           .shadow(color: Color.black.opacity(0.10), radius: 2, x: 8, y: 2)
       }
     }
-    .padding([.leading, .bottom])
+    .frame(maxWidth: .infinity, alignment: .leading)
   }
 }
 
 #Preview {
   let catalog = PreviewFactory.shared.makeMovieCatalog(for: .topRated)
-  let movie = MovieAdapter().adapt(dto: catalog.results, for: .topRated)
+  let movie = MovieAdapter().adapt(dto: catalog.results)
   let imageName = movie.first?.posterPath ?? "popcorn"
   MovieRankCardView(posterWidth: 144, posterHeight: 210,
-                    imageName: imageName, rank: 24,
-                    isRankHidden: false)
+                    imageName: imageName, rank: 1, isRankHidden: false)
 }

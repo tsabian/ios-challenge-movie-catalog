@@ -30,13 +30,14 @@ struct RankedListPostersView: View {
                             rank: movie.rank,
                             isRankHidden: false)
             .contentShape(Rectangle())
-            .padding(.bottom, 10)
+            .padding([.bottom, .trailing], 20)
+            .offset(x: 11)
             .onTapGesture {
               onMovieSelect(movie)
             }
-        } //: ForEach
-      } //: HStack
-    } //: ScrollView
+        }
+      }
+    }
   }
 }
 
@@ -45,12 +46,9 @@ struct RankedListPostersView: View {
   let image2 = "https://image.tmdb.org/t/p/w185/6X4qFYBsG3bpWDG2XIKqr04kFJa.jpg"
   let image3 = "https://image.tmdb.org/t/p/w185/io7wVbm9VKaanIcuAymCDy9dmjU.jpg"
   let movies: [HomeMovieModel] = [
-    .init(id: 1, title: "Movie 1", posterPath: image1, rank: 1,
-          category: .nowPlaying),
-    .init(id: 2, title: "Movie 2", posterPath: image2, rank: 2,
-          category: .nowPlaying),
-    .init(id: 3, title: "Movie 3", posterPath: image3, rank: 3,
-          category: .nowPlaying)
+    .init(id: 1, title: "Movie 1", posterPath: image1, rank: 1),
+    .init(id: 2, title: "Movie 2", posterPath: image2, rank: 2),
+    .init(id: 3, title: "Movie 3", posterPath: image3, rank: 3)
   ]
   RankedListPostersView(movies: movies)
 }

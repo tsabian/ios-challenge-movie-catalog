@@ -14,9 +14,14 @@ struct SplashScreenView: View {
   var body: some View {
     VStack(spacing: 12) {
       Image("popcorn")
-      Text("\(.loading) ...")
-        .font(Font.callout.bold())
+      Text("\(.loading)...")
+        .font(MovieBrowserFontsStyle.body.bold())
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background {
+      Color.accentColor.ignoresSafeArea()
+    }
+    .ignoresSafeArea()
     .onAppear {
       withAnimation(.easeIn(duration: 0.8).repeatForever(autoreverses: true)) {
         scale = 1.0

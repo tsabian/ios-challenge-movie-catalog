@@ -15,17 +15,28 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   }
 
   var body: some View {
-    ScrollView(.vertical) {
-      VStack(alignment: .leading, spacing: 16) {
-        Text(.whatDoYouWantToWatch)
-          .font(MovieBrowserFontsStyle.title)
-        SearchField(onSearch: handleSearch,
-                    onTextChange: handleSearchTextChange,
-                    onClear: handleSearchClear)
-        content
+    NavigationStack {
+      ScrollView(.vertical, showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 15) {
+          Text(.whatDoYouWantToWatch)
+            .foregroundStyle(.white)
+            .font(MovieBrowserFontsStyle.title)
+          SearchField(onSearch: handleSearch,
+                      onTextChange: handleSearchTextChange,
+                      onClear: handleSearchClear)
+          content.frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding([.leading, .trailing], 22)
       }
-      .padding(12)
+      .background {
+        Color.accentColor.ignoresSafeArea()
+      }
+      .navigationDestination(for: HomeMovieModel.self) { selectedMovie in
+        MovieDetailView(movie: selectedMovie)
+      }
     }
+    .scrollContentBackground(.hidden)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .task {
       await viewModel.load()
     }
@@ -37,14 +48,13 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     case .idle, .loading:
       HomeSkeletonView(currentCategory: $viewModel.currentCategory,
                        onCategorySelect: handleCategorySelect(_:))
+        .frame(maxWidth: .infinity, alignment: .leading)
     case let .loaded(content):
-      RankedListPostersView(movies: content.rankedMovies,
-                            onMovieSelect: handleMovieSelect)
+      RankedListPostersView(movies: content.rankedMovies)
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
       if !content.movies.isEmpty {
-        LazyMovieGridView(movies: content.movies,
-                          onMovieSelect: handleMovieSelect)
+        LazyMovieGridView(movies: content.movies)
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
@@ -72,10 +82,6 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     print("clear")
   }
 
-  private func handleMovieSelect(_ movie: HomeMovieModel) {
-    print(movie.id)
-  }
-
   private func handleCategorySelect(_ category: MovieCategory) {
     Task {
       await viewModel.select(category: category)
@@ -86,22 +92,18 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 #Preview {
   HomeView(
     viewModel: HomeViewPreviewMockFactory
-      .makeViewModelMock(
+      .make(
         state:
-            .loaded(
-              content: HomeContent(
-                rankedMovies: MovieAdapter()
-                  .adapt(dto: PreviewFactory.shared
-                    .makeMovieCatalog(
-                      for: .topRated
-                    ).results, for: .topRated),
-                movies: MovieAdapter()
-                  .adapt(dto: PreviewFactory.shared
-                    .makeMovieCatalog(
-                      for: .topRated
-                    ).results, for: .topRated)
-              )
-            )
+        .loaded(
+          content: HomeContent(
+            rankedMovies: MovieAdapter()
+              .adapt(dto: PreviewFactory.shared
+                .makeMovieCatalog(for: .topRated).results),
+            movies: MovieAdapter()
+              .adapt(dto: PreviewFactory.shared
+                .makeMovieCatalog(for: .topRated).results)
+          )
+        )
       )
   )
 }

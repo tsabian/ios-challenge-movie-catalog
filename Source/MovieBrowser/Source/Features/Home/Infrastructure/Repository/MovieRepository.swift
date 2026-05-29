@@ -11,26 +11,39 @@ import Foundation
 final class MovieRepository: MovieRepositoryProtocol {
   private let apiClient: ApiClientProtocol
   private let decoder: JSONDecoder
-  private let baseURL = AppEnvironment.current.value(for: .tmdbApiBaseUrl)
+  private let apiKey: String
+  private let language: String?
+  private let region: String?
 
   enum MovieRepositoryError: Error {
     case invalidRequest
-    case invalidResponse
+    case invalidResponse(status: Int? = nil)
   }
 
   init(apiClient: ApiClientProtocol,
+       apiKey: String,
+       language: String?,
+       region: String?,
        decoder: JSONDecoder = JSONDecoder()) {
     self.apiClient = apiClient
     self.decoder = decoder
+    self.apiKey = apiKey
+    self.language = language
+    self.region = region
   }
 
-  func fetchMovies(service: HomeService) async throws -> MovieCatalogDto {
-    let result = try await apiClient.execute(endpoint: service)
-    if let status = result.response as? HTTPURLResponse,
-       (200 ..< 300).contains(status.statusCode) {
-      return try decoder.decode(MovieCatalogDto.self, from: result.data)
-    } else {
-      throw MovieRepositoryError.invalidResponse
-    }
+  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogDto {
+    let data = try await apiClient.execute(
+      endpoint: makeCatalogEndpoint(category, page: page)
+    )
+    return try decoder.decode(MovieCatalogDto.self, from: data)
+  }
+
+  private func makeCatalogEndpoint(_ category: MovieCategory, page: Int) -> Endpoint {
+    HomeEndpoint(route: HomeApiRoute(category: category),
+                 apiKey: apiKey,
+                 language: language,
+                 region: region,
+                 page: page)
   }
 }

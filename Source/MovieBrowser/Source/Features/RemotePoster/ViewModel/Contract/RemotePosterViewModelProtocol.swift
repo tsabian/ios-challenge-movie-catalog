@@ -1,0 +1,15 @@
+//
+//  RemotePosterViewModelProtocol.swift
+//  MovieBrowser
+//
+//  Created by Tiago de Oliveira on 27/05/26.
+//
+
+import Combine
+
+@MainActor
+protocol RemotePosterViewModelProtocol: ObservableObject {
+  var state: RemotePosterState { get }
+
+  func load(from pathURLString: String) async
+}

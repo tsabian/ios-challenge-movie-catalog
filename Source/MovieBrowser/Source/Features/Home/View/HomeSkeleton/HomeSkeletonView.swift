@@ -12,15 +12,19 @@ struct HomeSkeletonView: View {
   let onCategorySelect: (MovieCategory) -> Void
 
   var body: some View {
-    RankedListPostersSkeletonView(count: 5)
+    VStack {
+      RankedListPostersSkeletonView(count: 5)
 
-    CategoryView(
-      currentCategory: $currentCategory,
-      onCategorySelect: onCategorySelect
-    )
-    .disabled(true)
+      CategoryView(
+        currentCategory: $currentCategory,
+        onCategorySelect: onCategorySelect
+      )
+      .disabled(true)
 
-    MovieGridSkeletonView(count: 9)
+      MovieGridSkeletonView(count: 9)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .padding([.leading, .trailing], 22)
   }
 }
 

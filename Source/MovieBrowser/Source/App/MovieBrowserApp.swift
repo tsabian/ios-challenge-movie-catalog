@@ -11,14 +11,12 @@ import SwiftUI
 @main
 struct MovieBrowserApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-  private let appContainer = AppContainer()
 
   var body: some Scene {
     WindowGroup {
-      AppBackgroundView {
-        RootView(appContainer: appContainer)
-      }
-      .tint(Color.accentColor)
+      RootView()
+        .preferredColorScheme(.dark)
+        .environment(\.appContainer, .live)
     }
   }
 }

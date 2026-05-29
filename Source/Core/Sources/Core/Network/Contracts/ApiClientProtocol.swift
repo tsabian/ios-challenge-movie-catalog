@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol ApiClientProtocol: Sendable {
-  func execute(endpoint: Endpoint) async throws -> ApiClientResult
+  func execute(endpoint: Endpoint) async throws -> Data
 }

@@ -9,32 +9,30 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-  private let appContainer: AppContainer
-
-  init(appContainer: AppContainer = AppContainer()) {
-    self.appContainer = appContainer
-  }
+  @Environment(\.appContainer) private var container: AppContainer
 
   var body: some View {
     TabView {
-      HomeView(viewModel: appContainer.makeHomeViewModel())
+      HomeView(viewModel: container.viewModelFactory.makeHome())
         .tabItem {
           Image(systemName: "house.fill")
           Text(.home)
         }
-
       SearchView()
         .tabItem {
           Image(systemName: "magnifyingglass")
           Text(.search)
         }
-
       WatchListView()
         .tabItem {
           Image(systemName: "bookmark.fill")
           Text(.watchList)
         }
     }
+    .toolbarBackground(.indigo, for: .tabBar)
+    .toolbarBackground(.visible, for: .tabBar)
+    .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
 }
 

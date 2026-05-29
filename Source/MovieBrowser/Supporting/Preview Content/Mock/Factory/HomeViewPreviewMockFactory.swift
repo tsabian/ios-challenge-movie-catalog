@@ -9,7 +9,7 @@ import SwiftUI
 
 enum HomeViewPreviewMockFactory {
   @MainActor
-  static func makeViewModelMock(state: HomeState) -> HomeViewModelMock {
+  static func make(state: HomeState) -> HomeViewModelMock {
     let viewModel = HomeViewModelMock()
     viewModel.state = state
     return viewModel

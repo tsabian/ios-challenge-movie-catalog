@@ -7,15 +7,27 @@
 
 import Core
 
-final class HomeContainerBuilder {
+struct HomeContainerBuilder {
   private let apiClient: ApiClientProtocol
+  private let apiKey: String
+  private let language: String?
+  private let region: String?
 
-  init(apiClient: ApiClientProtocol) {
+  init(apiClient: ApiClientProtocol,
+       apiKey: String,
+       language: String?,
+       region: String?) {
     self.apiClient = apiClient
+    self.apiKey = apiKey
+    self.language = language
+    self.region = region
   }
 
   func build() -> HomeViewModel {
-    let repository = MovieRepository(apiClient: apiClient)
+    let repository = MovieRepository(apiClient: apiClient,
+                                     apiKey: apiKey,
+                                     language: language,
+                                     region: region)
     let useCase = FetchHomeMoviesUseCase(repository: repository)
     return HomeViewModel(useCase: useCase)
   }

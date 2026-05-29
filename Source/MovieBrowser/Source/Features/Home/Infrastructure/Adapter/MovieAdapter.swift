@@ -6,19 +6,13 @@
 //
 
 struct MovieAdapter {
-  func adapt(dto movies: [MovieDto],
-             for category: MovieCategory) -> [HomeMovieModel] {
+  func adapt(dto movies: [MovieDto]) -> [HomeMovieModel] {
     movies.enumerated()
       .compactMap { index, element in
         HomeMovieModel(id: element.id,
                        title: element.title,
-                       posterPath: buildPosterPath(from: element.posterPath),
-                       rank: index + 1,
-                       category: category)
+                       posterPath: element.posterPath,
+                       rank: index + 1)
       }
-  }
-
-  private func buildPosterPath(from path: String) -> String {
-    "\(AppEnvironment.current.value(for: .tmdbImageBaseUrl))/\(TMDBImageSize.small.rawValue)/\(path)"
   }
 }

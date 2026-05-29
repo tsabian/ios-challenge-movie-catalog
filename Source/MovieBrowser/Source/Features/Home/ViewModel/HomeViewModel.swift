@@ -39,7 +39,8 @@ final class HomeViewModel: HomeViewModelProtocol {
   private func fetch() async {
     do {
       let content = try await useCase.execute(category: currentCategory, page: 1)
-      state = .loaded(content: content)
+      state = content.movies.isEmpty && content.rankedMovies.isEmpty ? .empty :
+        .loaded(content: content)
     } catch {
       state = .error(error.localizedDescription)
     }

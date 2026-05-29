@@ -12,6 +12,14 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     _: UIApplication,
     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    true
+    let appearance = UITabBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = UIColor.blue
+    appearance.shadowColor = nil // Remove linha cinza superior se quiser
+    appearance.shadowImage = nil
+    UITabBar.appearance().standardAppearance = appearance
+    UITabBar.appearance().scrollEdgeAppearance = appearance
+
+    return true
   }
 }
