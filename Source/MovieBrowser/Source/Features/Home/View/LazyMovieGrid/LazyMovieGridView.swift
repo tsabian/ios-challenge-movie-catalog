@@ -14,20 +14,22 @@ struct LazyMovieGridView: View {
     GridItem(.flexible())
   ]
 
-  let movies: [HomeMovieModel]
+  let movies: [MovieModel]
+  let tapAction: (MovieModel) -> Void
 
   var body: some View {
     LazyVGrid(columns: colunas) {
       ForEach(Array(movies.enumerated()), id: \.offset) { index, movie in
-        NavigationLink(value: movie) {
-          MovieRankCardView(posterWidth: 100,
-                            posterHeight: 145,
-                            imageName: movie.posterPath,
-                            rank: movie.rank,
-                            isRankHidden: true)
-            .contentShape(Rectangle())
-            .frame(maxWidth: .infinity, alignment: alignmentForIndex(index))
-        }
+        MovieRankCardView(posterWidth: 100,
+                          posterHeight: 145,
+                          imageName: movie.posterPath,
+                          rank: movie.rank,
+                          isRankHidden: true)
+          .contentShape(Rectangle())
+          .frame(maxWidth: .infinity, alignment: alignmentForIndex(index))
+          .onTapGesture {
+            tapAction(movie)
+          }
       }
     }
   }
@@ -42,7 +44,6 @@ struct LazyMovieGridView: View {
 }
 
 #Preview {
-  let catalog = PreviewFactory.shared.makeMovieCatalog(for: .nowPlaying)
-  let movies = MovieAdapter().adapt(dto: catalog.results)
-  LazyMovieGridView(movies: movies)
+  LazyMovieGridView(movies: .mock(type: .nowPlaying),
+                    tapAction: { _ in })
 }

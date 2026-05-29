@@ -1,0 +1,41 @@
+{
+  "id": 1228710,
+  "results": [
+    {
+      "iso_639_1": "pt",
+      "iso_3166_1": "BR",
+      "name": "O Mandaloriano e Grogu | Trailer Oficial 2 Dublado",
+      "key": "is_YTQeLo5w",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Trailer",
+      "official": true,
+      "id": "69e215d56738f953ad785a5e",
+      "published_at": "2026-04-16T22:55:21.000Z"
+    },
+    {
+      "iso_639_1": "pt",
+      "iso_3166_1": "BR",
+      "name": "Teaser Oficial Dublado",
+      "key": "uLDa5qYkgP8",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Teaser",
+      "official": true,
+      "id": "68d2eb2c8d3d4b8861cc410d",
+      "published_at": "2025-09-22T14:51:47.000Z"
+    },
+    {
+      "iso_639_1": "pt",
+      "iso_3166_1": "BR",
+      "name": "Teaser Oficial Legendado",
+      "key": "nObVbEpFVPQ",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Teaser",
+      "official": true,
+      "id": "68d2fa63133d09d9d7fea529",
+      "published_at": "2025-09-22T14:50:28.000Z"
+    }
+  ]
+}

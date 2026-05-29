@@ -11,5 +11,5 @@ import SwiftUI
 final class RemotePosterViewModelMock: RemotePosterViewModelProtocol {
   @Published var state: RemotePosterState = .idle
 
-  func load(from _: String) async {}
+  func load(from _: String, size _: TMDBImageSize) async {}
 }

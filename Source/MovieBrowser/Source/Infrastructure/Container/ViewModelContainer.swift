@@ -38,4 +38,13 @@ struct ViewModelContainerFactory {
                                                cache: domain.imageCache)
     return builder.build()
   }
+
+  func makeMovieDetail(detail: MovieDetailsModel) -> MovieDetailViewModel {
+    let builder = MovieDetailBuilder(apiClient: domain.apiClient,
+                                     apiKey: domain.apiKey,
+                                     language: domain.language,
+                                     region: domain.region,
+                                     detail: detail)
+    return builder.build()
+  }
 }

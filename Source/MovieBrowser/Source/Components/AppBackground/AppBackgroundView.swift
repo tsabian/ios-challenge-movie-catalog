@@ -25,7 +25,7 @@ struct AppBackgroundView: View {
 
       GeometryReader { _ in
         LinearGradient(colors: [
-          .accentColor.opacity(0.5),
+          .accentColor.opacity(0.2),
           .accentColor.opacity(0.9865625)
         ],
         startPoint: .topLeading,

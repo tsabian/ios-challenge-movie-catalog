@@ -11,25 +11,34 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
   @StateObject private var viewModel: ViewModel
 
   let pathURLString: String
-  let width: CGFloat
-  let height: CGFloat
+  let size: TMDBImageSize
+  let width: CGFloat?
+  let height: CGFloat?
+  let maxWidth: CGFloat?
+  let maxHeight: CGFloat?
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
        pathURLString: String,
-       width: CGFloat,
-       height: CGFloat) {
+       size: TMDBImageSize = .medium,
+       width: CGFloat? = nil,
+       height: CGFloat? = nil,
+       maxWidth: CGFloat? = nil,
+       maxHeight: CGFloat? = nil) {
     _viewModel = StateObject(wrappedValue: viewModel())
     self.pathURLString = pathURLString
+    self.size = size
     self.width = width
     self.height = height
+    self.maxWidth = maxWidth
+    self.maxHeight = maxHeight
   }
 
   var body: some View {
     content
-      .frame(maxWidth: width, maxHeight: height)
+      .frame(maxWidth: maxWidth, maxHeight: maxHeight)
       .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
       .task(id: pathURLString) {
-        await viewModel.load(from: pathURLString)
+        await viewModel.load(from: pathURLString, size: size)
       }
   }
 
@@ -44,7 +53,7 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
     case let .loaded(image):
       Image(uiImage: image)
         .resizable()
-        .scaledToFit()
+        .scaledToFill()
     case .failed:
       RoundedRectangle(cornerRadius: 10)
         .fill(Color.accentGray.opacity(0.3))

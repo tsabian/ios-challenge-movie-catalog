@@ -17,13 +17,18 @@ enum HomeState {
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
-  private let useCase: FetchHomeMoviesUseCaseProtocol
-  @Published var state: HomeState = .idle
+  private let homeUseCase: FetchMoviesCatalogUseCaseProtocol
+  private let detailUseCase: FetchMovieDetailUseCaseProtocol
+
+  @Published private(set) var state: HomeState = .idle
+  @Published var path = [HomeRouter]()
   @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .nowPlaying
 
-  init(useCase: FetchHomeMoviesUseCaseProtocol) {
-    self.useCase = useCase
+  init(useCase: FetchMoviesCatalogUseCaseProtocol,
+       detailUseCase: FetchMovieDetailUseCaseProtocol) {
+    homeUseCase = useCase
+    self.detailUseCase = detailUseCase
   }
 
   func load() async {
@@ -36,11 +41,26 @@ final class HomeViewModel: HomeViewModelProtocol {
     await fetch()
   }
 
+  func requestDetail(movie: MovieModel) {
+    Task {
+      await fetchDetail(id: movie.id)
+    }
+  }
+
   private func fetch() async {
     do {
-      let content = try await useCase.execute(category: currentCategory, page: 1)
+      let content = try await homeUseCase.execute(category: currentCategory, page: 1)
       state = content.movies.isEmpty && content.rankedMovies.isEmpty ? .empty :
         .loaded(content: content)
+    } catch {
+      state = .error(error.localizedDescription)
+    }
+  }
+
+  private func fetchDetail(id: Int) async {
+    do {
+      let model = try await detailUseCase.execute(movie: id)
+      path.append(.movieDetails(details: model))
     } catch {
       state = .error(error.localizedDescription)
     }

@@ -23,14 +23,14 @@ final class RemotePosterViewModel: RemotePosterViewModelProtocol {
     self.useCase = useCase
   }
 
-  func load(from pathURLString: String) async {
+  func load(from pathURLString: String, size: TMDBImageSize) async {
     guard !pathURLString.isEmpty else {
       state = .failed
       return
     }
     state = .loading
     do {
-      let image = try await useCase.fetchImage(from: pathURLString, withSize: .small)
+      let image = try await useCase.fetchImage(from: pathURLString, withSize: size)
       state = .loaded(image: image)
     } catch {
       state = .failed

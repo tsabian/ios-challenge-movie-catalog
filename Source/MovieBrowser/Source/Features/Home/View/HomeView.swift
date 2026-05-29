@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView<ViewModel: HomeViewModelProtocol>: View {
+  @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
 
   init(viewModel: @autoclosure @escaping () -> ViewModel) {
@@ -15,7 +16,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   }
 
   var body: some View {
-    NavigationStack {
+    NavigationStack(path: $viewModel.path) {
       ScrollView(.vertical, showsIndicators: false) {
         VStack(alignment: .leading, spacing: 15) {
           Text(.whatDoYouWantToWatch)
@@ -31,11 +32,15 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       .background {
         Color.accentColor.ignoresSafeArea()
       }
-      .navigationDestination(for: HomeMovieModel.self) { selectedMovie in
-        MovieDetailView(movie: selectedMovie)
+      .navigationDestination(for: HomeRouter.self) { route in
+        switch route {
+        case let .movieDetails(details):
+          MovieDetailView(
+            viewModel: appContainer.viewModelFactory.makeMovieDetail(detail: details)
+          )
+        }
       }
     }
-    .scrollContentBackground(.hidden)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .task {
       await viewModel.load()
@@ -50,11 +55,13 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                        onCategorySelect: handleCategorySelect(_:))
         .frame(maxWidth: .infinity, alignment: .leading)
     case let .loaded(content):
-      RankedListPostersView(movies: content.rankedMovies)
+      RankedListPostersView(movies: content.rankedMovies,
+                            tapAction: handleMovieTap(_:))
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
       if !content.movies.isEmpty {
-        LazyMovieGridView(movies: content.movies)
+        LazyMovieGridView(movies: content.movies,
+                          tapAction: handleMovieTap(_:))
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
@@ -87,23 +94,15 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       await viewModel.select(category: category)
     }
   }
+
+  private func handleMovieTap(_ movie: MovieModel) {
+    viewModel.requestDetail(movie: movie)
+  }
 }
 
 #Preview {
   HomeView(
-    viewModel: HomeViewPreviewMockFactory
-      .make(
-        state:
-        .loaded(
-          content: HomeContent(
-            rankedMovies: MovieAdapter()
-              .adapt(dto: PreviewFactory.shared
-                .makeMovieCatalog(for: .topRated).results),
-            movies: MovieAdapter()
-              .adapt(dto: PreviewFactory.shared
-                .makeMovieCatalog(for: .topRated).results)
-          )
-        )
-      )
+    viewModel: HomeViewPreviewMockFactory.make()
+      .change(state: .loaded(content: .mock()))
   )
 }

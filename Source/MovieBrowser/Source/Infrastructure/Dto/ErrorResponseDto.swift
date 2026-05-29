@@ -5,7 +5,7 @@
 //  Created by Tiago de Oliveira on 28/05/26.
 //
 
-struct ErrorResponseDto: Codable, Error {
+struct ErrorResponseDto: Decodable, Error {
   let statusCode: Int
   let statusMessage: String
   let success: Bool

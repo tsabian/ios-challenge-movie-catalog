@@ -6,6 +6,6 @@
 //
 
 struct HomeContent {
-  let rankedMovies: [HomeMovieModel]
-  let movies: [HomeMovieModel]
+  let rankedMovies: [MovieModel]
+  let movies: [MovieModel]
 }

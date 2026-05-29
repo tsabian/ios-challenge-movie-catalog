@@ -7,27 +7,61 @@
 
 import SwiftUI
 
-struct MovieDetailView: View {
-  let movie: HomeMovieModel
+struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
+  @StateObject private var viewModel: ViewModel
+
+  init(viewModel: @autoclosure @escaping () -> ViewModel) {
+    _viewModel = StateObject(wrappedValue: viewModel())
+  }
 
   var body: some View {
-    NavigationStack {
-      ScrollView(.vertical, showsIndicators: false) {
-        VStack {
-          Text(movie.posterPath)
-            .frame(maxWidth: .infinity, alignment: .leading)
-          Spacer()
-        }
-        .padding([.leading, .trailing], 22)
-      }
-      .navigationTitle(movie.title)
+    ScrollView(.vertical, showsIndicators: false) {
+      content
     }
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button {} label: {
+          Image(systemName: "bookmark.fill")
+        }
+      }
+    }
+    .ignoresSafeArea(edges: .top)
     .scrollContentBackground(.hidden)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background {
+      AppBackgroundView(pathURLString: viewModel.backdropPath)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+    .task {
+      await viewModel.load()
+    }
+  }
+
+  @ViewBuilder
+  var content: some View {
+    switch viewModel.state {
+    case .idle, .loading:
+      EmptyView()
+    case let .loaded(detail):
+      MovieDetailContentView(movieDetail: detail,
+                             infoTapAction: handleReviewsTap)
+    case let .reviews(reviews):
+      EmptyView()
+    case .empty:
+      EmptyView()
+    case .error:
+      EmptyView()
+    }
+  }
+
+  private func handleReviewsTap(_: DetailInfo) {
+    viewModel.requestNextPage()
   }
 }
 
 #Preview {
-  MovieDetailView(movie: .init(id: 1, title: "Miranha",
-                               posterPath: "/asdasdas.png", rank: 1))
+  MovieDetailView(
+    viewModel: MovieDetailPreviewMockFactory.make(state: .loaded(detail: .mock()))
+  )
 }
