@@ -30,8 +30,12 @@ struct AppContainer {
                                           env.value(for: .tmdbImageSslPinningKey)
                                         ])
     imageCache = .init()
-    viewModelFactory = .init(apiClient: apiClient,
-                             imageClient: imageClient,
-                             imageCache: imageCache)
+    let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
+                                                      imageClient: imageClient,
+                                                      imageCache: imageCache,
+                                                      apiKey: env.value(for: .tmdbApiKey),
+                                                      language: env.language,
+                                                      region: env.region)
+    viewModelFactory = .init(domain: viewModelDependencies)
   }
 }

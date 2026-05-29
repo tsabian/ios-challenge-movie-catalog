@@ -10,7 +10,7 @@ import Foundation
 public enum ApiClientError: Error, Equatable {
   case invalidResponse
   case invalidStatusCode(Int, Data)
-  case noNetowrkCoverage
+  case noNetworkCoverage
 }
 
 public actor ApiClient: ApiClientProtocol {
@@ -23,13 +23,13 @@ public actor ApiClient: ApiClientProtocol {
   }
 
   public func execute(endpoint: Endpoint) async throws -> Data {
+    guard Reachabilty.hasConnection() else {
+      throw ApiClientError.noNetworkCoverage
+    }
     let request = try await endpoint.createRequest(for: host)
     let (data, response) = try await session.data(for: request)
     guard let httpResponse = response as? HTTPURLResponse else {
       throw ApiClientError.invalidResponse
-    }
-    guard Reachabilty.hasConnection() else {
-      throw ApiClientError.noNetowrkCoverage
     }
     guard (200 ... 299).contains(httpResponse.statusCode) else {
       throw ApiClientError.invalidStatusCode(httpResponse.statusCode, data)

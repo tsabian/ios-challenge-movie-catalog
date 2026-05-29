@@ -28,7 +28,7 @@ final class FetchRemoteImageUseCase: FetchRemoteImageUseCaseProtocol {
     if let cachedImage = cache.getObject(forKey: cacheKey) {
       return cachedImage
     }
-    let data = try await repository.fetch(path: pathURLString, size: .originalBig)
+    let data = try await repository.fetch(path: pathURLString, size: size)
     guard let uiImage = UIImage(data: data) else {
       throw RemoteImageError.invalidImageData
     }

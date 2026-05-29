@@ -17,7 +17,7 @@ struct RemotePosterEndpoint: Endpoint {
   var path: String {
     switch route {
     case let .fetch(imageName, size):
-      "/t/p/\(size.rawValue)/\(imageName)"
+      "/t/p/\(size.rawValue)\(imageName)"
     }
   }
 
