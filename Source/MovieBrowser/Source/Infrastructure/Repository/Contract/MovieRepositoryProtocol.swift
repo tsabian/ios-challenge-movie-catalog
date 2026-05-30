@@ -11,4 +11,5 @@ protocol MovieRepositoryProtocol {
   func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogDto
   func requestDetail(id: Int) async throws -> MovieDetailDto
   func requestReviews(id: Int, page: Int) async throws -> ReviewCatalogDto
+  func requestCredits(id: Int) async throws -> CastingDto
 }

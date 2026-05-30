@@ -9,9 +9,9 @@ import SwiftUI
 
 struct LazyMovieGridView: View {
   private let colunas = [
-    GridItem(.flexible()),
-    GridItem(.flexible()),
-    GridItem(.flexible())
+    GridItem(.flexible(), spacing: 12),
+    GridItem(.flexible(), spacing: 12),
+    GridItem(.flexible(), spacing: 12)
   ]
 
   let movies: [MovieModel]

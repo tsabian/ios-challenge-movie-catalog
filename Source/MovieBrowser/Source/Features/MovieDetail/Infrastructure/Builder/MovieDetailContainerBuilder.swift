@@ -31,7 +31,10 @@ struct MovieDetailBuilder {
                                      apiKey: apiKey,
                                      language: language,
                                      region: region)
-    let useCase = FetchMovieReviewsUseCase(repository: repository)
-    return MovieDetailViewModel(detail: detail, reviewUseCase: useCase)
+    let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
+    let castUseCase = FetchCastUseCase(repository: repository)
+    return MovieDetailViewModel(detail: detail,
+                                reviewUseCase: movieUseCase,
+                                castUseCase: castUseCase)
   }
 }

@@ -48,6 +48,11 @@ final class MovieRepository: MovieRepositoryProtocol {
     return try decoder.decode(ReviewCatalogDto.self, from: data)
   }
 
+  func requestCredits(id: Int) async throws -> CastingDto {
+    let data = try await apiClient.execute(endpoint: makeCreditsEndpoint(id))
+    return try decoder.decode(CastingDto.self, from: data)
+  }
+
   private func makeCatalogEndpoint(_ category: MovieCategory, page: Int) -> Endpoint {
     MovieEndpoint(route: MovieApiRoute(category: category),
                   apiKey: apiKey,
@@ -70,5 +75,15 @@ final class MovieRepository: MovieRepositoryProtocol {
                   language: language,
                   region: region,
                   page: page)
+  }
+
+  private func makeCreditsEndpoint(_ id: Int) -> Endpoint {
+    MovieEndpoint(
+      route: .credits(id: id),
+      apiKey: apiKey,
+      language: language,
+      region: region,
+      page: nil
+    )
   }
 }

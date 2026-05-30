@@ -27,6 +27,7 @@ struct MovieRankCardView: View {
         .frame(width: posterWidth, height: posterHeight)
         .shadow(color: Color.accentColor.opacity(0.8), radius: 8, x: 0, y: 8)
         .cornerRadius(12)
+
       if !isRankHidden {
         Text("\(rank)")
           .font(MontserratFont.bold.size(98))
@@ -36,7 +37,6 @@ struct MovieRankCardView: View {
           .shadow(color: Color.black.opacity(0.10), radius: 2, x: 8, y: 2)
       }
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
   }
 }
 

@@ -22,11 +22,14 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
           Text(.whatDoYouWantToWatch)
             .foregroundStyle(.white)
             .font(MovieBrowserFontsStyle.title)
+
           SearchField(onSearch: handleSearch,
                       onTextChange: handleSearchTextChange,
                       onClear: handleSearchClear)
-          content.frame(maxWidth: .infinity, alignment: .leading)
+
+          content
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding([.leading, .trailing], 22)
       }
       .background {
@@ -41,7 +44,6 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
         }
       }
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .task {
       await viewModel.load()
     }

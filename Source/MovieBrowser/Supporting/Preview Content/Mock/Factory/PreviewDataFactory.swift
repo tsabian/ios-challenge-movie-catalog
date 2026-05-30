@@ -35,13 +35,19 @@ struct PreviewDataFactory {
     try decode("reviews.json")
   }
 
+  func makeCasting() throws -> CastingDto {
+    try decode("credits.json")
+  }
+
   private func decode<T: Decodable>(_ file: String) throws -> T {
     do {
       return try bundle.decode(file)
     } catch let error as DecodingError {
+      debugPrint("❌ Decode: \(error)")
       fatalError("❌ Decode: \(error)")
     } catch {
-      fatalError("❌ Failed: \(error)")
+      debugPrint("❌ Decode: \(error)")
+      fatalError("❌ Decode: \(error)")
     }
   }
 }

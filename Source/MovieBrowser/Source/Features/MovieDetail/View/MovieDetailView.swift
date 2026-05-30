@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+  static var defaultValue: CGFloat = 0
+  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    value = nextValue()
+  }
+}
+
 struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   @StateObject private var viewModel: ViewModel
 
@@ -15,19 +22,32 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   }
 
   var body: some View {
-    ScrollView(.vertical, showsIndicators: false) {
-      content
+    VStack(spacing: 0) {
+      Rectangle()
+        .foregroundStyle(Color.accentColor.opacity(0.3))
+        .frame(height: 107)
+      ScrollView(.vertical, showsIndicators: false) {
+        content
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     .toolbar {
-      ToolbarItem(placement: .topBarTrailing) {
-        Button {} label: {
+      ToolbarItemGroup(placement: .topBarTrailing) {
+        Button {
+          debugPrint("save item")
+        } label: {
           Image(systemName: "bookmark.fill")
+        }
+
+        Button {
+          debugPrint("share item")
+        } label: {
+          Image(systemName: "square.and.arrow.up")
         }
       }
     }
-    .ignoresSafeArea(edges: .top)
-    .scrollContentBackground(.hidden)
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .navigationBarTitleDisplayMode(.inline)
+    .ignoresSafeArea()
     .background {
       AppBackgroundView(pathURLString: viewModel.backdropPath)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -39,29 +59,32 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   }
 
   @ViewBuilder
-  var content: some View {
+  private var content: some View {
     switch viewModel.state {
     case .idle, .loading:
-      EmptyView()
-    case let .loaded(detail):
-      MovieDetailContentView(movieDetail: detail,
+      LoadingView()
+    case let .loaded(contentState):
+      MovieDetailContentView(contentState: contentState,
                              infoTapAction: handleReviewsTap)
-    case let .reviews(reviews):
-      EmptyView()
-    case .empty:
-      EmptyView()
     case .error:
       EmptyView()
     }
   }
 
-  private func handleReviewsTap(_: DetailInfo) {
-    viewModel.requestNextPage()
+  private func handleReviewsTap(info: DetailInfo) {
+    switch info {
+    case .reviews:
+      viewModel.requestNextPage()
+    case .cast:
+      viewModel.requestCast()
+    case .about:
+      break
+    }
   }
 }
 
 #Preview {
   MovieDetailView(
-    viewModel: MovieDetailPreviewMockFactory.make(state: .loaded(detail: .mock()))
+    viewModel: MovieDetailPreviewMockFactory.make(state: .loaded(.mock()))
   )
 }

@@ -36,7 +36,6 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
   var body: some View {
     content
       .frame(maxWidth: maxWidth, maxHeight: maxHeight)
-      .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
       .task(id: pathURLString) {
         await viewModel.load(from: pathURLString, size: size)
       }
@@ -46,7 +45,7 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
   private var content: some View {
     switch viewModel.state {
     case .idle, .loading:
-      RoundedRectangle(cornerRadius: 10)
+      Rectangle()
         .fill(Color.accentGray.opacity(0.3))
         .shimmer(isActive: true)
         .redacted(reason: .placeholder)
@@ -55,7 +54,7 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
         .resizable()
         .scaledToFill()
     case .failed:
-      RoundedRectangle(cornerRadius: 10)
+      Rectangle()
         .fill(Color.accentGray.opacity(0.3))
         .overlay {
           Image(systemName: "photo")

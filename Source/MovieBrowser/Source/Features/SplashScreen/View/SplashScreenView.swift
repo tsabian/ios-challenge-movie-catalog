@@ -13,9 +13,7 @@ struct SplashScreenView: View {
 
   var body: some View {
     VStack(spacing: 12) {
-      Image("popcorn")
-      Text("\(.loading)...")
-        .font(MovieBrowserFontsStyle.body.bold())
+      LoadingView()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background {

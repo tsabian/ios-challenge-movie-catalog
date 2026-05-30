@@ -19,19 +19,19 @@ struct MovieDetailContentView: View {
     dynamicTypeSize.isAccessibilitySize
   }
 
-  var movieDetail: MovieDetailsModel
+  var contentState: MovieDetailContentState
   var infoTapAction: (DetailInfo) -> Void
 
-  init(movieDetail: MovieDetailsModel,
+  init(contentState: MovieDetailContentState,
        infoTapAction: @escaping (DetailInfo) -> Void) {
-    self.movieDetail = movieDetail
+    self.contentState = contentState
     self.infoTapAction = infoTapAction
   }
 
   var body: some View {
     ZStack(alignment: .top) {
       RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                       pathURLString: movieDetail.backdropPath,
+                       pathURLString: contentState.detail.backdropPath,
                        size: .medium)
         .scaledToFill()
         .frame(height: min(backdropHeight, 260))
@@ -52,53 +52,49 @@ struct MovieDetailContentView: View {
 
   private var headerContent: some View {
     VStack(spacing: 16) {
-      HStack(alignment: .top, spacing: 12) {
-        RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                         pathURLString: movieDetail.posterPath,
-                         size: .small)
-          .frame(width: min(posterWidth, 130), height: min(posterHeight, 165))
-          .cornerRadius(16)
+      ZStack {
+        HStack(alignment: .top, spacing: 12) {
+          RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+                           pathURLString: contentState.detail.posterPath,
+                           size: .small)
+            .frame(width: min(posterWidth, 130), height: min(posterHeight, 165))
+            .cornerRadius(16)
 
-        VStack(alignment: .leading) {
-          Spacer()
-          Text(movieDetail.title)
-            .font(MovieBrowserFontsStyle.title.bold())
-            .lineLimit(isAccessibilitySize ? nil : 3)
-            .frame(height: 70)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .fixedSize(horizontal: false, vertical: true)
+          VStack(alignment: .leading) {
+            Spacer()
+            Text(contentState.detail.title)
+              .font(MovieBrowserFontsStyle.subTitle.bold())
+              .lineLimit(isAccessibilitySize ? nil : 3)
+              .frame(height: 80)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          .frame(height: 120)
         }
-        .frame(height: 120)
+        .padding(.top, 160)
+        .padding(.horizontal, 16)
 
-        Label(movieDetail.rankAverage, systemImage: "star")
-          .font(MovieBrowserFontsStyle.footnote.bold())
-          .foregroundStyle(Color.secondaryOrange)
-          .padding(.horizontal, 10)
-          .padding(.vertical, 6)
-          .background(Color.accentColor)
-          .clipShape(RoundedRectangle(cornerRadius: 8))
-          .fixedSize()
+        RatingView(rankAverage: contentState.detail.rankAverage)
+          .frame(maxWidth: .infinity, alignment: .trailing)
+          .padding(.trailing, 16)
+          .offset(y: 33)
       }
-      .padding(.top, 160)
-      .padding(.horizontal, 16)
     }
   }
 
   private var metadata: some View {
     ViewThatFits {
       HStack {
-        Label("\(movieDetail.releaseYear)", systemImage: "calendar")
+        Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
         Text("|")
-        Label(movieDetail.runtime, systemImage: "clock")
+        Label(contentState.detail.runtime, systemImage: "clock")
         Text("|")
-        Label(movieDetail.genre, systemImage: "ticket")
+        Label(contentState.detail.genre, systemImage: "ticket")
       }
       VStack {
-        Label("\(movieDetail.releaseYear)", systemImage: "calendar")
-        Text("|")
-        Label(movieDetail.runtime, systemImage: "clock")
-        Text("|")
-        Label(movieDetail.genre, systemImage: "ticket")
+        Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
+        Label(contentState.detail.runtime, systemImage: "clock")
+        Label(contentState.detail.genre, systemImage: "ticket")
       }
     }
     .foregroundStyle(Color.accentLightGray)
@@ -128,14 +124,13 @@ struct MovieDetailContentView: View {
           }
         }
       }
-      ScrollView(.vertical, showsIndicators: false) {
-        switch currentInfo {
-        case .about: aboutMovie
-        case .reviews: reviews
-        case .cast: cast
-        }
+      .padding(.bottom, 16)
+
+      switch currentInfo {
+      case .about: aboutMovie
+      case .reviews: reviews
+      case .cast: cast
       }
-      .padding(.top, 24)
     }
     .frame(maxWidth: .infinity)
     .padding(.top, 16)
@@ -143,20 +138,22 @@ struct MovieDetailContentView: View {
   }
 
   private var aboutMovie: some View {
-    Text(movieDetail.overview)
+    Text(contentState.detail.overview)
   }
 
   private var reviews: some View {
-    Text("No reviews yet")
+    ReviewsView(isLoading: contentState.isLoadingReviews,
+                reviews: contentState.reviews)
   }
 
   private var cast: some View {
-    Text("No cast yet")
+    CastView(isLoading: contentState.isLoadingCast,
+             cast: contentState.cast)
   }
 }
 
 #Preview {
-  MovieDetailContentView(movieDetail: .mock(),
+  MovieDetailContentView(contentState: .mock(),
                          infoTapAction: { info in
                            debugPrint("review tap \(info)")
                          })

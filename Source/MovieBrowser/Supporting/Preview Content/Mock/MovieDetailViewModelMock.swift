@@ -12,10 +12,11 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
   @Published var backdropPath: String = "/2w4xG178RpB4MDAIfTkqAuSJzec.jpg"
 
   func load() async {
-    state = .loaded(detail: .mock())
+    state = .loaded(.mock())
   }
 
   func requestNextPage() {}
+  func requestCast() {}
 
   func change(state: MovieDetailState) -> Self {
     self.state = state

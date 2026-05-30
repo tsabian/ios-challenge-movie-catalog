@@ -10,13 +10,22 @@ import SwiftUI
 struct MovieBrowserFontsStyle: RawRepresentable {
   var rawValue: Font
 
+  /// 25
   static let title: Font = SpaceGroteskFont.regular.size(25)
-  static let subTitle: Font = SpaceGroteskFont.regular.size(19)
+  /// 20
+  static let subTitle: Font = SpaceGroteskFont.regular.size(20)
+  /// 16
   static let body: Font = SpaceGroteskFont.regular.size(16)
+  /// 14
   static let footnote: Font = SpaceGroteskFont.regular.size(14)
+  /// 12
   static let caption: Font = SpaceGroteskFont.regular.size(12)
+  /// 11
   static let caption2: Font = SpaceGroteskFont.regular.size(11)
+  /// 10
   static let caption3: Font = SpaceGroteskFont.regular.size(10)
+  /// 9
   static let caption4: Font = SpaceGroteskFont.regular.size(9)
+  /// 98
   static let CardRanking: Font = MontserratFont.bold.size(98)
 }

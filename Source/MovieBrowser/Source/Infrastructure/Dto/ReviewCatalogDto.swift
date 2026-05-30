@@ -22,11 +22,11 @@ struct ReviewCatalogDto: Decodable {
 // MARK: - Result
 
 struct Review: Decodable {
+  let id: String
   let author: String
   let authorDetails: AuthorDetailsDto
   let content: String
   let createdAt: String
-  let id: String
   let updatedAt: String
   let url: String
 

@@ -14,4 +14,5 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
 
   func load() async
   func requestNextPage()
+  func requestCast()
 }
