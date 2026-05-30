@@ -25,6 +25,6 @@ struct ReviewAdapter {
                     url: element.url,
                     avatarPath: element.authorDetails.avatarPath,
                     rating: String(format: "%.2f", element.authorDetails.rating),
-                    createdAt: element.createdAt.toDate())
+                    createdAt: element.createdAt.formatarDataISO())
   }
 }

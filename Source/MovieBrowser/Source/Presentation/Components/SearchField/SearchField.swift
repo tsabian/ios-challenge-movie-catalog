@@ -16,19 +16,20 @@ struct SearchField: View {
 
   @State private var searchText = ""
   @State private var debounceTask: Task<Void, Never>?
-  @FocusState private var isSearchFocused: Bool
+  @FocusState.Binding private var isSearchFocused: Bool
 
   init(_ placeholder: LocalizedStringKey = "\(.search)",
        debounceDuration: Duration = .milliseconds(350),
        onSearch: @escaping (String) -> Void = { _ in },
        onTextChange: @escaping (String) -> Void = { _ in },
-       onClear: @escaping () -> Void = {}
-  ) {
+       onClear: @escaping () -> Void = {},
+       isSearchFocused: FocusState<Bool>.Binding) {
     self.placeholder = placeholder
     self.debounceDuration = debounceDuration
     self.onSearch = onSearch
     self.onTextChange = onTextChange
     self.onClear = onClear
+    _isSearchFocused = isSearchFocused
   }
 
   var body: some View {
@@ -42,16 +43,15 @@ struct SearchField: View {
             .padding(.leading, 4)
         }
         TextField("", text: $searchText)
-
-            .foregroundStyle(Color.white)
-            .tint(Color.white)
-            .focused($isSearchFocused)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .submitLabel(.search)
-            .onSubmit {
-              handleSubmit()
-            }
+          .foregroundStyle(Color.white)
+          .tint(Color.white)
+          .focused($isSearchFocused)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled()
+          .submitLabel(.search)
+          .onSubmit {
+            handleSubmit()
+          }
       }
       if !searchText.isEmpty {
         Button {
@@ -70,6 +70,7 @@ struct SearchField: View {
       }
       .buttonStyle(.plain)
     }
+    .contentShape(Rectangle())
     .padding(.horizontal, 15)
     .frame(height: 40)
     .background {
@@ -133,5 +134,15 @@ struct SearchField: View {
 }
 
 #Preview {
-  SearchField()
+  struct SearchFieldPreview: View {
+    @FocusState private var isSearchFocused: Bool
+
+    var body: some View {
+      SearchField(isSearchFocused: $isSearchFocused)
+        .padding()
+        .background(Color.black)
+    }
+  }
+
+  return SearchFieldPreview()
 }

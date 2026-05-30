@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
+  @FocusState private var isSearchFieldFocused: Bool
 
   init(viewModel: @autoclosure @escaping () -> ViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel())
@@ -25,7 +26,8 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 
           SearchField(onSearch: handleSearch,
                       onTextChange: handleSearchTextChange,
-                      onClear: handleSearchClear)
+                      onClear: handleSearchClear,
+                      isSearchFocused: $isSearchFieldFocused)
 
           content
         }
@@ -43,6 +45,10 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
           )
         }
       }
+    }
+    .contentShape(Rectangle())
+    .onTapGesture {
+      isSearchFieldFocused = false
     }
     .task {
       await viewModel.load()
@@ -96,6 +102,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 
   private func handleMovieTap(_ movie: MovieModel) {
     viewModel.requestDetail(movie: movie)
+    isSearchFieldFocused = false
   }
 }
 

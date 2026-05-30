@@ -18,19 +18,20 @@ enum MovieDetailState {
 final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published private(set) var state: MovieDetailState = .idle
   @Published var backdropPath: String
+  @Published var movieTitle: String
 
   private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
   private var cast = [CastModel]()
   private var currentPage = 0
   private var totalPages: Int?
-  private var isLoadingReviews: Bool = true {
+  private var isLoadingReviews: Bool = false {
     didSet {
       updateLoadState()
     }
   }
 
-  private var isLoadingCast: Bool = true {
+  private var isLoadingCast: Bool = false {
     didSet {
       updateLoadState()
     }
@@ -56,6 +57,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     self.reviewUseCase = reviewUseCase
     self.castUseCase = castUseCase
     backdropPath = selectedMovie.backdropPath
+    movieTitle = selectedMovie.title
   }
 
   func loadIfNeeded() async {

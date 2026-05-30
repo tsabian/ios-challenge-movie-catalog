@@ -46,6 +46,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
         }
       }
     }
+    .navigationTitle(viewModel.movieTitle)
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea()
     .background {

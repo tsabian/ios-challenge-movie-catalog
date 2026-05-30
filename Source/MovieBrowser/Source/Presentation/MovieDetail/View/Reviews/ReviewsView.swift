@@ -59,10 +59,10 @@ struct ReviewsView: View {
               .foregroundStyle(.white)
               .frame(maxWidth: .infinity, alignment: .leading)
 
-            HStack(spacing: 5) {
-              Image(systemName: "calendar")
-                .foregroundStyle(.white)
-              if let data = review.createdAt {
+            if let data = review.createdAt {
+              HStack(spacing: 5) {
+                Image(systemName: "calendar")
+                  .foregroundStyle(.white)
                 Text(data)
                   .font(MovieBrowserFontsStyle.footnote.bold())
                   .lineLimit(1)

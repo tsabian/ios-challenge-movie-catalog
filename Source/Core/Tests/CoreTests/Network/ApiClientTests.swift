@@ -30,7 +30,7 @@ struct ApiClientTests {
   }
 
   init() async throws {
-    sut = ApiClient(session: urlSessionMock)
+    sut = ApiClient(host: "https://example.com", session: urlSessionMock)
   }
 
   @Test
@@ -38,9 +38,7 @@ struct ApiClientTests {
     urlSessionMock.dataResult = (Data(), .stub())
     do {
       let result = try await sut.execute(endpoint: ApiClientSpyEndpoint.fetch)
-      #expect(result.data.isEmpty, "Data should be Empty")
-      #expect(result.response is HTTPURLResponse, "Response should be HTTPURLResponse")
-      #expect((result.response as? HTTPURLResponse)?.statusCode ?? 200 >= 100, "Should be a valid response")
+      #expect(result.isEmpty, "Data should be Empty")
       #expect(urlSessionMock.dataCount == 1, "Expect only one call to session")
     } catch {
       Issue.record("Expected success but got failure: \(error)")

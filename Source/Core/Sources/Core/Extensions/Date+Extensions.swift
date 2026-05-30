@@ -28,8 +28,10 @@ extension Date {
   ///
   /// - Parameters:
   ///   - target: The desired output date format string. Defaults to `"yyyy-MM-ddHH:mm:ssX"`.
-  ///   - locale: The locale used to generate the output string. Defaults to `"en_US_POSIX"` to prevent unexpected 12h/24h system overrides.
-  ///   - zone: The target time zone for the output string. Defaults to UTC (`secondsFromGMT: 0`), which is ideal for API communications.
+  ///   - locale: The locale used to generate the output string. Defaults
+  ///   to `"en_US_POSIX"` to prevent unexpected 12h/24h system overrides.
+  ///   - zone: The target time zone for the output string. Defaults to
+  ///   UTC (`secondsFromGMT: 0`), which is ideal for API communications.
   /// - Returns: A formatted date string if the conversion succeeds; otherwise, `nil`.
   func toString(toFormat target: String = "yyyy-MM-ddHH:mm:ssX",
                 locale: Locale = Locale(identifier: "en_US_POSIX"),
