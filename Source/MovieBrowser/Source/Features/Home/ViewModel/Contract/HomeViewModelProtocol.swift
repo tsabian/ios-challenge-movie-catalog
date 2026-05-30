@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 protocol HomeViewModelProtocol: ObservableObject {
   var state: HomeState { get }
   var path: [HomeRouter] { get set }

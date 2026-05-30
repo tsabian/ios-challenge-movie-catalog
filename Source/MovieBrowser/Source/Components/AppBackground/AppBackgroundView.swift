@@ -15,9 +15,7 @@ struct AppBackgroundView: View {
   var body: some View {
     ZStack {
       RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                       pathURLString: pathURLString,
-                       width: .infinity,
-                       height: .infinity)
+                       pathURLString: pathURLString)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .scaledToFill()
         .blur(radius: 10)

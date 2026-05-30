@@ -37,9 +37,9 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       }
       .navigationDestination(for: HomeRouter.self) { route in
         switch route {
-        case let .movieDetails(details):
+        case let .movieDetails(selectedMovie):
           MovieDetailView(
-            viewModel: appContainer.viewModelFactory.makeMovieDetail(detail: details)
+            viewModel: appContainer.viewModelFactory.makeMovieDetail(movie: selectedMovie)
           )
         }
       }

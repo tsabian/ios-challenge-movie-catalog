@@ -28,8 +28,7 @@ struct HomeContainerBuilder {
                                      apiKey: apiKey,
                                      language: language,
                                      region: region)
-    let useCase = FetchMoviesCatalogUseCase(repository: repository)
-    let detailUseCase = FetchMovieDetailUseCase(repository: repository)
-    return HomeViewModel(useCase: useCase, detailUseCase: detailUseCase)
+    let movieUseCase = FetchMoviesCatalogUseCase(repository: repository)
+    return HomeViewModel(movieUseCase: movieUseCase)
   }
 }

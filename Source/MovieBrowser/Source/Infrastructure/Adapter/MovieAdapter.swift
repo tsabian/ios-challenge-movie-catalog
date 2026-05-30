@@ -12,6 +12,7 @@ struct MovieAdapter {
         MovieModel(id: element.id,
                    title: element.title,
                    posterPath: element.posterPath,
+                   backdropPath: element.backdropPath,
                    rank: index + 1)
       }
   }

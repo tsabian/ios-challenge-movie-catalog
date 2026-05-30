@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-@MainActor
 protocol MovieDetailViewModelProtocol: ObservableObject {
   var state: MovieDetailState { get }
   var backdropPath: String { get }
 
-  func load() async
-  func requestNextPage()
+  func loadIfNeeded() async
+  func requestNextPageForReviews()
   func requestCast()
 }

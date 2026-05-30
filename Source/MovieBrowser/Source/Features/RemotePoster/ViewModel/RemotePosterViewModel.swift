@@ -15,6 +15,7 @@ enum RemotePosterState {
   case failed
 }
 
+@MainActor
 final class RemotePosterViewModel: RemotePosterViewModelProtocol {
   @Published private(set) var state: RemotePosterState = .idle
   private let useCase: FetchRemoteImageUseCaseProtocol

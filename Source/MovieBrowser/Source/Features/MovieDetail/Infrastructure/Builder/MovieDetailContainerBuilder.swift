@@ -12,18 +12,18 @@ struct MovieDetailBuilder {
   private let apiKey: String
   private let language: String?
   private let region: String?
-  private let detail: MovieDetailsModel
+  private let movie: MovieModel
 
   init(apiClient: ApiClientProtocol,
        apiKey: String,
        language: String?,
        region: String?,
-       detail: MovieDetailsModel) {
+       movie: MovieModel) {
     self.apiClient = apiClient
     self.apiKey = apiKey
     self.language = language
     self.region = region
-    self.detail = detail
+    self.movie = movie
   }
 
   func build() -> MovieDetailViewModel {
@@ -31,9 +31,11 @@ struct MovieDetailBuilder {
                                      apiKey: apiKey,
                                      language: language,
                                      region: region)
+    let detailUseCase = FetchMovieDetailUseCase(repository: repository)
     let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
     let castUseCase = FetchCastUseCase(repository: repository)
-    return MovieDetailViewModel(detail: detail,
+    return MovieDetailViewModel(selectedMovie: movie,
+                                detailUseCase: detailUseCase,
                                 reviewUseCase: movieUseCase,
                                 castUseCase: castUseCase)
   }

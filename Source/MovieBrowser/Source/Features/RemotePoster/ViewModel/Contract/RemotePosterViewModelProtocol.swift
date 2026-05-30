@@ -7,7 +7,6 @@
 
 import Combine
 
-@MainActor
 protocol RemotePosterViewModelProtocol: ObservableObject {
   var state: RemotePosterState { get }
 

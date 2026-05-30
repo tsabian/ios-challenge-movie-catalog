@@ -12,30 +12,17 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
 
   let pathURLString: String
   let size: TMDBImageSize
-  let width: CGFloat?
-  let height: CGFloat?
-  let maxWidth: CGFloat?
-  let maxHeight: CGFloat?
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
        pathURLString: String,
-       size: TMDBImageSize = .medium,
-       width: CGFloat? = nil,
-       height: CGFloat? = nil,
-       maxWidth: CGFloat? = nil,
-       maxHeight: CGFloat? = nil) {
+       size: TMDBImageSize = .medium) {
     _viewModel = StateObject(wrappedValue: viewModel())
     self.pathURLString = pathURLString
     self.size = size
-    self.width = width
-    self.height = height
-    self.maxWidth = maxWidth
-    self.maxHeight = maxHeight
   }
 
   var body: some View {
     content
-      .frame(maxWidth: maxWidth, maxHeight: maxHeight)
       .task(id: pathURLString) {
         await viewModel.load(from: pathURLString, size: size)
       }
@@ -69,8 +56,5 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
     viewModel: RemotePosterPreviewMockFactory.make(
       state: .loaded(image: UIImage(named: "poster-w185-01") ?? UIImage())
     ),
-    pathURLString: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-    width: 145.0,
-    height: 235.0
-  )
+    pathURLString: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png")
 }

@@ -6,5 +6,5 @@
 //
 
 enum HomeRouter: Hashable {
-  case movieDetails(details: MovieDetailsModel)
+  case movieDetails(movie: MovieModel)
 }

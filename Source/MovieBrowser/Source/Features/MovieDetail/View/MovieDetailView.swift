@@ -54,7 +54,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
         .ignoresSafeArea()
     }
     .task {
-      await viewModel.load()
+      await viewModel.loadIfNeeded()
     }
   }
 
@@ -74,7 +74,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   private func handleReviewsTap(info: DetailInfo) {
     switch info {
     case .reviews:
-      viewModel.requestNextPage()
+      viewModel.requestNextPageForReviews()
     case .cast:
       viewModel.requestCast()
     case .about:
@@ -85,6 +85,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
 
 #Preview {
   MovieDetailView(
-    viewModel: MovieDetailPreviewMockFactory.make(state: .loaded(.mock()))
+    viewModel: MovieDetailPreviewMockFactory
+      .make(state: .loaded(.mock(isLoadingReviews: true, isLoadingCast: true)))
   )
 }

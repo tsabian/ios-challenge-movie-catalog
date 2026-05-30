@@ -39,12 +39,12 @@ struct ViewModelContainerFactory {
     return builder.build()
   }
 
-  func makeMovieDetail(detail: MovieDetailsModel) -> MovieDetailViewModel {
+  func makeMovieDetail(movie: MovieModel) -> MovieDetailViewModel {
     let builder = MovieDetailBuilder(apiClient: domain.apiClient,
                                      apiKey: domain.apiKey,
                                      language: domain.language,
                                      region: domain.region,
-                                     detail: detail)
+                                     movie: movie)
     return builder.build()
   }
 }

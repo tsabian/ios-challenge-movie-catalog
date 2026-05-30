@@ -32,6 +32,7 @@ struct LazyMovieGridView: View {
           }
       }
     }
+    .padding(12)
   }
 
   func alignmentForIndex(_ index: Int) -> Alignment {

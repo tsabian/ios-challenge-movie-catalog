@@ -16,6 +16,7 @@ struct ReviewsView: View {
   var body: some View {
     if isLoading {
       LoadingView()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     } else {
       if reviews.isEmpty {
         CollectionEmptyStateView(title: String(localized: .thereIsNoReviewYet),
@@ -61,11 +62,13 @@ struct ReviewsView: View {
             HStack(spacing: 5) {
               Image(systemName: "calendar")
                 .foregroundStyle(.white)
-              Text(review.createdAt)
-                .font(MovieBrowserFontsStyle.footnote.bold())
-                .lineLimit(1)
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity, alignment: .leading)
+              if let data = review.createdAt {
+                Text(data)
+                  .font(MovieBrowserFontsStyle.footnote.bold())
+                  .lineLimit(1)
+                  .foregroundStyle(.white)
+                  .frame(maxWidth: .infinity, alignment: .leading)
+              }
             }
           }
         }

@@ -9,5 +9,6 @@ struct MovieModel: Identifiable, Hashable {
   let id: Int
   let title: String
   let posterPath: String
+  let backdropPath: String
   let rank: Int
 }

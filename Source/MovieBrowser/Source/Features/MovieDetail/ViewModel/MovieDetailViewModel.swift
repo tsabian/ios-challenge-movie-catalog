@@ -14,39 +14,64 @@ enum MovieDetailState {
   case error
 }
 
+@MainActor
 final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published private(set) var state: MovieDetailState = .idle
   @Published var backdropPath: String
 
+  private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
   private var cast = [CastModel]()
   private var currentPage = 0
   private var totalPages: Int?
+  private var isLoadingReviews: Bool = true {
+    didSet {
+      updateLoadState()
+    }
+  }
 
+  private var isLoadingCast: Bool = true {
+    didSet {
+      updateLoadState()
+    }
+  }
+
+  private let detailUseCase: FetchMovieDetailUseCaseProtocol
   private let reviewUseCase: FetchMovieReviewsUseCaseProtocol
   private let castUseCase: FetchCastUseCaseProtocol
 
-  private let detail: MovieDetailsModel
+  private let selectedMovie: MovieModel
 
   private var canLoadMoreReviews: Bool {
     guard let totalPages else { return true }
     return currentPage < totalPages
   }
 
-  init(detail: MovieDetailsModel,
+  init(selectedMovie: MovieModel,
+       detailUseCase: FetchMovieDetailUseCaseProtocol,
        reviewUseCase: FetchMovieReviewsUseCaseProtocol,
        castUseCase: FetchCastUseCaseProtocol) {
-    self.detail = detail
-    backdropPath = detail.backdropPath
+    self.selectedMovie = selectedMovie
+    self.detailUseCase = detailUseCase
     self.reviewUseCase = reviewUseCase
     self.castUseCase = castUseCase
+    backdropPath = selectedMovie.backdropPath
   }
 
-  func load() async {
-    state = .loaded(makeContentState())
+  func loadIfNeeded() async {
+    guard case .idle = state else { return }
+
+    state = .loading
+
+    do {
+      detail = try await detailUseCase.execute(movie: selectedMovie.id)
+      updateLoadState()
+    } catch {
+      state = .error
+    }
   }
 
-  func requestNextPage() {
+  func requestNextPageForReviews() {
     Task {
       await loadReviewsIfNeeded()
     }
@@ -59,45 +84,60 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   }
 
   private func loadReviewsIfNeeded() async {
-    guard canLoadMoreReviews else { return }
+    guard canLoadMoreReviews, !isLoadingReviews else {
+      return
+    }
 
-    state = .loaded(makeContentState(isLoadingReviews: true))
+    isLoadingReviews = true
 
     do {
       let nextPage = currentPage + 1
-      let model = try await reviewUseCase.execute(movieID: detail.id,
+      let model = try await reviewUseCase.execute(movieID: selectedMovie.id,
                                                   page: nextPage)
       currentPage = nextPage
       totalPages = model.totalPages
       reviews.append(contentsOf: model.reviews)
 
-      state = .loaded(makeContentState())
+      isLoadingReviews = false
+
     } catch {
-      state = .loaded(makeContentState())
+      isLoadingReviews = false
     }
   }
 
   private func loadCastIfNeeded() async {
-    guard cast.isEmpty else { return }
+    guard cast.isEmpty, !isLoadingCast else {
+      return
+    }
 
-    state = .loaded(makeContentState(isLoadingCast: true))
+    isLoadingCast = true
 
     do {
-      let model = try await castUseCase.execute(id: detail.id)
+      let model = try await castUseCase.execute(id: selectedMovie.id)
       cast = model.cast
-      state = .loaded(makeContentState())
+
+      isLoadingCast = false
+
     } catch {
-      state = .loaded(makeContentState())
+      isLoadingCast = false
     }
   }
 
-  private func makeContentState(isLoadingReviews: Bool = false,
-                                isLoadingCast: Bool = false) -> MovieDetailContentState {
-    MovieDetailContentState(detail: detail,
-                            reviews: reviews,
-                            cast: cast,
-                            isLoadingReviews: isLoadingReviews,
-                            isLoadingCast: isLoadingCast,
-                            canLoadMoreReviews: canLoadMoreReviews)
+  private func updateLoadState() {
+    guard let contentState = makeContentState() else {
+      state = .error
+      return
+    }
+    state = .loaded(contentState)
+  }
+
+  private func makeContentState() -> MovieDetailContentState? {
+    guard let detail else { return nil }
+    return MovieDetailContentState(detail: detail,
+                                   reviews: reviews,
+                                   cast: cast,
+                                   isLoadingReviews: isLoadingReviews,
+                                   isLoadingCast: isLoadingCast,
+                                   canLoadMoreReviews: canLoadMoreReviews)
   }
 }
