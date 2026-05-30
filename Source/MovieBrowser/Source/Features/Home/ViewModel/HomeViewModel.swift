@@ -32,6 +32,8 @@ final class HomeViewModel: HomeViewModelProtocol {
   }
 
   func load() async {
+    guard case .idle = state else { return }
+
     state = .loading
     await fetch()
   }
