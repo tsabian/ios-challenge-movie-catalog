@@ -5,7 +5,7 @@
 //  Created by Tiago de Oliveira on 27/05/26.
 //
 
-import SwiftUI
+import Foundation
 
 public enum ApiClientFactory {
   public static func make(host: String,

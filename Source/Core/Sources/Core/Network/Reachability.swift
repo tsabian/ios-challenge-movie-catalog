@@ -1,5 +1,5 @@
 //
-//  Reachabilty.swift
+//  Reachability.swift
 //  Core
 //
 //  Created by Tiago de Oliveira on 27/05/26.
@@ -7,7 +7,7 @@
 
 import SystemConfiguration
 
-enum Reachabilty {
+enum Reachability {
   static func hasConnection() -> Bool {
     var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0,
                                   sin_port: 0, sin_addr: in_addr(s_addr: 0),

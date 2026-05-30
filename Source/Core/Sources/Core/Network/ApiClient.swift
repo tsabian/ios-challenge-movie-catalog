@@ -23,7 +23,7 @@ public actor ApiClient: ApiClientProtocol {
   }
 
   public func execute(endpoint: Endpoint) async throws -> Data {
-    guard Reachabilty.hasConnection() else {
+    guard Reachability.hasConnection() else {
       throw ApiClientError.noNetworkCoverage
     }
     let request = try await endpoint.createRequest(for: host)

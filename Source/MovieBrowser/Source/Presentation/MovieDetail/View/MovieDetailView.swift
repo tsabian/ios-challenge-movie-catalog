@@ -34,13 +34,13 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
         Button {
-          debugPrint("save item")
+          // TODO: Implemenetar
         } label: {
           Image(systemName: "bookmark.fill")
         }
 
         Button {
-          debugPrint("share item")
+          // TODO: Implemenetar
         } label: {
           Image(systemName: "square.and.arrow.up")
         }

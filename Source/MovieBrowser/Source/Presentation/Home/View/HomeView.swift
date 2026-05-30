@@ -78,17 +78,14 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 
   private func handleSearch(_ query: String) {
     viewModel.searchText = query
-    print("Search: \(query)")
   }
 
   private func handleSearchTextChange(_ query: String) {
     viewModel.searchText = query
-    print(query)
   }
 
   private func handleSearchClear() {
     viewModel.searchText = ""
-    print("clear")
   }
 
   private func handleCategorySelect(_ category: MovieCategory) {
