@@ -19,5 +19,5 @@ struct UserReviewModel: Identifiable, Hashable {
   let url: String?
   let avatarPath: String?
   let rating: String
-  let createdAt: String
+  let createdAt: String?
 }

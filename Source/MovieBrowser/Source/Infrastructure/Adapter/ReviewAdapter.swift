@@ -5,14 +5,15 @@
 //  Created by Tiago de Oliveira on 29/05/26.
 //
 
+import Core
 import Foundation
 
 struct ReviewAdapter {
   func adapt(dto: ReviewCatalogDto) -> ReviewModel {
     ReviewModel(id: dto.id,
                 reviews: dto.results.compactMap(adaptUserReview),
-                totalPages: dto.page,
-                totalResults: dto.totalPages)
+                totalPages: dto.totalPages,
+                totalResults: dto.totalResults)
   }
 
   private func adaptUserReview(element: Review) -> UserReviewModel {
@@ -24,6 +25,6 @@ struct ReviewAdapter {
                     url: element.url,
                     avatarPath: element.authorDetails.avatarPath,
                     rating: String(format: "%.2f", element.authorDetails.rating),
-                    createdAt: element.createdAt)
+                    createdAt: element.createdAt.toDate())
   }
 }
