@@ -18,9 +18,9 @@ enum RemotePosterState {
 @MainActor
 final class RemotePosterViewModel: RemotePosterViewModelProtocol {
   @Published private(set) var state: RemotePosterState = .idle
-  private let useCase: FetchRemoteImageUseCaseProtocol
+  private let useCase: ImageLoadingServiceProtocol
 
-  init(useCase: FetchRemoteImageUseCaseProtocol) {
+  init(useCase: ImageLoadingServiceProtocol) {
     self.useCase = useCase
   }
 

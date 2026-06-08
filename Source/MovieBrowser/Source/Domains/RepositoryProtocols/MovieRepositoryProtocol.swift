@@ -8,8 +8,8 @@
 import Foundation
 
 protocol MovieRepositoryProtocol {
-  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogDto
-  func requestDetail(id: Int) async throws -> MovieDetailDto
-  func requestReviews(id: Int, page: Int) async throws -> ReviewCatalogDto
-  func requestCredits(id: Int) async throws -> CastingDto
+  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogModel
+  func requestDetail(id: Int) async throws -> MovieDetailsModel
+  func requestReviews(id: Int, page: Int) async throws -> ReviewModel
+  func requestCredits(id: Int) async throws -> CastCatalogModel
 }

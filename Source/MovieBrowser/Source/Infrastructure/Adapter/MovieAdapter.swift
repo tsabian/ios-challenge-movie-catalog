@@ -6,14 +6,18 @@
 //
 
 struct MovieAdapter {
-  func adapt(dto movies: [MovieDto]) -> [MovieModel] {
-    movies.enumerated()
-      .compactMap { index, element in
-        MovieModel(id: element.id,
-                   title: element.title,
-                   posterPath: element.posterPath,
-                   backdropPath: element.backdropPath,
-                   rank: index + 1)
-      }
+  func adapt(dto: MovieCatalogDto) -> MovieCatalogModel {
+    MovieCatalogModel(page: dto.page,
+                      movies: dto.results.enumerated().compactMap(adaptMovie),
+                      totalPages: dto.totalPages,
+                      totalResults: dto.totalResults)
+  }
+
+  func adaptMovie(index: Int, dto: MovieDto) -> MovieModel {
+    MovieModel(id: dto.id,
+               title: dto.title,
+               posterPath: dto.posterPath,
+               backdropPath: dto.backdropPath,
+               rank: index + 1)
   }
 }

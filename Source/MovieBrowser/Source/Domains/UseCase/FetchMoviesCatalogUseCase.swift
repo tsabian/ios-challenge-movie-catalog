@@ -6,23 +6,18 @@
 //
 
 struct FetchMoviesCatalogUseCase: FetchMoviesCatalogUseCaseProtocol {
-  private let adapter: MovieAdapter
   private let repository: MovieRepositoryProtocol
 
-  init(adapter: MovieAdapter = MovieAdapter(),
-       repository: MovieRepositoryProtocol) {
-    self.adapter = adapter
+  init(repository: MovieRepositoryProtocol) {
     self.repository = repository
   }
 
-  func execute(category: MovieCategory, page: Int = 1) async throws -> HomeContent {
+  func execute(category: MovieCategory, page: Int = 1) async throws -> HomeContentModel {
     let topRatedMovies = try await repository.fetchMovies(category: .topRated, page: 1)
     let catalog = try await repository.fetchMovies(
       category: category,
       page: category == .topRated ? page + 1 : page
     )
-    let rankedMovies = adapter.adapt(dto: topRatedMovies.results)
-    let movies = adapter.adapt(dto: catalog.results)
-    return HomeContent(rankedMovies: rankedMovies, movies: movies)
+    return HomeContentModel(rankedMovies: topRatedMovies.movies, movies: catalog.movies)
   }
 }

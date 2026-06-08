@@ -10,10 +10,10 @@ struct MovieDetailsModel: Identifiable, Hashable {
   let title: String
   let originalTitle: String
   let releaseYear: Int
-  let runtime: String
+  let runtime: Int
   let genre: String
   let overview: String
   let backdropPath: String
   let posterPath: String
-  let rankAverage: String
+  let rankAverage: Double
 }

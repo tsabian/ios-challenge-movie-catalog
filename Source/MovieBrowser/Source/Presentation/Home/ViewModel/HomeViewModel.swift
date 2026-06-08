@@ -11,7 +11,7 @@ import SwiftUI
 enum HomeState {
   case idle
   case loading
-  case loaded(content: HomeContent)
+  case loaded(content: HomeContentModel)
   case empty
   case error(String)
 }

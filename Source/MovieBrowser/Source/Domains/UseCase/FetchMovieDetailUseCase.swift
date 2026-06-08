@@ -7,16 +7,12 @@
 
 final class FetchMovieDetailUseCase: FetchMovieDetailUseCaseProtocol {
   private let repository: MovieRepositoryProtocol
-  private let adapter: DetailAdapter
 
-  init(repository: MovieRepositoryProtocol,
-       adapter: DetailAdapter = DetailAdapter()) {
+  init(repository: MovieRepositoryProtocol) {
     self.repository = repository
-    self.adapter = adapter
   }
 
   func execute(movie id: Int) async throws -> MovieDetailsModel {
-    let dto = try await repository.requestDetail(id: id)
-    return adapter.adapt(dto: dto)
+    try await repository.requestDetail(id: id)
   }
 }

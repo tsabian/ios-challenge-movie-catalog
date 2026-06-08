@@ -1,5 +1,5 @@
 //
-//  FetchRemoteImageUseCase.swift
+//  ImageLoadingSerice.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 27/05/26.
@@ -9,7 +9,7 @@ import Core
 import Foundation
 import SwiftUI
 
-final class FetchRemoteImageUseCase: FetchRemoteImageUseCaseProtocol {
+final class ImageLoadingSerice: ImageLoadingServiceProtocol {
   private let repository: RemotePosterRepositoryProtocol
   private let cache: ResourceCacheProvider<UIImage>
 

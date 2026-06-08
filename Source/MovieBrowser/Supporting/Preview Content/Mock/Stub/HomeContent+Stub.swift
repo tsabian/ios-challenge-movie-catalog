@@ -5,9 +5,9 @@
 //  Created by Tiago de Oliveira on 29/05/26.
 //
 
-extension HomeContent {
+extension HomeContentModel {
   static func mock() -> Self {
-    HomeContent(rankedMovies: .mock(type: .topRated),
-                movies: .mock(type: .nowPlaying))
+    HomeContentModel(rankedMovies: .mock(type: .topRated),
+                     movies: .mock(type: .nowPlaying))
   }
 }

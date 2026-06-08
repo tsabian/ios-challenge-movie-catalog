@@ -7,16 +7,12 @@
 
 final class FetchMovieReviewsUseCase: FetchMovieReviewsUseCaseProtocol {
   private let repository: MovieRepositoryProtocol
-  private let adapter: ReviewAdapter
 
-  init(repository: MovieRepositoryProtocol,
-       adapter: ReviewAdapter = ReviewAdapter()) {
+  init(repository: MovieRepositoryProtocol) {
     self.repository = repository
-    self.adapter = adapter
   }
 
   func execute(movieID: Int, page: Int) async throws -> ReviewModel {
-    let dto = try await repository.requestReviews(id: movieID, page: page)
-    return adapter.adapt(dto: dto)
+    try await repository.requestReviews(id: movieID, page: page)
   }
 }

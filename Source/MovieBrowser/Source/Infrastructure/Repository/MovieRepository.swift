@@ -32,25 +32,33 @@ final class MovieRepository: MovieRepositoryProtocol {
     self.region = region
   }
 
-  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogDto {
+  func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogModel {
     let data = try await apiClient.execute(endpoint: makeCatalogEndpoint(category,
                                                                          page: page))
-    return try decoder.decode(MovieCatalogDto.self, from: data)
+    let dto = try decoder.decode(MovieCatalogDto.self, from: data)
+    let adapter = MovieAdapter()
+    return adapter.adapt(dto: dto)
   }
 
-  func requestDetail(id: Int) async throws -> MovieDetailDto {
+  func requestDetail(id: Int) async throws -> MovieDetailsModel {
     let data = try await apiClient.execute(endpoint: makeDetailEndpoint(id))
-    return try decoder.decode(MovieDetailDto.self, from: data)
+    let dto = try decoder.decode(MovieDetailDto.self, from: data)
+    let adapter = DetailAdapter()
+    return adapter.adapt(dto: dto)
   }
 
-  func requestReviews(id: Int, page: Int) async throws -> ReviewCatalogDto {
+  func requestReviews(id: Int, page: Int) async throws -> ReviewModel {
     let data = try await apiClient.execute(endpoint: makeReviewsEndpoint(id, page))
-    return try decoder.decode(ReviewCatalogDto.self, from: data)
+    let dto = try decoder.decode(ReviewCatalogDto.self, from: data)
+    let adapter = ReviewAdapter()
+    return adapter.adapt(dto: dto)
   }
 
-  func requestCredits(id: Int) async throws -> CastingDto {
+  func requestCredits(id: Int) async throws -> CastCatalogModel {
     let data = try await apiClient.execute(endpoint: makeCreditsEndpoint(id))
-    return try decoder.decode(CastingDto.self, from: data)
+    let dto = try decoder.decode(CastingDto.self, from: data)
+    let adapter = CastAdapter()
+    return adapter.adapt(dto: dto)
   }
 
   private func makeCatalogEndpoint(_ category: MovieCategory, page: Int) -> Endpoint {

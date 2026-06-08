@@ -103,6 +103,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       isLoadingReviews = false
 
     } catch {
+      // TODO: implementar ErrorStateView
       isLoadingReviews = false
     }
   }
@@ -121,6 +122,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       isLoadingCast = false
 
     } catch {
+      // TODO: implementar ErrorStateView
       isLoadingCast = false
     }
   }

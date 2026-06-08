@@ -22,8 +22,8 @@ struct RemotePosterContainerBuilder {
   func build() -> some RemotePosterViewModel {
     let provider = ResourceCacheProvider<UIImage>(cache: cache)
     let repository = RemotePosterRepository(apiClient: apiClient)
-    let useCase = FetchRemoteImageUseCase(repository: repository,
-                                          cache: provider)
+    let useCase = ImageLoadingSerice(repository: repository,
+                                     cache: provider)
     return RemotePosterViewModel(useCase: useCase)
   }
 }

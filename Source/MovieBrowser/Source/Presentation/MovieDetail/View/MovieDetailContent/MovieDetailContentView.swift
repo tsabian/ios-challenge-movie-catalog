@@ -74,7 +74,7 @@ struct MovieDetailContentView: View {
         .padding(.top, 160)
         .padding(.horizontal, 16)
 
-        RatingView(rankAverage: contentState.detail.rankAverage)
+        RatingView(rankAverage: String(format: "%.2f", contentState.detail.rankAverage))
           .frame(maxWidth: .infinity, alignment: .trailing)
           .padding(.trailing, 16)
           .offset(y: 33)
@@ -87,13 +87,13 @@ struct MovieDetailContentView: View {
       HStack {
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
         Text("|")
-        Label(contentState.detail.runtime, systemImage: "clock")
+        Label(String(localized: .runtimeMinutes(contentState.detail.runtime)), systemImage: "clock")
         Text("|")
         Label(contentState.detail.genre, systemImage: "ticket")
       }
       VStack {
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
-        Label(contentState.detail.runtime, systemImage: "clock")
+        Label(.runtimeMinutes(contentState.detail.runtime), systemImage: "clock")
         Label(contentState.detail.genre, systemImage: "ticket")
       }
     }

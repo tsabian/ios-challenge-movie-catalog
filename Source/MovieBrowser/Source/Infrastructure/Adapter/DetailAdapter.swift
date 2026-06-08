@@ -15,12 +15,12 @@ struct DetailAdapter {
       title: dto.title,
       originalTitle: dto.originalTitle,
       releaseYear: dto.releaseDate.getYear() ?? 0,
-      runtime: String(localized: .runtimeMinutes(dto.runtime)),
+      runtime: dto.runtime,
       genre: dto.genres.first?.name ?? "",
       overview: dto.overview,
       backdropPath: dto.backdropPath,
       posterPath: dto.posterPath,
-      rankAverage: String(format: "%.2f", dto.voteAverage)
+      rankAverage: dto.voteAverage
     )
   }
 }
