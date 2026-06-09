@@ -78,6 +78,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       CollectionEmptyStateView(title: String(localized: .noResultsTitle),
                                message: String(localized: .noResultsMessage))
     case .error:
+      // TODO: Ajustar o erro
       EmptyView()
     }
   }

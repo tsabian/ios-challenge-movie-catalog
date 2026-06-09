@@ -9,7 +9,7 @@ struct CastModel: Identifiable, Hashable {
   let gender, id: Int
   let knownForDepartment: String?
   let name, originalName: String
-  let popularity: String
+  let popularity: Double
   let profilePath: String?
   let castID: Int?
   let character: String?

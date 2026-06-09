@@ -16,7 +16,7 @@ struct ReviewAdapter {
                 totalResults: dto.totalResults)
   }
 
-  private func adaptUserReview(element: Review) -> UserReviewModel {
+  private func adaptUserReview(element: ReviewDto) -> UserReviewModel {
     UserReviewModel(id: element.id,
                     author: element.author,
                     content: element.content,
@@ -24,7 +24,7 @@ struct ReviewAdapter {
                     username: element.authorDetails.username,
                     url: element.url,
                     avatarPath: element.authorDetails.avatarPath,
-                    rating: String(format: "%.2f", element.authorDetails.rating),
-                    createdAt: element.createdAt.formatarDataISO())
+                    rating: element.authorDetails.rating,
+                    createdAt: element.createdAt)
   }
 }

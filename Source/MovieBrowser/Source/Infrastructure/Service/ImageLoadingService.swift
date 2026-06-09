@@ -1,5 +1,5 @@
 //
-//  ImageLoadingSerice.swift
+//  ImageLoadingService.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 27/05/26.
@@ -9,7 +9,7 @@ import Core
 import Foundation
 import SwiftUI
 
-final class ImageLoadingSerice: ImageLoadingServiceProtocol {
+final class ImageLoadingService: ImageLoadingServiceProtocol {
   private let repository: RemotePosterRepositoryProtocol
   private let cache: ResourceCacheProvider<UIImage>
 

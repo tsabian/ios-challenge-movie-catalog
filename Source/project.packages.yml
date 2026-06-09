@@ -1,4 +1,4 @@
 packages:
   Core:
-    path: Source/Core
+    path: Core
     excludeFromProject: false

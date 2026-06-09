@@ -9,7 +9,7 @@ extension MovieDetailsModel {
   static func mock() -> Self {
     do {
       let dto = try PreviewDataFactory.shared.makeMovieDetail()
-      return DetailAdapter().adapt(dto: dto)
+      return MovieDetailAdapter().adapt(dto: dto)
     } catch {
       fatalError()
     }

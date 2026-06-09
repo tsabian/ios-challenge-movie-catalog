@@ -1,3 +1,6 @@
+# ignore .build folder
+
+
 disabled_rules:
   - trailing_whitespace
 
@@ -7,7 +10,8 @@ opt_in_rules:
 excluded:
   - Pods
   - Carthage
-  - .build
+  - "**/.build/**"
+  - "Source/Core/.build/**"
 
 line_length:
   warning: 120

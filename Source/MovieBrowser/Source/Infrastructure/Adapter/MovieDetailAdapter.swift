@@ -1,5 +1,5 @@
 //
-//  DetailAdapter.swift
+//  MovieDetailAdapter.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 29/05/26.
@@ -8,7 +8,7 @@
 import Core
 import SwiftUI
 
-struct DetailAdapter {
+struct MovieDetailAdapter {
   func adapt(dto: MovieDetailDto) -> MovieDetailsModel {
     MovieDetailsModel(
       id: dto.id,

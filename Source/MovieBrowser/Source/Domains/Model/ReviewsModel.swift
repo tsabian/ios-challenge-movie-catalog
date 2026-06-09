@@ -5,6 +5,8 @@
 //  Created by Tiago de Oliveira on 29/05/26.
 //
 
+import Foundation
+
 struct ReviewModel: Identifiable, Hashable {
   let id: Int
   let reviews: [UserReviewModel]
@@ -18,6 +20,6 @@ struct UserReviewModel: Identifiable, Hashable {
   let name, username: String
   let url: String?
   let avatarPath: String?
-  let rating: String
-  let createdAt: String?
+  let rating: Double
+  let createdAt: Date?
 }

@@ -43,7 +43,7 @@ struct ReviewsView: View {
                 .clipShape(Circle())
                 .frame(width: 44)
             }
-            RatingView(rankAverage: review.rating)
+            RatingView(rankAverage: review.ratingText)
           }
 
           VStack(spacing: 12) {
@@ -59,11 +59,11 @@ struct ReviewsView: View {
               .foregroundStyle(.white)
               .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let data = review.createdAt {
+            if let date = review.createdAtText {
               HStack(spacing: 5) {
                 Image(systemName: "calendar")
                   .foregroundStyle(.white)
-                Text(data)
+                Text(date)
                   .font(MovieBrowserFontsStyle.footnote.bold())
                   .lineLimit(1)
                   .foregroundStyle(.white)

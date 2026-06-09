@@ -23,7 +23,7 @@ struct CastAdapter {
       knownForDepartment: dto.knownForDepartment.rawValue,
       name: dto.name,
       originalName: dto.originalName,
-      popularity: String(format: "%.1f", dto.popularity),
+      popularity: dto.popularity,
       profilePath: dto.profilePath,
       castID: dto.castID,
       character: dto.character,

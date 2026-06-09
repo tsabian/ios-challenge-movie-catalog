@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct MovieDetailContentView: View {
-  @Environment(\.appContainer) private var appContainer
+struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: View {
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
   @ScaledMetric(relativeTo: .body) private var posterWidth: CGFloat = 95
   @ScaledMetric(relativeTo: .body) private var posterHeight: CGFloat = 120
   @ScaledMetric(relativeTo: .body) private var backdropHeight: CGFloat = 210
   @State private var currentInfo: DetailInfo = .about
+
+  private let makeRemotePosterViewModel: () -> RemotePosterVM
 
   private var isAccessibilitySize: Bool {
     dynamicTypeSize.isAccessibilitySize
@@ -23,14 +24,16 @@ struct MovieDetailContentView: View {
   var infoTapAction: (DetailInfo) -> Void
 
   init(contentState: MovieDetailContentState,
-       infoTapAction: @escaping (DetailInfo) -> Void) {
+       infoTapAction: @escaping (DetailInfo) -> Void,
+       makeRemotePosterViewModel: @autoclosure @escaping () -> RemotePosterVM) {
     self.contentState = contentState
     self.infoTapAction = infoTapAction
+    self.makeRemotePosterViewModel = makeRemotePosterViewModel
   }
 
   var body: some View {
     ZStack(alignment: .top) {
-      RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+      RemotePosterView(viewModel: makeRemotePosterViewModel(),
                        pathURLString: contentState.detail.backdropPath,
                        size: .medium)
         .scaledToFill()
@@ -54,7 +57,7 @@ struct MovieDetailContentView: View {
     VStack(spacing: 16) {
       ZStack {
         HStack(alignment: .top, spacing: 12) {
-          RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+          RemotePosterView(viewModel: makeRemotePosterViewModel(),
                            pathURLString: contentState.detail.posterPath,
                            size: .small)
             .frame(width: min(posterWidth, 130), height: min(posterHeight, 165))
@@ -74,7 +77,7 @@ struct MovieDetailContentView: View {
         .padding(.top, 160)
         .padding(.horizontal, 16)
 
-        RatingView(rankAverage: String(format: "%.2f", contentState.detail.rankAverage))
+        RatingView(rankAverage: contentState.detail.rankAverageText)
           .frame(maxWidth: .infinity, alignment: .trailing)
           .padding(.trailing, 16)
           .offset(y: 33)
@@ -87,13 +90,13 @@ struct MovieDetailContentView: View {
       HStack {
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
         Text("|")
-        Label(String(localized: .runtimeMinutes(contentState.detail.runtime)), systemImage: "clock")
+        Label(contentState.detail.runtimeText, systemImage: "clock")
         Text("|")
         Label(contentState.detail.genre, systemImage: "ticket")
       }
       VStack {
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
-        Label(.runtimeMinutes(contentState.detail.runtime), systemImage: "clock")
+        Label(contentState.detail.runtimeText, systemImage: "clock")
         Label(contentState.detail.genre, systemImage: "ticket")
       }
     }
@@ -156,5 +159,6 @@ struct MovieDetailContentView: View {
   MovieDetailContentView(contentState: .mock(),
                          infoTapAction: { info in
                            debugPrint("review tap \(info)")
-                         })
+                         },
+                         makeRemotePosterViewModel: RemotePosterViewModelMock())
 }

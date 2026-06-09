@@ -53,7 +53,7 @@ struct CastView: View {
             .clipShape(Circle())
             .frame(width: 100, height: 100)
 
-          Text(element.popularity)
+          Text(element.popularityText)
             .font(MovieBrowserFontsStyle.footnote)
             .foregroundStyle(.white)
             .frame(width: 32, height: 32)

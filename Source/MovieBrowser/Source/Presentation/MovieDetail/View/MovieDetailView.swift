@@ -15,6 +15,7 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 }
 
 struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
+  @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
 
   init(viewModel: @autoclosure @escaping () -> ViewModel) {
@@ -65,8 +66,11 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     case .idle, .loading:
       LoadingView()
     case let .loaded(contentState):
-      MovieDetailContentView(contentState: contentState,
-                             infoTapAction: handleReviewsTap)
+      MovieDetailContentView(
+        contentState: contentState,
+        infoTapAction: handleReviewsTap,
+        makeRemotePosterViewModel: appContainer.viewModelFactory.makeRemotePoster()
+      )
     case .error:
       EmptyView()
     }

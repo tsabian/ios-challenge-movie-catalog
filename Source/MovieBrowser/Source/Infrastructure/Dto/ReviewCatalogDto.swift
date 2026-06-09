@@ -5,11 +5,13 @@
 //  Created by Tiago de Oliveira on 29/05/26.
 //
 
+import Foundation
+
 // MARK: - ReviewCatalogDto
 
 struct ReviewCatalogDto: Decodable {
   let id, page: Int
-  let results: [Review]
+  let results: [ReviewDto]
   let totalPages, totalResults: Int
 
   enum CodingKeys: String, CodingKey {
@@ -21,12 +23,12 @@ struct ReviewCatalogDto: Decodable {
 
 // MARK: - Result
 
-struct Review: Decodable {
+struct ReviewDto: Decodable {
   let id: String
   let author: String
   let authorDetails: AuthorDetailsDto
   let content: String
-  let createdAt: String
+  let createdAt: Date
   let updatedAt: String
   let url: String
 

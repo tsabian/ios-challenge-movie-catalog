@@ -2,6 +2,6 @@ name: MovieBrowser
 
 include:
   - project.options.yml                      # options globais do projeto
-  - project.packages.yml                     # dependências de pacotes
+  - Source/project.packages.yml                     # dependências de pacotes
   - Source/project.targets.yml               # targets e configurações específicas
-  - project.schemes.yml                      # schemes e configs de execução
+  - Source/project.schemes.yml                      # schemes e configs de execução

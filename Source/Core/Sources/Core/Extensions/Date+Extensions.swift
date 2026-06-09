@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
   /// Converts a Date object into a formatted string based on specified configurations.
   ///
   /// This extension allows quick and robust conversion of Date objects into strings for API payloads

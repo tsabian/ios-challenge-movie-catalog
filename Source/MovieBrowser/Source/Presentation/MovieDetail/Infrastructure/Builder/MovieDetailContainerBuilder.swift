@@ -27,10 +27,17 @@ struct MovieDetailBuilder {
   }
 
   func build() -> MovieDetailViewModel {
-    let repository = MovieRepository(apiClient: apiClient,
-                                     apiKey: apiKey,
-                                     language: language,
-                                     region: region)
+    let dependencies = MovieRepositoryDependencies(
+      apiClient: apiClient,
+      apiKey: apiKey,
+      language: language,
+      region: region,
+      movieAdapter: .init(),
+      detailAdapter: .init(),
+      reviewAdapter: .init(),
+      castAdapter: .init()
+    )
+    let repository = MovieRepository(dependencies: dependencies)
     let detailUseCase = FetchMovieDetailUseCase(repository: repository)
     let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
     let castUseCase = FetchCastUseCase(repository: repository)

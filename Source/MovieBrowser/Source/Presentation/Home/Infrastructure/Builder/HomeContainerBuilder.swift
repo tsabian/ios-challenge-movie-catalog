@@ -24,10 +24,17 @@ struct HomeContainerBuilder {
   }
 
   func build() -> HomeViewModel {
-    let repository = MovieRepository(apiClient: apiClient,
-                                     apiKey: apiKey,
-                                     language: language,
-                                     region: region)
+    let dependencies = MovieRepositoryDependencies(
+      apiClient: apiClient,
+      apiKey: apiKey,
+      language: language,
+      region: region,
+      movieAdapter: .init(),
+      detailAdapter: .init(),
+      reviewAdapter: .init(),
+      castAdapter: .init()
+    )
+    let repository = MovieRepository(dependencies: dependencies)
     let movieUseCase = FetchMoviesCatalogUseCase(repository: repository)
     return HomeViewModel(movieUseCase: movieUseCase)
   }
