@@ -17,7 +17,7 @@ enum MovieDetailState {
 @MainActor
 final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published private(set) var state: MovieDetailState = .idle
-  @Published var backdropPath: String
+  @Published var backdropPath: String?
   @Published var movieTitle: String
 
   private var detail: MovieDetailsModel?

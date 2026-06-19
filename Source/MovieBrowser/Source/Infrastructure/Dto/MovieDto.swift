@@ -7,14 +7,15 @@
 
 struct MovieDto: Decodable {
   let adult: Bool
-  let backdropPath: String
+  let backdropPath: String?
   let genreIDS: [Int]
   let id: Int
   let title: String
   let originalLanguage: String
   let originalTitle, overview: String
   let popularity: Double
-  let posterPath, releaseDate: String
+  let posterPath: String?
+  let releaseDate: String
   let softcore, video: Bool
   let voteAverage: Double
   let voteCount: Int

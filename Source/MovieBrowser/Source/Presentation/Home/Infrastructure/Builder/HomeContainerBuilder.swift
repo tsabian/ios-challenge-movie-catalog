@@ -35,7 +35,9 @@ struct HomeContainerBuilder {
       castAdapter: .init()
     )
     let repository = MovieRepository(dependencies: dependencies)
-    let movieUseCase = FetchMoviesCatalogUseCase(repository: repository)
-    return HomeViewModel(movieUseCase: movieUseCase)
+    let homeContentUseCase = FetchHomeContentUseCase(repository: repository)
+    let movieCatalogUseCase = FetchMovieCatalogUseCase(repository: repository)
+    return HomeViewModel(homeContentUseCase: homeContentUseCase,
+                         movieCatalogUseCase: movieCatalogUseCase)
   }
 }

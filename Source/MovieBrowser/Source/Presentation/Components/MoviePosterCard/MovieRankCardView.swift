@@ -12,7 +12,7 @@ struct MovieRankCardView: View {
 
   let posterWidth: CGFloat
   let posterHeight: CGFloat
-  let imageName: String
+  let imageName: String?
   let rank: Int
   let outLinetextOffSet = CGPoint(x: -10, y: 33)
   let isRankHidden: Bool

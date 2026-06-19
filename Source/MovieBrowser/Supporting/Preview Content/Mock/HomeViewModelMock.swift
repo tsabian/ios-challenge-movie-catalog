@@ -13,6 +13,7 @@ final class HomeViewModelMock: HomeViewModelProtocol {
   @Published var path: [HomeRouter] = []
   @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .topRated
+  @Published var page = 1
 
   func load() async {}
   func select(category _: MovieCategory) async {}

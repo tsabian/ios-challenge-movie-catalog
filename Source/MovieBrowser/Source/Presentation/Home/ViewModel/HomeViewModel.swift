@@ -18,15 +18,21 @@ enum HomeState {
 
 @MainActor
 final class HomeViewModel: HomeViewModelProtocol {
-  private let movieUseCase: FetchMoviesCatalogUseCaseProtocol
+  private let homeContentUseCase: FetchHomeContentUseCaseProtocol
+  private let movieCatalogUseCase: FetchMovieCatalogUseCaseProtocol
 
   @Published private(set) var state: HomeState = .idle
   @Published var path = [HomeRouter]()
   @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .nowPlaying
+  @Published var page: Int = 1
 
-  init(movieUseCase: FetchMoviesCatalogUseCaseProtocol) {
-    self.movieUseCase = movieUseCase
+  private var content: HomeContentModel?
+
+  init(homeContentUseCase: FetchHomeContentUseCaseProtocol,
+       movieCatalogUseCase: FetchMovieCatalogUseCaseProtocol) {
+    self.homeContentUseCase = homeContentUseCase
+    self.movieCatalogUseCase = movieCatalogUseCase
   }
 
   func load() async {
@@ -38,7 +44,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   func select(category: MovieCategory) async {
     currentCategory = category
-    await fetch()
+    await fetchCatalog()
   }
 
   func requestDetail(movie: MovieModel) {
@@ -47,9 +53,20 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   private func fetch() async {
     do {
-      let content = try await movieUseCase.execute(category: currentCategory, page: 1)
+      let content = try await homeContentUseCase.execute(category: currentCategory, page: 1)
+      self.content = content
       state = content.movies.isEmpty && content.rankedMovies.isEmpty ? .empty :
         .loaded(content: content)
+    } catch {
+      state = .error(error.localizedDescription)
+    }
+  }
+
+  private func fetchCatalog() async {
+    do {
+      let catalog = try await movieCatalogUseCase.fetch(by: currentCategory, page: page)
+      state = .loaded(content: HomeContentModel(rankedMovies: content?.rankedMovies ?? [],
+                                                movies: catalog.movies))
     } catch {
       state = .error(error.localizedDescription)
     }

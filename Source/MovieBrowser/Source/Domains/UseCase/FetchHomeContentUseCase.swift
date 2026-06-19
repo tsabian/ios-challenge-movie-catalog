@@ -1,11 +1,11 @@
 //
-//  FetchMoviesCatalogUseCase.swift
+//  FetchHomeContentUseCase.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 27/05/26.
 //
 
-struct FetchMoviesCatalogUseCase: FetchMoviesCatalogUseCaseProtocol {
+struct FetchHomeContentUseCase: FetchHomeContentUseCaseProtocol {
   private let repository: MovieRepositoryProtocol
 
   init(repository: MovieRepositoryProtocol) {

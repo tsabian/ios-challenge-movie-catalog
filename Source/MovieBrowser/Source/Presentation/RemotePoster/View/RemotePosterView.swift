@@ -10,11 +10,11 @@ import SwiftUI
 struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
   @StateObject private var viewModel: ViewModel
 
-  let pathURLString: String
+  let pathURLString: String?
   let size: TMDBImageSize
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
-       pathURLString: String,
+       pathURLString: String?,
        size: TMDBImageSize = .medium) {
     _viewModel = StateObject(wrappedValue: viewModel())
     self.pathURLString = pathURLString

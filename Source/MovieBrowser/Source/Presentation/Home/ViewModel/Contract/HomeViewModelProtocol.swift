@@ -12,6 +12,7 @@ protocol HomeViewModelProtocol: ObservableObject {
   var path: [HomeRouter] { get set }
   var searchText: String { get set }
   var currentCategory: MovieCategory { get set }
+  var page: Int { get set }
 
   func load() async
   func select(category: MovieCategory) async

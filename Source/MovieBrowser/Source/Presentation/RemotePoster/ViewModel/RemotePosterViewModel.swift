@@ -24,8 +24,8 @@ final class RemotePosterViewModel: RemotePosterViewModelProtocol {
     self.useCase = useCase
   }
 
-  func load(from pathURLString: String, size: TMDBImageSize) async {
-    guard !pathURLString.isEmpty else {
+  func load(from pathURLString: String?, size: TMDBImageSize) async {
+    guard let pathURLString, !pathURLString.isEmpty else {
       state = .failed
       return
     }

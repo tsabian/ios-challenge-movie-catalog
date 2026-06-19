@@ -10,16 +10,18 @@ import SwiftUI
 struct AppBackgroundView: View {
   @Environment(\.appContainer) private var appContainer: AppContainer
 
-  let pathURLString: String
+  let pathURLString: String?
 
   var body: some View {
     ZStack {
-      RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                       pathURLString: pathURLString)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .scaledToFill()
-        .blur(radius: 10)
-        .zIndex(0)
+      if let pathURLString {
+        RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+                         pathURLString: pathURLString)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .scaledToFill()
+          .blur(radius: 10)
+          .zIndex(0)
+      }
 
       GeometryReader { _ in
         LinearGradient(colors: [
