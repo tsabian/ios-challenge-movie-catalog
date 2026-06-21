@@ -10,6 +10,7 @@ import SwiftUI
 
 final class HomeViewModelMock: HomeViewModelProtocol {
   @Published var state: HomeState = .idle
+  @Published private(set) var isLoadingNextPage: Bool = false
   @Published var currentCategory: MovieCategory = .topRated
   @Published var page = 1
 
@@ -19,5 +20,9 @@ final class HomeViewModelMock: HomeViewModelProtocol {
   func change(state: HomeState) -> Self {
     self.state = state
     return self
+  }
+
+  func loadNextPage() async {
+    isLoadingNextPage = true
   }
 }

@@ -34,6 +34,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 
           SearchField(searchText: $searchText,
                       onSearch: handleSearch,
+                      onClear: handleSearchClear,
                       isSearchFocused: $isSearchFieldFocused)
 
           content
@@ -74,8 +75,10 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                             tapAction: handleNavigate)
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
-      if !content.movies.isEmpty {
-        LazyMovieGridView(movies: content.movies,
+      if !content.movieCatalog.movies.isEmpty {
+        LazyMovieGridView(movieCatalog: content.movieCatalog,
+                          isLoadingNextPage: viewModel.isLoadingNextPage,
+                          loadNextPage: viewModel.loadNextPage,
                           tapAction: handleNavigate)
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
@@ -103,6 +106,10 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   private func handleNavigate(_ movie: MovieModel) {
     isSearchFieldFocused = false
     router.navigation(to: .openDetails(movie: movie))
+  }
+
+  private func handleSearchClear() {
+    searchText = ""
   }
 }
 

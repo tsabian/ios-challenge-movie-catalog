@@ -43,8 +43,7 @@ struct MovieListView: View {
             }
         }
         if isLoadingNextPage {
-          ProgressView()
-            .padding(.vertical, 8)
+          LoadingView()
         }
       }
     }
