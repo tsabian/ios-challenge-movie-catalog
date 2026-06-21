@@ -15,9 +15,11 @@ enum AppTab: Hashable {
 }
 
 struct ContentView: View {
+  @Environment(\.appContainer) private var container: AppContainer
+
   @State private var selectedTab: AppTab = .home
   @State private var searchQuery = ""
-  @Environment(\.appContainer) private var container: AppContainer
+  @State private var searchRouter = SearchRouter()
 
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -29,6 +31,7 @@ struct ContentView: View {
         }.tag(AppTab.home)
 
       SearchView(viewModel: container.viewModelFactory.makeSearch(),
+                 router: $searchRouter,
                  query: $searchQuery)
         .tabItem {
           Image(systemName: "magnifyingglass")

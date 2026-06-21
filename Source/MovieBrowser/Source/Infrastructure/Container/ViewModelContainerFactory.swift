@@ -1,5 +1,5 @@
 //
-//  ViewModelContainer.swift
+//  ViewModelContainerFactory.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 28/05/26.

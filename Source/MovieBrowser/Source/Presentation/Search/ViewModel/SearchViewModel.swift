@@ -21,36 +21,32 @@ final class SearchViewModel: SearchViewModelProtocol {
   private let genreUseCase: FetchGenreUseCaseProtocol
 
   @Published private(set) var state: SearchState = .idle
-  @Published var path = [SearchRouter]()
+  @Published private(set) var navigate: SearchFeatures? = .none
   @Published var page = 1
 
   private var title: String?
+  private var genres: [GenreModel] = []
 
   init(searchUseCase: SearchMovieUseCaseProtocol,
        genreUseCase: FetchGenreUseCaseProtocol) {
     self.searchUseCase = searchUseCase
     self.genreUseCase = genreUseCase
-    state = state
   }
 
   func search(movie title: String) async {
     self.title = title
     state = .loading
     do {
+      try await loadGenresIfNeeded()
       let movies = try await searchUseCase.find(movie: title, page: page)
-      state = .loaded(content: movies)
+      state = movies.totalResults == 0 ? .empty : .loaded(content: movies)
     } catch {
       state = .error(error.localizedDescription)
     }
   }
 
-  func getGenreName(id: Int) async -> String {
-    let genreDefault = GenreModel(id: 0, name: "Unknow")
-    guard let genres = try? await genreUseCase.fetch(),
-          let first = genres.first(where: { $0.id == id }) else {
-      return genreDefault.name
-    }
-    return first.name
+  func getGenreName(id: Int) -> String {
+    genres.first(where: { $0.id == id })?.name ?? "Unknown"
   }
 
   func reset() {
@@ -63,6 +59,11 @@ final class SearchViewModel: SearchViewModelProtocol {
                            posterPath: selectedMovie.posterPath,
                            backdropPath: nil,
                            rank: 0)
-    path.append(.movieDetails(movie: movie))
+    navigate = .movieDetails(movie: movie)
+  }
+
+  private func loadGenresIfNeeded() async throws {
+    guard genres.isEmpty else { return }
+    genres = try await genreUseCase.fetch()
   }
 }

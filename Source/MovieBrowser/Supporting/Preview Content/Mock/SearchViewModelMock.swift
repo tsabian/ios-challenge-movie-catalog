@@ -9,7 +9,7 @@ import Combine
 
 final class SearchViewModelMock: SearchViewModelProtocol {
   @Published var state: SearchState = .idle
-  @Published var path = [SearchRouter]()
+  @Published private(set) var navigate: SearchFeatures? = .none
   @Published var page = 1
 
   var getGenreNameResult = "Unknown"
@@ -23,7 +23,7 @@ final class SearchViewModelMock: SearchViewModelProtocol {
     return self
   }
 
-  func getGenreName(id _: Int) async -> String {
+  func getGenreName(id _: Int) -> String {
     getGenreNameResult
   }
 
@@ -37,6 +37,6 @@ final class SearchViewModelMock: SearchViewModelProtocol {
                            posterPath: selectedMovie.posterPath,
                            backdropPath: nil,
                            rank: 0)
-    path.append(.movieDetails(movie: movie))
+    navigate = .movieDetails(movie: movie)
   }
 }
