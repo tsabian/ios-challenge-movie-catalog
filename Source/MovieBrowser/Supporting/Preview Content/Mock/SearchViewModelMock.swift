@@ -9,7 +9,6 @@ import Combine
 
 final class SearchViewModelMock: SearchViewModelProtocol {
   @Published var state: SearchState = .idle
-  @Published private(set) var navigate: SearchFeatures? = .none
   @Published var page = 1
 
   var getGenreNameResult = "Unknown"
@@ -31,12 +30,7 @@ final class SearchViewModelMock: SearchViewModelProtocol {
     state = .idle
   }
 
-  func requestDetails(selectedMovie: SearchMovieResultModel) {
-    let movie = MovieModel(id: selectedMovie.id,
-                           title: selectedMovie.title,
-                           posterPath: selectedMovie.posterPath,
-                           backdropPath: nil,
-                           rank: 0)
-    navigate = .movieDetails(movie: movie)
+  func makeMovieModel(from _: SearchMovieResultModel) -> MovieModel {
+    .mock()
   }
 }

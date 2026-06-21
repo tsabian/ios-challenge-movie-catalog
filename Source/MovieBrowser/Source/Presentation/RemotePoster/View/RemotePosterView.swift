@@ -39,7 +39,7 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
     case let .loaded(image):
       Image(uiImage: image)
         .resizable()
-        .scaledToFill()
+        .scaledToFit()
     case .failed:
       Rectangle()
         .fill(Color.accentGray.opacity(0.3))

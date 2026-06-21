@@ -22,7 +22,6 @@ final class HomeViewModel: HomeViewModelProtocol {
   private let movieCatalogUseCase: FetchMovieCatalogUseCaseProtocol
 
   @Published private(set) var state: HomeState = .idle
-  @Published var path = [HomeRouter]()
   @Published var currentCategory: MovieCategory = .nowPlaying
   @Published var page: Int = 1
 
@@ -44,10 +43,6 @@ final class HomeViewModel: HomeViewModelProtocol {
   func select(category: MovieCategory) async {
     currentCategory = category
     await fetchCatalog()
-  }
-
-  func requestDetail(movie: MovieModel) {
-    path.append(.movieDetails(movie: movie))
   }
 
   private func fetch() async {

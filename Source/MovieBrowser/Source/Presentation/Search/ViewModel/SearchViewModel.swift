@@ -21,7 +21,6 @@ final class SearchViewModel: SearchViewModelProtocol {
   private let genreUseCase: FetchGenreUseCaseProtocol
 
   @Published private(set) var state: SearchState = .idle
-  @Published private(set) var navigate: SearchFeatures? = .none
   @Published var page = 1
 
   private var title: String?
@@ -53,17 +52,16 @@ final class SearchViewModel: SearchViewModelProtocol {
     state = .idle
   }
 
-  func requestDetails(selectedMovie: SearchMovieResultModel) {
-    let movie = MovieModel(id: selectedMovie.id,
-                           title: selectedMovie.title,
-                           posterPath: selectedMovie.posterPath,
-                           backdropPath: nil,
-                           rank: 0)
-    navigate = .movieDetails(movie: movie)
-  }
-
   private func loadGenresIfNeeded() async throws {
     guard genres.isEmpty else { return }
     genres = try await genreUseCase.fetch()
+  }
+
+  func makeMovieModel(from movie: SearchMovieResultModel) -> MovieModel {
+    MovieModel(id: movie.id,
+               title: movie.title,
+               posterPath: movie.posterPath,
+               backdropPath: nil,
+               rank: 0)
   }
 }

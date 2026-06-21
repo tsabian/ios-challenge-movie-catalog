@@ -23,10 +23,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   }
 
   var body: some View {
-    VStack(spacing: 0) {
-      Rectangle()
-        .foregroundStyle(Color.accentColor.opacity(0.3))
-        .frame(height: 107)
+    VStack {
       ScrollView(.vertical, showsIndicators: false) {
         content
       }
@@ -49,7 +46,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     }
     .navigationTitle(viewModel.movieTitle)
     .navigationBarTitleDisplayMode(.inline)
-    .ignoresSafeArea()
+    .ignoresSafeArea(edges: [.horizontal])
     .background {
       AppBackgroundView(pathURLString: viewModel.backdropPath)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

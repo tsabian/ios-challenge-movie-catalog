@@ -39,9 +39,9 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding([.leading, .trailing], 22)
       }
-      .navigationDestination(for: SearchFeatures.self) { router in
+      .navigationDestination(for: SearchRouterFeatures.self) { router in
         switch router {
-        case let .movieDetails(selectedMovie):
+        case let .openDetails(selectedMovie):
           MovieDetailView(
             viewModel: appContainer.viewModelFactory.makeMovieDetail(movie: selectedMovie)
           )
@@ -117,8 +117,7 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
         .onTapGesture {
-          viewModel.requestDetails(selectedMovie: movie)
-          bindingFeature()
+          handleNavigate(.openDetails(movie: viewModel.makeMovieModel(from: movie)))
         }
       }
     }
@@ -143,19 +142,10 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
     viewModel.reset()
   }
 
-  private func handleNavigate(_ feature: SearchFeatures) {
+  private func handleNavigate(_ feature: SearchRouterFeatures) {
     switch feature {
-    case let .movieDetails(movie):
-      router.openMovieDetails(movie: movie)
-    }
-  }
-
-  private func bindingFeature() {
-    switch viewModel.navigate {
-    case let .movieDetails(movie):
-      router.openMovieDetails(movie: movie)
-    case .none:
-      break
+    case let .openDetails(movie):
+      router.navigation(to: .openDetails(movie: movie))
     }
   }
 }

@@ -34,8 +34,7 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
   var body: some View {
     ZStack(alignment: .top) {
       RemotePosterView(viewModel: makeRemotePosterViewModel(),
-                       pathURLString: contentState.detail.backdropPath,
-                       size: .medium)
+                       pathURLString: contentState.detail.backdropPath)
         .scaledToFill()
         .frame(height: min(backdropHeight, 260))
         .frame(maxWidth: .infinity)
@@ -60,7 +59,8 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
           RemotePosterView(viewModel: makeRemotePosterViewModel(),
                            pathURLString: contentState.detail.posterPath,
                            size: .small)
-            .frame(width: min(posterWidth, 130), height: min(posterHeight, 165))
+            .frame(width: min(posterWidth, 130),
+                   height: min(posterHeight, 165))
             .cornerRadius(16)
 
           VStack(alignment: .leading) {
@@ -91,8 +91,10 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
         Text("|")
         Label(contentState.detail.runtimeText, systemImage: "clock")
-        Text("|")
-        Label(contentState.detail.genre, systemImage: "ticket")
+        if !contentState.detail.genre.isEmpty {
+          Text("|")
+          Label(contentState.detail.genre, systemImage: "ticket")
+        }
       }
       VStack {
         Label("\(contentState.detail.releaseYear)", systemImage: "calendar")
@@ -142,6 +144,7 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
 
   private var aboutMovie: some View {
     Text(contentState.detail.overview)
+      .padding()
   }
 
   private var reviews: some View {

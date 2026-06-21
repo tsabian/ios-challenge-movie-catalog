@@ -11,17 +11,17 @@ import Foundation
 
 struct MovieDetailDto: Decodable {
   let adult: Bool
-  let backdropPath: String
+  let backdropPath: String?
   let belongsToCollection: BelongsToCollectionDto?
   let budget: Int
   let genres: [GenreDto]
   let homepage: String
   let id: Int
-  let imdbID: String
+  let imdbID: String?
   let originCountry: [String]
   let originalLanguage, originalTitle, overview: String
   let popularity: Double
-  let posterPath: String
+  let posterPath: String?
   let productionCompanies: [ProductionCompanyDto]
   let productionCountries: [ProductionCountryDto]
   let releaseDate: String

@@ -21,6 +21,7 @@ final class MovieRepository: MovieRepositoryProtocol {
        decoder: JSONDecoder = JSONDecoder()) {
     self.dependencies = dependencies
     self.decoder = decoder
+    self.decoder.dateDecodingStrategy = .iso8601
   }
 
   func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogModel {

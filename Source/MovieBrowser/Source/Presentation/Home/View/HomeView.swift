@@ -10,19 +10,22 @@ import SwiftUI
 struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
+  @Binding private var router: HomeRouter
   @FocusState private var isSearchFieldFocused: Bool
   @State private var searchText: String = ""
 
   var openSearch: ((String) -> Void)?
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
+       router: Binding<HomeRouter>,
        openSearch: ((String) -> Void)?) {
     _viewModel = StateObject(wrappedValue: viewModel())
+    _router = router
     self.openSearch = openSearch
   }
 
   var body: some View {
-    NavigationStack(path: $viewModel.path) {
+    NavigationStack(path: $router.path) {
       ScrollView(.vertical, showsIndicators: false) {
         VStack(alignment: .leading, spacing: 15) {
           Text(.whatDoYouWantToWatch)
@@ -41,9 +44,9 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       .background {
         Color.accentColor.ignoresSafeArea()
       }
-      .navigationDestination(for: HomeRouter.self) { route in
+      .navigationDestination(for: HomeRouterFeatures.self) { route in
         switch route {
-        case let .movieDetails(selectedMovie):
+        case let .openDetails(selectedMovie):
           MovieDetailView(
             viewModel: appContainer.viewModelFactory.makeMovieDetail(movie: selectedMovie)
           )
@@ -68,12 +71,12 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     case let .loaded(content):
       RankedListPostersView(movies: content.rankedMovies,
-                            tapAction: handleMovieTap(_:))
+                            tapAction: handleNavigate)
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
       if !content.movies.isEmpty {
         LazyMovieGridView(movies: content.movies,
-                          tapAction: handleMovieTap(_:))
+                          tapAction: handleNavigate)
       } else {
         CollectionEmptyStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
@@ -97,9 +100,9 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     }
   }
 
-  private func handleMovieTap(_ movie: MovieModel) {
-    viewModel.requestDetail(movie: movie)
+  private func handleNavigate(_ movie: MovieModel) {
     isSearchFieldFocused = false
+    router.navigation(to: .openDetails(movie: movie))
   }
 }
 
@@ -107,6 +110,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   HomeView(
     viewModel: HomeViewPreviewMockFactory.make()
       .change(state: .loaded(content: .mock())),
+    router: .constant(.init()),
     openSearch: { _ in }
   )
 }

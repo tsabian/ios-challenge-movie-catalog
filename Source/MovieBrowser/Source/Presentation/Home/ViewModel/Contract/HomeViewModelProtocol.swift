@@ -9,11 +9,9 @@ import SwiftUI
 
 protocol HomeViewModelProtocol: ObservableObject {
   var state: HomeState { get }
-  var path: [HomeRouter] { get set }
   var currentCategory: MovieCategory { get set }
   var page: Int { get set }
 
   func load() async
   func select(category: MovieCategory) async
-  func requestDetail(movie: MovieModel)
 }

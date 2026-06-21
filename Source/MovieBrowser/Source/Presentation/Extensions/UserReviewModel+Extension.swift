@@ -14,6 +14,6 @@ extension UserReviewModel {
   }
 
   var createdAtText: String? {
-    createdAt?.toString()
+    createdAt?.toString(toFormat: "dd, MMMM, yyyy")
   }
 }

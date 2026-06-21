@@ -19,11 +19,13 @@ struct ContentView: View {
 
   @State private var selectedTab: AppTab = .home
   @State private var searchQuery = ""
+  @State private var homeRouter = HomeRouter()
   @State private var searchRouter = SearchRouter()
 
   var body: some View {
     TabView(selection: $selectedTab) {
       HomeView(viewModel: container.viewModelFactory.makeHome(),
+               router: $homeRouter,
                openSearch: searchHandle)
         .tabItem {
           Image(systemName: "house.fill")

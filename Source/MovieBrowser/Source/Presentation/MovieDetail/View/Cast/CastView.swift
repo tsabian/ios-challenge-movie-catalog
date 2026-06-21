@@ -39,7 +39,6 @@ struct CastView: View {
           .padding()
       }
     }
-    .padding(.bottom, 84)
   }
 
   private func castRow(for element: CastModel) -> some View {

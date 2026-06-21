@@ -75,7 +75,6 @@ struct ReviewsView: View {
         Divider()
       }
     }
-    .padding(.bottom, 84)
   }
 }
 

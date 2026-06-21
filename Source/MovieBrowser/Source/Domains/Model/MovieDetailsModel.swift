@@ -13,7 +13,7 @@ struct MovieDetailsModel: Identifiable, Hashable {
   let runtime: Int
   let genre: String
   let overview: String
-  let backdropPath: String
-  let posterPath: String
+  let backdropPath: String?
+  let posterPath: String?
   let rankAverage: Double
 }

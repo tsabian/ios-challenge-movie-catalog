@@ -7,28 +7,16 @@
 
 import SwiftUI
 
-enum SearchFeatures: Hashable {
-  case movieDetails(movie: MovieModel)
-}
-
-protocol SearchRouterProtocol {
-  func openMovieDetails(movie: MovieModel)
-  func popToPrevious()
-  func popToRoot()
+enum SearchRouterFeatures: Hashable {
+  case openDetails(movie: MovieModel)
 }
 
 @MainActor
 @Observable
-final class SearchRouter: SearchRouterProtocol {
-  var path: [SearchFeatures] = []
+final class SearchRouter: AppNavitagionRouterProtocol {
+  var path: [SearchRouterFeatures] = []
 
-  func openMovieDetails(movie: MovieModel) {
-    path.append(.movieDetails(movie: movie))
+  func navigation(to feature: SearchRouterFeatures) {
+    path.append(feature)
   }
-
-  func popToPrevious() {
-    path.removeLast()
-  }
-
-  func popToRoot() {}
 }
