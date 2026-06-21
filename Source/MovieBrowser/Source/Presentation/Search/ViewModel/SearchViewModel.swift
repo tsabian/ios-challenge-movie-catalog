@@ -22,6 +22,7 @@ final class SearchViewModel: SearchViewModelProtocol {
 
   @Published private(set) var state: SearchState = .idle
   @Published var page = 1
+  @Published private(set) var isLoadingNextPage = false
 
   private var title: String?
   private var genres: [GenreModel] = []
@@ -34,6 +35,7 @@ final class SearchViewModel: SearchViewModelProtocol {
 
   func search(movie title: String) async {
     self.title = title
+    page = 1
     state = .loading
     do {
       try await loadGenresIfNeeded()
@@ -44,11 +46,41 @@ final class SearchViewModel: SearchViewModelProtocol {
     }
   }
 
+  func loadNextPage() async {
+    guard !isLoadingNextPage,
+          let title,
+          case let .loaded(content) = state,
+          content.page < content.totalPages else {
+      return
+    }
+
+    isLoadingNextPage = true
+    defer { isLoadingNextPage = false }
+
+    do {
+      let nextPage = content.page + 1
+      let nextCatalog = try await searchUseCase.find(movie: title, page: nextPage)
+      page = nextCatalog.page
+      state = .loaded(
+        content: SearchMovieCatalogModel(
+          page: nextCatalog.page,
+          movies: content.movies + nextCatalog.movies,
+          totalPages: nextCatalog.totalPages,
+          totalResults: nextCatalog.totalResults
+        )
+      )
+    } catch {
+      state = .loaded(content: content)
+    }
+  }
+
   func getGenreName(id: Int) -> String {
     genres.first(where: { $0.id == id })?.name ?? "Unknown"
   }
 
   func reset() {
+    page = 1
+    title = nil
     state = .idle
   }
 

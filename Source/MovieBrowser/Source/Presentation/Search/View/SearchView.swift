@@ -69,7 +69,7 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
     case .loading:
       loadingViewState()
     case let .loaded(content):
-      loadedViewState(movies: content.movies)
+      loadedViewState(movieCatalog: content)
     case .idle, .empty:
       Spacer()
       CollectionEmptyStateView(title: String(localized: .noResultsTitle),
@@ -84,43 +84,15 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
     LoadingView()
   }
 
-  private func loadedViewState(movies: [SearchMovieResultModel]) -> some View {
-    VStack(spacing: 24) {
-      ForEach(movies, id: \.id) { movie in
-        HStack {
-          RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                           pathURLString: movie.posterPath)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .frame(maxWidth: 95)
-          VStack(alignment: .leading, spacing: 8) {
-            Text(movie.title)
-              .lineLimit(1)
-              .font(MovieBrowserFontsStyle.body.bold())
-            Spacer()
-            Label(movie.rankAverageText, systemImage: "star")
-              .foregroundStyle(Color.secondaryOrange)
-              .font(MovieBrowserFontsStyle.body)
-            if let genre = movie.genre {
-              Label(viewModel.getGenreName(id: genre), systemImage: "ticket")
-                .font(MovieBrowserFontsStyle.body)
-            }
-            Label(movie.releaseYear, systemImage: "calendar")
-              .font(MovieBrowserFontsStyle.body)
-            if movie.runtime > 0 {
-              Label("\(movie.runtime)", systemImage: "clock")
-                .font(MovieBrowserFontsStyle.body)
-            }
-          }
-          .padding(.leading, 8)
-          Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .contentShape(Rectangle())
-        .onTapGesture {
-          handleNavigate(.openDetails(movie: viewModel.makeMovieModel(from: movie)))
-        }
-      }
-    }
+  private func loadedViewState(movieCatalog: SearchMovieCatalogModel) -> some View {
+    MovieListView(
+      movieCatalog: movieCatalog,
+      isLoadingNextPage: viewModel.isLoadingNextPage,
+      getGenreName: viewModel.getGenreName,
+      makeMovieModel: viewModel.makeMovieModel,
+      loadNextPage: viewModel.loadNextPage,
+      handleNavigate: handleNavigate
+    )
   }
 
   private func errorViewState() -> some View {
@@ -142,11 +114,8 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
     viewModel.reset()
   }
 
-  private func handleNavigate(_ feature: SearchRouterFeatures) {
-    switch feature {
-    case let .openDetails(movie):
-      router.navigation(to: .openDetails(movie: movie))
-    }
+  private func handleNavigate(_ movie: MovieModel) {
+    router.navigation(to: .openDetails(movie: movie))
   }
 }
 
