@@ -23,7 +23,6 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   @Published private(set) var state: HomeState = .idle
   @Published var path = [HomeRouter]()
-  @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .nowPlaying
   @Published var page: Int = 1
 

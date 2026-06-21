@@ -11,7 +11,6 @@ import SwiftUI
 final class HomeViewModelMock: HomeViewModelProtocol {
   @Published var state: HomeState = .idle
   @Published var path: [HomeRouter] = []
-  @Published var searchText: String = ""
   @Published var currentCategory: MovieCategory = .topRated
   @Published var page = 1
 

@@ -13,6 +13,7 @@ struct ViewModelDependencies {
   let apiClient: ApiClientProtocol
   let imageClient: ApiClientProtocol
   let imageCache: NSCache<NSString, UIImage>
+  let dataCache: NSCache<NSString, NSData>
   let apiKey: String
   let language: String?
   let region: String?
@@ -30,6 +31,15 @@ struct ViewModelContainerFactory {
                                        apiKey: domain.apiKey,
                                        language: domain.language,
                                        region: domain.region)
+    return builder.build()
+  }
+
+  func makeSearch() -> SearchViewModel {
+    let builder = SearchMovieBuilder(apiClient: domain.apiClient,
+                                     apiKey: domain.apiKey,
+                                     language: domain.language,
+                                     region: domain.region,
+                                     dataCache: domain.dataCache)
     return builder.build()
   }
 

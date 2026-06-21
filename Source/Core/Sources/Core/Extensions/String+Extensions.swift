@@ -101,4 +101,11 @@ public extension String {
 
     return formatOutput.string(from: objectDate)
   }
+
+  /// Converts a date string from a specific source format into a target formatted string.
+  func toDateTime(withFormat format: String = "yyyy-MM-ddHH:mm:ssX") -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = format
+    return dateFormatter.date(from: self)
+  }
 }

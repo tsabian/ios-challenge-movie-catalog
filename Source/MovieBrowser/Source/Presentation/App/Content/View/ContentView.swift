@@ -8,31 +8,47 @@
 import SwiftData
 import SwiftUI
 
+enum AppTab: Hashable {
+  case home
+  case search
+  case whatchList
+}
+
 struct ContentView: View {
+  @State private var selectedTab: AppTab = .home
+  @State private var searchQuery = ""
   @Environment(\.appContainer) private var container: AppContainer
 
   var body: some View {
-    TabView {
-      HomeView(viewModel: container.viewModelFactory.makeHome())
+    TabView(selection: $selectedTab) {
+      HomeView(viewModel: container.viewModelFactory.makeHome(),
+               openSearch: searchHandle)
         .tabItem {
           Image(systemName: "house.fill")
           Text(.home)
-        }
-      SearchView()
+        }.tag(AppTab.home)
+
+      SearchView(viewModel: container.viewModelFactory.makeSearch(),
+                 query: $searchQuery)
         .tabItem {
           Image(systemName: "magnifyingglass")
           Text(.search)
         }
+        .tag(AppTab.search)
+
       WatchListView()
         .tabItem {
           Image(systemName: "bookmark.fill")
           Text(.watchList)
         }
+        .tag(AppTab.whatchList)
     }
-    .toolbarBackground(.indigo, for: .tabBar)
-    .toolbarBackground(.visible, for: .tabBar)
-    .toolbarBackground(.ultraThinMaterial, for: .tabBar)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
+  }
+
+  private func searchHandle(query: String) {
+    searchQuery = query
+    selectedTab = .search
   }
 }
 

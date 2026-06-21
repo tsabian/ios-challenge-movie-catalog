@@ -13,7 +13,7 @@ struct MovieAdapter {
                       totalResults: dto.totalResults)
   }
 
-  func adaptMovie(index: Int, dto: MovieDto) -> MovieModel {
+  private func adaptMovie(index: Int, dto: MovieDto) -> MovieModel {
     MovieModel(id: dto.id,
                title: dto.title,
                posterPath: dto.posterPath,

@@ -14,7 +14,7 @@ struct AppContainer {
   private let apiClient: ApiClientProtocol
   private let imageClient: ApiClientProtocol
   private let imageCache: NSCache<NSString, UIImage>
-
+  private let dataCache: NSCache<NSString, NSData>
   static let live: AppContainer = .init()
 
   let viewModelFactory: ViewModelContainerFactory
@@ -30,9 +30,11 @@ struct AppContainer {
                                           env.value(for: .tmdbImageSslPinningKey)
                                         ])
     imageCache = .init()
+    dataCache = .init()
     let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
                                                       imageClient: imageClient,
                                                       imageCache: imageCache,
+                                                      dataCache: dataCache,
                                                       apiKey: env.value(for: .tmdbApiKey),
                                                       language: env.language,
                                                       region: env.region)

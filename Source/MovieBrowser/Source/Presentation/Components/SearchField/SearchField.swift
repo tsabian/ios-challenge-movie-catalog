@@ -14,16 +14,18 @@ struct SearchField: View {
   private let onTextChange: (String) -> Void
   private let onClear: () -> Void
 
-  @State private var searchText = ""
+  @Binding private var searchText: String
   @State private var debounceTask: Task<Void, Never>?
   @FocusState.Binding private var isSearchFocused: Bool
 
-  init(_ placeholder: LocalizedStringKey = "\(.search)",
+  init(searchText: Binding<String>,
+       placeholder: LocalizedStringKey = "\(.search)",
        debounceDuration: Duration = .milliseconds(350),
        onSearch: @escaping (String) -> Void = { _ in },
        onTextChange: @escaping (String) -> Void = { _ in },
        onClear: @escaping () -> Void = {},
        isSearchFocused: FocusState<Bool>.Binding) {
+    _searchText = searchText
     self.placeholder = placeholder
     self.debounceDuration = debounceDuration
     self.onSearch = onSearch
@@ -138,7 +140,8 @@ struct SearchField: View {
     @FocusState private var isSearchFocused: Bool
 
     var body: some View {
-      SearchField(isSearchFocused: $isSearchFocused)
+      SearchField(searchText: .constant(""),
+                  isSearchFocused: $isSearchFocused)
         .padding()
         .background(Color.black)
     }

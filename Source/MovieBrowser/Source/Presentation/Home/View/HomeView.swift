@@ -11,9 +11,14 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
   @FocusState private var isSearchFieldFocused: Bool
+  @State private var searchText: String = ""
 
-  init(viewModel: @autoclosure @escaping () -> ViewModel) {
+  var openSearch: ((String) -> Void)?
+
+  init(viewModel: @autoclosure @escaping () -> ViewModel,
+       openSearch: ((String) -> Void)?) {
     _viewModel = StateObject(wrappedValue: viewModel())
+    self.openSearch = openSearch
   }
 
   var body: some View {
@@ -24,9 +29,8 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
             .foregroundStyle(.white)
             .font(MovieBrowserFontsStyle.title)
 
-          SearchField(onSearch: handleSearch,
-                      onTextChange: handleSearchTextChange,
-                      onClear: handleSearchClear,
+          SearchField(searchText: $searchText,
+                      onSearch: handleSearch,
                       isSearchFocused: $isSearchFieldFocused)
 
           content
@@ -83,16 +87,8 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
     }
   }
 
-  private func handleSearch(_ query: String) {
-    viewModel.searchText = query
-  }
-
-  private func handleSearchTextChange(_ query: String) {
-    viewModel.searchText = query
-  }
-
-  private func handleSearchClear() {
-    viewModel.searchText = ""
+  private func handleSearch(query: String) {
+    openSearch?(query)
   }
 
   private func handleCategorySelect(_ category: MovieCategory) {
@@ -110,6 +106,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 #Preview {
   HomeView(
     viewModel: HomeViewPreviewMockFactory.make()
-      .change(state: .loaded(content: .mock()))
+      .change(state: .loaded(content: .mock())),
+    openSearch: { _ in }
   )
 }

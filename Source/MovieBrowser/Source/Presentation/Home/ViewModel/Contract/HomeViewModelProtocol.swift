@@ -10,7 +10,6 @@ import SwiftUI
 protocol HomeViewModelProtocol: ObservableObject {
   var state: HomeState { get }
   var path: [HomeRouter] { get set }
-  var searchText: String { get set }
   var currentCategory: MovieCategory { get set }
   var page: Int { get set }
 
