@@ -8,29 +8,37 @@
 import SwiftUI
 
 struct CollectionEmptyStateView: View {
-  let title: String
-  let message: String
+  private let title: String
+  private let message: String
+  private let imageName: String
+
+  init(title: String,
+       message: String,
+       imageName: String = "no-results") {
+    self.title = title
+    self.message = message
+    self.imageName = imageName
+  }
 
   var body: some View {
     VStack(spacing: 8) {
-      Image("no-results")
+      Image(imageName)
         .resizable()
         .scaledToFill()
-        .frame(width: 100, height: 100)
+        .frame(width: 76, height: 76)
+
       Text(title)
         .font(MovieBrowserFontsStyle.title)
         .multilineTextAlignment(.leading)
         .frame(width: 250)
+
       Text(message)
         .font(MovieBrowserFontsStyle.body)
         .multilineTextAlignment(.center)
         .foregroundColor(.accentLightGray)
         .frame(width: 250)
     }
-    .frame(minWidth: nil,
-           maxWidth: .infinity,
-           minHeight: nil,
-           maxHeight: .infinity)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding()
   }
 }

@@ -9,7 +9,21 @@ import SwiftUI
 
 struct WatchListView: View {
   var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    VStack {
+      emptyState()
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .padding()
+    .ignoresSafeArea()
+    .background {
+      Color.accentColor.ignoresSafeArea()
+    }
+  }
+
+  private func emptyState() -> some View {
+    CollectionEmptyStateView(title: String(localized: .thereIsNoReviewYet),
+                             message: String(localized: .noResultsMessage),
+                             imageName: "folder")
   }
 }
 
