@@ -23,7 +23,7 @@ final class GenreRepository: GenreRepositoryProtocol {
   }
 
   func fetch() async throws -> [GenreModel] {
-    var data: Data = if let cachedData = genreProvider.getObject(forKey: genreKey) {
+    let data: Data = if let cachedData = genreProvider.getObject(forKey: genreKey) {
       cachedData as Data
     } else {
       try await dependencies.apiClient.execute(endpoint: makeGenreEndpoint())

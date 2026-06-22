@@ -21,9 +21,9 @@ struct WatchListView: View {
   }
 
   private func emptyState() -> some View {
-    CollectionEmptyStateView(title: String(localized: .thereIsNoReviewYet),
+    AlternativeFlowStateView(title: String(localized: .thereIsNoMovieYet),
                              message: String(localized: .noResultsMessage),
-                             imageName: "folder")
+                             imageName: .folder)
   }
 }
 

@@ -41,19 +41,19 @@ struct MovieEndpoint: Endpoint {
   var path: String {
     switch route {
     case .topRated:
-      "/movie/top_rated"
+      "/3/movie/top_rated"
     case .popular:
-      "/movie/popular"
+      "/3/movie/popular"
     case .upComing:
-      "/movie/upcoming"
+      "/3/movie/upcoming"
     case .nowPlaying:
-      "/movie/now_playing"
+      "/3/movie/now_playing"
     case let .details(id):
-      "/movie/\(id)"
+      "/3/movie/\(id)"
     case let .reviews(id):
-      "/movie/\(id)/reviews"
+      "/3/movie/\(id)/reviews"
     case let .credits(id):
-      "/movie/\(id)/credits"
+      "/3/movie/\(id)/credits"
     }
   }
 

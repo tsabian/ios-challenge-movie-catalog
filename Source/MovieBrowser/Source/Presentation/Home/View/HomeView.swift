@@ -81,16 +81,21 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                           loadNextPage: viewModel.loadNextPage,
                           tapAction: handleNavigate)
       } else {
-        CollectionEmptyStateView(title: String(localized: .noResultsTitle),
+        AlternativeFlowStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
       }
     case .empty:
-      CollectionEmptyStateView(title: String(localized: .noResultsTitle),
+      AlternativeFlowStateView(title: String(localized: .noResultsTitle),
                                message: String(localized: .noResultsMessage))
     case .error:
-      // TODO: Ajustar o erro
-      EmptyView()
+      errorState()
     }
+  }
+
+  private func errorState() -> some View {
+    AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
+                             message: String(localized: .tryAgainFewMinutes),
+                             imageName: .error)
   }
 
   private func handleSearch(query: String) {

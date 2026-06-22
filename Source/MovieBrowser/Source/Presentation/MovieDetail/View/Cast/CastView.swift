@@ -24,7 +24,7 @@ struct CastView: View {
       LoadingView()
     } else {
       if cast.isEmpty {
-        CollectionEmptyStateView(title: String(localized: .noCast),
+        AlternativeFlowStateView(title: String(localized: .noCast),
                                  message: String(localized: .noResultsMessage))
       } else {
         content

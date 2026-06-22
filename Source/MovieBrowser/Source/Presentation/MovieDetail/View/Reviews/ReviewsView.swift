@@ -19,7 +19,7 @@ struct ReviewsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     } else {
       if reviews.isEmpty {
-        CollectionEmptyStateView(title: String(localized: .thereIsNoReviewYet),
+        AlternativeFlowStateView(title: String(localized: .thereIsNoReviewYet),
                                  message: String(localized: .noResultsMessage))
       } else {
         content

@@ -13,7 +13,7 @@ struct GenreEndpoint: Endpoint {
   let language: String?
 
   var path: String {
-    "/genre/movie/list"
+    "/3/genre/movie/list"
   }
 
   var method: HTTPMethod {

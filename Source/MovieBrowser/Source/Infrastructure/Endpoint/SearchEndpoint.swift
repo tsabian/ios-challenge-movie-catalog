@@ -24,7 +24,7 @@ struct SearchEndpoint: Endpoint {
   var path: String {
     switch route {
     case .search:
-      "/search/movie"
+      "/3/search/movie"
     }
   }
 

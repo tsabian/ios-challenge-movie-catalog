@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct CollectionEmptyStateView: View {
+enum CollectionEmptyStateIconType: String {
+  case error
+  case noResults = "no-results"
+  case folder
+  case problem
+  case warning
+  case wrong
+}
+
+struct AlternativeFlowStateView: View {
   private let title: String
   private let message: String
-  private let imageName: String
+  private let imageName: CollectionEmptyStateIconType
 
   init(title: String,
        message: String,
-       imageName: String = "no-results") {
+       imageName: CollectionEmptyStateIconType = .noResults) {
     self.title = title
     self.message = message
     self.imageName = imageName
@@ -22,7 +31,7 @@ struct CollectionEmptyStateView: View {
 
   var body: some View {
     VStack(spacing: 8) {
-      Image(imageName)
+      Image(imageName.rawValue)
         .resizable()
         .scaledToFill()
         .frame(width: 76, height: 76)
@@ -44,5 +53,5 @@ struct CollectionEmptyStateView: View {
 }
 
 #Preview {
-  CollectionEmptyStateView(title: "title", message: "message")
+  AlternativeFlowStateView(title: "title", message: "message")
 }

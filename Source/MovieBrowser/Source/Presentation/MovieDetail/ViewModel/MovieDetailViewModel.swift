@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 enum MovieDetailState {
   case idle
@@ -99,13 +100,10 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       currentPage = nextPage
       totalPages = model.totalPages
       reviews.append(contentsOf: model.reviews)
-
-      isLoadingReviews = false
-
     } catch {
-      // TODO: implementar ErrorStateView
-      isLoadingReviews = false
+      state = .error
     }
+    isLoadingReviews = false
   }
 
   private func loadCastIfNeeded() async {
@@ -118,15 +116,22 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     do {
       let model = try await castUseCase.execute(id: selectedMovie.id)
       cast = model.cast
-
-      isLoadingCast = false
-
     } catch {
-      // TODO: implementar ErrorStateView
-      isLoadingCast = false
+      state = .error
     }
+    isLoadingCast = false
   }
 
+  func makeMovieURL() -> URL? {
+    let sourceUrlString = AppEnvironment.current.value(for: .tmdbApiBaseUrl)
+    guard let detail,
+          let urlComponents = URLComponents(string: sourceUrlString),
+          let url = urlComponents.url?.appending(path: "\(detail.id)") else {
+      return nil
+    }
+    return url
+  }
+  
   private func updateLoadState() {
     guard let contentState = makeContentState() else {
       state = .error

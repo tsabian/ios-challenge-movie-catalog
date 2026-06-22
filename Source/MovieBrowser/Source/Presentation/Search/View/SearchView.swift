@@ -72,7 +72,7 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
       loadedViewState(movieCatalog: content)
     case .idle, .empty:
       Spacer()
-      CollectionEmptyStateView(title: String(localized: .noResultsTitle),
+      AlternativeFlowStateView(title: String(localized: .noResultsTitle),
                                message: String(localized: .noResultsMessage))
       Spacer()
     case .error:
@@ -96,10 +96,9 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
   }
 
   private func errorViewState() -> some View {
-    // TODO: add error state
-    VStack(spacing: 10) {
-      Text("error")
-    }
+    AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
+                             message: String(localized: .tryAgainFewMinutes),
+                             imageName: .error)
   }
 
   private func handleSearch(text: String) {

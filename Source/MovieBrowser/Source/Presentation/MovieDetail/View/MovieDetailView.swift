@@ -32,15 +32,17 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
         Button {
-          // TODO: Implemenetar
+          debugPrint("Save to watch list")
         } label: {
           Image(systemName: "bookmark.fill")
         }
 
-        Button {
-          // TODO: Implemenetar
-        } label: {
-          Image(systemName: "square.and.arrow.up")
+        if let url = viewModel.makeMovieURL() {
+          ShareLink(item: url,
+                    preview: SharePreview(viewModel.movieTitle,
+                                          image: Image(systemName: "bag"))) {
+            Image(systemName: "square.and.arrow.up")
+          }
         }
       }
     }
