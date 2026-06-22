@@ -18,10 +18,10 @@ enum RemotePosterState {
 @MainActor
 final class RemotePosterViewModel: RemotePosterViewModelProtocol {
   @Published private(set) var state: RemotePosterState = .idle
-  private let useCase: ImageLoadingServiceProtocol
+  private let service: ImageLoadingServiceProtocol
 
-  init(useCase: ImageLoadingServiceProtocol) {
-    self.useCase = useCase
+  init(service: ImageLoadingServiceProtocol) {
+    self.service = service
   }
 
   func load(from pathURLString: String?, size: TMDBImageSize) async {
@@ -31,7 +31,7 @@ final class RemotePosterViewModel: RemotePosterViewModelProtocol {
     }
     state = .loading
     do {
-      let image = try await useCase.fetchImage(from: pathURLString, withSize: size)
+      let image = try await service.fetchImage(from: pathURLString, withSize: size)
       state = .loaded(image: image)
     } catch {
       state = .failed

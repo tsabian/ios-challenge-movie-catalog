@@ -11,6 +11,7 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   var state: MovieDetailState { get }
   var movieTitle: String { get }
   var backdropPath: String? { get }
+  var imagePreview: Image? { get }
 
   func loadIfNeeded() async
   func requestNextPageForReviews()

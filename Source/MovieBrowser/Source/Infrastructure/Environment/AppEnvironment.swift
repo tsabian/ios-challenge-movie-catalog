@@ -14,6 +14,7 @@ enum AppEnvironmentKeys: String {
   case tmdbImageSslPinningKey = "TMDB_IMG_SSL_PINNING_KEY"
   case tmdbApiKey = "TMDB_API_KEY"
   case tmdbApiToken = "TMDB_API_TOKEN"
+  case tmdbHost = "TMDB_HOST"
 }
 
 struct AppEnvironment {

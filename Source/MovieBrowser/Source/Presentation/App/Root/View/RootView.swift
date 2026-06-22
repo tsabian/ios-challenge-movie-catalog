@@ -8,31 +8,43 @@
 import SwiftData
 import SwiftUI
 
-struct RootView: View {
-  @State private var isShowingSplash = true
+struct RootView<ViewModel: RootViewModelProtocol>: View {
+  @StateObject private var viewModel: ViewModel
+
+  init(viewModel: @autoclosure @escaping () -> ViewModel) {
+    _viewModel = StateObject(wrappedValue: viewModel())
+  }
 
   var body: some View {
     ZStack {
-      if isShowingSplash {
-        SplashScreenView()
-      } else {
-        ContentView()
-      }
+      content
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .ignoresSafeArea()
-    .animation(.easeInOut(duration: 0.5), value: isShowingSplash)
+    .animation(.easeInOut(duration: 0.5), value: viewModel.state)
     .task {
-      await startApp()
+      await viewModel.startApp()
     }
   }
 
-  private func startApp() async {
-    try? await Task.sleep(nanoseconds: 1_500_000_000)
-    isShowingSplash = false
+  @ViewBuilder
+  private var content: some View {
+    switch viewModel.state {
+    case .idle, .loading:
+      SplashScreenView()
+    case .error:
+      AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
+                               message: String(localized: .tryAgainFewMinutes),
+                               imageName: .error)
+    case .loaded:
+      ContentView()
+    }
   }
 }
 
 #Preview {
-  RootView()
+  RootView(viewModel: RootPreviewMockFactory
+    .make()
+    .updateState(with: .loaded)
+  )
 }

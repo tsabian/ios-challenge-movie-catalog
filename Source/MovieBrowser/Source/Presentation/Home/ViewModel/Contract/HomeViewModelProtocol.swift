@@ -5,7 +5,7 @@
 //  Created by Tiago de Oliveira on 25/05/26.
 //
 
-import SwiftUI
+import Combine
 
 protocol HomeViewModelProtocol: ObservableObject {
   var state: HomeState { get }

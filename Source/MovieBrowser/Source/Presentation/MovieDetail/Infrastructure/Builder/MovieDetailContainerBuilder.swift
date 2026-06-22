@@ -6,32 +6,22 @@
 //
 
 import Core
+import Foundation
+import SwiftUI
 
 struct MovieDetailBuilder {
-  private let apiClient: ApiClientProtocol
-  private let apiKey: String
-  private let language: String?
-  private let region: String?
-  private let movie: MovieModel
+  private let builderDependencies: MovieDetailBuilderDependencies
 
-  init(apiClient: ApiClientProtocol,
-       apiKey: String,
-       language: String?,
-       region: String?,
-       movie: MovieModel) {
-    self.apiClient = apiClient
-    self.apiKey = apiKey
-    self.language = language
-    self.region = region
-    self.movie = movie
+  init(builderDependencies: MovieDetailBuilderDependencies) {
+    self.builderDependencies = builderDependencies
   }
 
   func build() -> MovieDetailViewModel {
     let dependencies = MovieRepositoryDependencies(
-      apiClient: apiClient,
-      apiKey: apiKey,
-      language: language,
-      region: region,
+      apiClient: builderDependencies.apiClient,
+      apiKey: builderDependencies.apiKey,
+      language: builderDependencies.language,
+      region: builderDependencies.region,
       movieAdapter: .init(),
       detailAdapter: .init(),
       reviewAdapter: .init(),
@@ -41,9 +31,15 @@ struct MovieDetailBuilder {
     let detailUseCase = FetchMovieDetailUseCase(repository: repository)
     let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
     let castUseCase = FetchCastUseCase(repository: repository)
-    return MovieDetailViewModel(selectedMovie: movie,
+    return MovieDetailViewModel(selectedMovie: builderDependencies.movie,
                                 detailUseCase: detailUseCase,
                                 reviewUseCase: movieUseCase,
-                                castUseCase: castUseCase)
+                                castUseCase: castUseCase,
+                                imageService: makeImageService())
+  }
+
+  private func makeImageService() -> ImageLoadingServiceProtocol {
+    let repository = RemotePosterRepository(apiClient: builderDependencies.apiClient)
+    return ImageLoadingService(repository: repository, cache: builderDependencies.provider)
   }
 }

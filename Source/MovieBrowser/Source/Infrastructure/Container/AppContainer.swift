@@ -15,6 +15,7 @@ struct AppContainer {
   private let imageClient: ApiClientProtocol
   private let imageCache: NSCache<NSString, UIImage>
   private let dataCache: NSCache<NSString, NSData>
+
   static let live: AppContainer = .init()
 
   let viewModelFactory: ViewModelContainerFactory

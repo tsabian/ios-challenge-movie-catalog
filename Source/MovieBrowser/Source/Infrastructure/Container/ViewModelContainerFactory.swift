@@ -26,6 +26,10 @@ struct ViewModelContainerFactory {
     self.domain = domain
   }
 
+  func makeRoot() -> RootViewModel {
+    RootBuilder().build()
+  }
+
   func makeHome() -> HomeViewModel {
     let builder = HomeContainerBuilder(apiClient: domain.apiClient,
                                        apiKey: domain.apiKey,
@@ -50,11 +54,14 @@ struct ViewModelContainerFactory {
   }
 
   func makeMovieDetail(movie: MovieModel) -> MovieDetailViewModel {
-    let builder = MovieDetailBuilder(apiClient: domain.apiClient,
-                                     apiKey: domain.apiKey,
-                                     language: domain.language,
-                                     region: domain.region,
-                                     movie: movie)
+    let provider = ResourceCacheProvider(cache: domain.imageCache)
+    let dependencies = MovieDetailBuilderDependencies(apiClient: domain.apiClient,
+                                                      apiKey: domain.apiKey,
+                                                      language: domain.language,
+                                                      region: domain.region,
+                                                      movie: movie,
+                                                      provider: provider)
+    let builder = MovieDetailBuilder(builderDependencies: dependencies)
     return builder.build()
   }
 }

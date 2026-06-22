@@ -37,10 +37,11 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
           Image(systemName: "bookmark.fill")
         }
 
-        if let url = viewModel.makeMovieURL() {
+        if let url = viewModel.makeMovieURL(),
+           let imagePreview = viewModel.imagePreview {
           ShareLink(item: url,
                     preview: SharePreview(viewModel.movieTitle,
-                                          image: Image(systemName: "bag"))) {
+                                          image: imagePreview)) {
             Image(systemName: "square.and.arrow.up")
           }
         }

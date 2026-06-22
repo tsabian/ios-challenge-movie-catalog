@@ -26,6 +26,8 @@
 	<string>$(TMDB_API_SSL_PINNING_KEY)</string>
 	<key>TMDB_API_TOKEN</key>
 	<string>$(API_TOKEN)</string>
+	<key>TMDB_HOST</key>
+	<string>$(HOST)</string>
 	<key>TMDB_IMG_BASE_URL</key>
 	<string>$(IMG_HOST)</string>
 	<key>TMDB_IMG_SSL_PINNING_KEY</key>

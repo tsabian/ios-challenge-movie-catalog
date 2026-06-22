@@ -6,7 +6,7 @@
 //
 
 import Combine
-import SwiftUI
+import Foundation
 
 enum HomeState {
   case idle

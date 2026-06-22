@@ -10,11 +10,13 @@ import SwiftUI
 
 @main
 struct MovieBrowserApp: App {
+  @Environment(\.appContainer) private var appContainer
+
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
   var body: some Scene {
     WindowGroup {
-      RootView()
+      RootView(viewModel: appContainer.viewModelFactory.makeRoot())
         .preferredColorScheme(.dark)
         .environment(\.appContainer, .live)
     }

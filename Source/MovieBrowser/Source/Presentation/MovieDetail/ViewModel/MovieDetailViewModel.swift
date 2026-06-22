@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 enum MovieDetailState {
   case idle
@@ -20,6 +21,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published private(set) var state: MovieDetailState = .idle
   @Published var backdropPath: String?
   @Published var movieTitle: String
+  @Published private(set) var imagePreview: Image?
 
   private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
@@ -41,6 +43,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   private let detailUseCase: FetchMovieDetailUseCaseProtocol
   private let reviewUseCase: FetchMovieReviewsUseCaseProtocol
   private let castUseCase: FetchCastUseCaseProtocol
+  private let imageService: ImageLoadingServiceProtocol
 
   private let selectedMovie: MovieModel
 
@@ -52,11 +55,13 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   init(selectedMovie: MovieModel,
        detailUseCase: FetchMovieDetailUseCaseProtocol,
        reviewUseCase: FetchMovieReviewsUseCaseProtocol,
-       castUseCase: FetchCastUseCaseProtocol) {
+       castUseCase: FetchCastUseCaseProtocol,
+       imageService: ImageLoadingServiceProtocol) {
     self.selectedMovie = selectedMovie
     self.detailUseCase = detailUseCase
     self.reviewUseCase = reviewUseCase
     self.castUseCase = castUseCase
+    self.imageService = imageService
     backdropPath = selectedMovie.backdropPath
     movieTitle = selectedMovie.title
   }
@@ -68,6 +73,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
 
     do {
       detail = try await detailUseCase.execute(movie: selectedMovie.id)
+      imagePreview = await makePosterPreview()
       updateLoadState()
     } catch {
       state = .error
@@ -83,6 +89,29 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   func requestCast() {
     Task {
       await loadCastIfNeeded()
+    }
+  }
+
+  func makeMovieURL() -> URL? {
+    let sourceUrlString = AppEnvironment.current.value(for: .tmdbHost)
+    guard let detail,
+          let urlComponents = URLComponents(string: sourceUrlString),
+          let url = urlComponents.url?.appending(path: "movie").appending(path: "\(detail.id)") else {
+      return nil
+    }
+    return url
+  }
+
+  private func makePosterPreview() async -> Image {
+    let imageDefault = Image("popcorn")
+    guard let detail, let posterPath = detail.posterPath else {
+      return imageDefault
+    }
+    do {
+      let uiImage = try await imageService.fetchImage(from: posterPath, withSize: .small)
+      return Image(uiImage: uiImage)
+    } catch {
+      return imageDefault
     }
   }
 
@@ -122,16 +151,6 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     isLoadingCast = false
   }
 
-  func makeMovieURL() -> URL? {
-    let sourceUrlString = AppEnvironment.current.value(for: .tmdbApiBaseUrl)
-    guard let detail,
-          let urlComponents = URLComponents(string: sourceUrlString),
-          let url = urlComponents.url?.appending(path: "\(detail.id)") else {
-      return nil
-    }
-    return url
-  }
-  
   private func updateLoadState() {
     guard let contentState = makeContentState() else {
       state = .error
