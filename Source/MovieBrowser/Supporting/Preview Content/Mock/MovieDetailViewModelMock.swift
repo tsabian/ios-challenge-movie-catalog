@@ -23,7 +23,7 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
     imagePreview = Image("popcorn")
   }
 
-  func requestNextPageForReviews() {}
+  func requestReviews() {}
   func requestCast() {}
 
   func change(state: MovieDetailState) -> Self {

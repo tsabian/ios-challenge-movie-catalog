@@ -10,7 +10,7 @@ import Foundation
 
 extension UserReviewModel {
   var ratingText: String {
-    String(format: "%.2f", rating)
+    String(format: "%.2f", rating ?? 0)
   }
 
   var createdAtText: String? {

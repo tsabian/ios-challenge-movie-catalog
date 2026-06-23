@@ -12,7 +12,7 @@ extension MovieDetailContentState {
     MovieDetailContentState(detail: .mock(),
                             reviews: ReviewModel.mock().reviews,
                             cast: .mock(),
-                            isLoadingReviews: isLoadingReviews,
+                            isLoadingReviewsNextPage: isLoadingReviews,
                             isLoadingCast: isLoadingCast,
                             canLoadMoreReviews: canLoadMoreReviews)
   }

@@ -8,6 +8,10 @@
 import Foundation
 
 extension MovieDetailsModel {
+  var releaseYear: String {
+    String(releaseDate.split(separator: "-").first ?? "")
+  }
+
   var runtimeText: String {
     String(localized: .runtimeMinutes(runtime))
   }

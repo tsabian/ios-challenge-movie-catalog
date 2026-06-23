@@ -81,7 +81,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  func requestNextPageForReviews() {
+  func requestReviews() {
     Task {
       await loadReviewsIfNeeded()
     }
@@ -127,6 +127,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
 
     do {
       let nextPage = currentPage + 1
+      debugPrint("Current Page: \(currentPage), Next page \(nextPage) of \(totalPages ?? 0)")
       let model = try await reviewUseCase.execute(movieID: selectedMovie.id,
                                                   page: nextPage)
       currentPage = nextPage
@@ -167,7 +168,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     return MovieDetailContentState(detail: detail,
                                    reviews: reviews,
                                    cast: cast,
-                                   isLoadingReviews: isLoadingReviews,
+                                   isLoadingReviewsNextPage: isLoadingReviews,
                                    isLoadingCast: isLoadingCast,
                                    canLoadMoreReviews: canLoadMoreReviews)
   }

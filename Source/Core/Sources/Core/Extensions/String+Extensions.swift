@@ -8,10 +8,6 @@
 import Foundation
 
 public extension String {
-  func getYear() -> Int? {
-    Int(split(separator: "-").first ?? "")
-  }
-
   /// Converts a date string from a specific source format into a target formatted string.
   ///
   /// This extension provides a flexible way to parse and reformat date strings,

@@ -20,6 +20,6 @@ struct UserReviewModel: Identifiable, Hashable {
   let name, username: String
   let url: String?
   let avatarPath: String?
-  let rating: Double
+  let rating: Double?
   let createdAt: Date?
 }

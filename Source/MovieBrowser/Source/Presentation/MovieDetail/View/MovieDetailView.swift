@@ -69,18 +69,19 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     case let .loaded(contentState):
       MovieDetailContentView(
         contentState: contentState,
-        infoTapAction: handleReviewsTap,
-        makeRemotePosterViewModel: appContainer.viewModelFactory.makeRemotePoster()
+        infoTapAction: handleRequest,
+        loadReviewNextPage: handleReviewNextPage,
+        viewModel: appContainer.viewModelFactory.makeRemotePoster()
       )
     case .error:
       EmptyView()
     }
   }
 
-  private func handleReviewsTap(info: DetailInfo) {
+  private func handleRequest(info: DetailInfo) {
     switch info {
     case .reviews:
-      viewModel.requestNextPageForReviews()
+      viewModel.requestReviews()
     case .cast:
       viewModel.requestCast()
     case .about:
@@ -90,6 +91,10 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     case .mightAlsoLike:
       break
     }
+  }
+
+  private func handleReviewNextPage() {
+    viewModel.requestReviews()
   }
 }
 

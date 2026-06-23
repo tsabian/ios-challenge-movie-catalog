@@ -9,7 +9,7 @@ struct MovieDetailContentState {
   let detail: MovieDetailsModel
   var reviews: [UserReviewModel]
   var cast: [CastModel]
-  var isLoadingReviews: Bool
+  var isLoadingReviewsNextPage: Bool
   var isLoadingCast: Bool
   var canLoadMoreReviews: Bool
 }

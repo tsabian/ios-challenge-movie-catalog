@@ -14,7 +14,7 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   var imagePreview: Image? { get }
 
   func loadIfNeeded() async
-  func requestNextPageForReviews()
+  func requestReviews()
   func requestCast()
   func makeMovieURL() -> URL?
 }

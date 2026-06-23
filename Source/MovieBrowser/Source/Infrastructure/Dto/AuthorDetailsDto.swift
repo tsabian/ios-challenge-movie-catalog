@@ -8,7 +8,7 @@
 struct AuthorDetailsDto: Decodable {
   let name, username: String
   let avatarPath: String?
-  let rating: Double
+  let rating: Double?
 
   enum CodingKeys: String, CodingKey {
     case name, username

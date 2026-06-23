@@ -9,9 +9,10 @@ struct MovieDetailsModel: Identifiable, Hashable {
   let id: Int
   let title: String
   let originalTitle: String
-  let releaseYear: Int
+  let releaseDate: String
   let runtime: Int
   let genre: String
+  let tagLine: String
   let overview: String
   let backdropPath: String?
   let posterPath: String?

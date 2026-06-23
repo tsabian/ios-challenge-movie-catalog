@@ -32,7 +32,9 @@ struct PreviewDataFactory {
   }
 
   func makeMovieReviews() throws -> ReviewCatalogDto {
-    try decode("reviews.json")
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    return try decode("reviews.json", using: decoder)
   }
 
   func makeCasting() throws -> CastingDto {
@@ -47,9 +49,9 @@ struct PreviewDataFactory {
     try decode("genre.json")
   }
 
-  private func decode<T: Decodable>(_ file: String) throws -> T {
+  private func decode<T: Decodable>(_ file: String, using decoder: JSONDecoder = .init()) throws -> T {
     do {
-      return try bundle.decode(file)
+      return try bundle.decode(file, using: decoder)
     } catch let error as DecodingError {
       debugPrint("❌ Decode: \(error)")
       fatalError("❌ Decode: \(error)")
