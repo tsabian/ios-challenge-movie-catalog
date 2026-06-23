@@ -7,9 +7,9 @@
 
 @MainActor
 protocol WatchListDataSourceProtocol {
-  func getAll() -> [MovieDetails]
-  func get(by id: Int) -> MovieDetails?
-  func insert(movie: MovieDetails)
-  func update(movie: MovieDetails, watched: Bool)
-  func delete(movie: MovieDetails)
+  func getAll() throws -> [MovieDetails]
+  func get(by id: Int) throws -> MovieDetails?
+  func insert(movie: MovieDetails) throws
+  func update(movie: MovieDetails, watched: Bool) throws
+  func delete(movie: MovieDetails) throws
 }

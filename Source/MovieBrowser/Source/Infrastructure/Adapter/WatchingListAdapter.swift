@@ -33,6 +33,8 @@ struct WatchingListAdapter {
       genre: model.genre,
       tagLine: model.tagLine,
       overview: model.overview,
+      backdropPath: model.backdropPath,
+      posterPath: model.posterPath,
       rankAverage: model.rankAverage,
       watched: model.watched
     )

@@ -21,6 +21,7 @@ struct ContentView: View {
   @State private var searchQuery = ""
   @State private var homeRouter = HomeRouter()
   @State private var searchRouter = SearchRouter()
+  @State private var watchListRouter = WatchListRouter()
 
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -41,7 +42,8 @@ struct ContentView: View {
         }
         .tag(AppTab.search)
 
-      WatchListView()
+      WatchListView(viewModel: container.viewModelFactory.makeWatchList(),
+                    router: $watchListRouter)
         .tabItem {
           Image(systemName: "bookmark.fill")
           Text(.watchList)

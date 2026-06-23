@@ -68,4 +68,11 @@ struct ViewModelContainerFactory {
                                      context: domain.context)
     return builder.build()
   }
+
+  func makeWatchList() -> WatchListViewModel {
+    let dataSource = WatchListDataSource(context: domain.context)
+    let repository = WatchListRepository(dataSource: dataSource)
+    let builder = WatchListBuilder(repository: repository)
+    return builder.build()
+  }
 }

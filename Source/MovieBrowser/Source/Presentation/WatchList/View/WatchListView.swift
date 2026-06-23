@@ -7,16 +7,90 @@
 
 import SwiftUI
 
-struct WatchListView: View {
+struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
+  @Environment(\.appContainer) private var appContainer
+  @StateObject var viewModel: ViewModel
+  @Binding private var router: WatchListRouter
+
+  private let columns = [
+    GridItem(spacing: 10),
+    GridItem(spacing: 10)
+  ]
+
+  init(viewModel: @autoclosure @escaping () -> ViewModel,
+       router: Binding<WatchListRouter>) {
+    _viewModel = StateObject(wrappedValue: viewModel())
+    _router = router
+  }
+
   var body: some View {
-    VStack {
-      emptyState()
+    NavigationStack(path: $router.path) {
+      VStack {
+        Text(.watchList)
+          .foregroundStyle(.white)
+          .font(MovieBrowserFontsStyle.title)
+
+        content()
+        Spacer()
+      }
+      .navigationDestination(for: WatchListFeatures.self) { route in
+        switch route {
+        case let .openDetails(movie):
+          MovieDetailView(
+            viewModel: appContainer.viewModelFactory
+              .makeMovieDetail(
+                movie: viewModel.makeMovie(from: movie)))
+        }
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .padding()
+      .ignoresSafeArea(edges: [.horizontal])
+      .background {
+        Color.accentColor.ignoresSafeArea()
+      }
+      .task {
+        viewModel.loadIfNeeded()
+      }
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .padding()
-    .ignoresSafeArea()
-    .background {
-      Color.accentColor.ignoresSafeArea()
+  }
+
+  @ViewBuilder
+  private func content() -> some View {
+    switch viewModel.state {
+    case .idle, .loading:
+      LoadingView()
+    case let .loaded(content):
+      listState(content)
+    case .empty:
+      emptyState()
+    case .error:
+      errorState()
+    }
+  }
+
+  private func listState(_ content: [MovieDetailsModel]) -> some View {
+    ScrollView(.vertical, showsIndicators: false) {
+      LazyVGrid(columns: columns) {
+        ForEach(content, id: \.id) { movie in
+          VStack(spacing: 4) {
+            ZStack {
+              RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
+                               pathURLString: movie.backdropPath)
+                .frame(maxWidth: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
+            Text(movie.title)
+              .font(MovieBrowserFontsStyle.caption)
+              .lineLimit(1)
+          }
+          .clipShape(Rectangle())
+          .frame(width: 160, height: 120)
+          .onTapGesture {
+            router.navigation(to: .openDetails(movie: movie))
+          }
+        }
+      }
     }
   }
 
@@ -25,8 +99,18 @@ struct WatchListView: View {
                              message: String(localized: .noResultsMessage),
                              imageName: .folder)
   }
+
+  private func errorState() -> some View {
+    AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
+                             message: String(localized: .tryAgainFewMinutes),
+                             imageName: .error)
+  }
 }
 
 #Preview {
-  WatchListView()
+  WatchListView(viewModel: WatchlistViewModelMockFactory
+    .make()
+    .update(state: .loaded(content: [
+      .mock()
+    ])), router: .constant(.init()))
 }

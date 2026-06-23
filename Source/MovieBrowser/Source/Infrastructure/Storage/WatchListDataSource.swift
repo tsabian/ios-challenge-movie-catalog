@@ -10,44 +10,36 @@ import SwiftData
 
 @MainActor
 final class WatchListDataSource: MovieDataStorage, WatchListDataSourceProtocol {
-  func getAll() -> [MovieDetails] {
+  func getAll() throws -> [MovieDetails] {
     let descriptor = FetchDescriptor<MovieDetails>()
-    do {
-      return try context.fetch(descriptor)
-    } catch {
-      return []
-    }
+    return try context.fetch(descriptor)
   }
 
-  func get(by id: Int) -> MovieDetails? {
+  func get(by id: Int) throws -> MovieDetails? {
     let query = #Predicate<MovieDetails> { movie in
       movie.id == id
     }
     var descriptor = FetchDescriptor<MovieDetails>(predicate: query)
     descriptor.fetchLimit = 1
-    do {
-      return try context.fetch(descriptor).first
-    } catch {
-      return nil
-    }
+    return try context.fetch(descriptor).first
   }
 
-  func insert(movie: MovieDetails) {
+  func insert(movie: MovieDetails) throws {
     context.insert(movie)
-    save()
+    try save()
   }
 
-  func update(movie: MovieDetails, watched: Bool) {
+  func update(movie: MovieDetails, watched: Bool) throws {
     movie.watched = watched
-    save()
+    try save()
   }
 
-  func delete(movie: MovieDetails) {
+  func delete(movie: MovieDetails) throws {
     context.delete(movie)
-    save()
+    try save()
   }
 
-  private func hasMovieExists(_ movie: MovieDetails) -> Bool {
-    get(by: movie.id) != nil
+  private func hasMovieExists(_ movie: MovieDetails) throws -> Bool {
+    try get(by: movie.id) != nil
   }
 }

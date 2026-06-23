@@ -6,9 +6,10 @@
 //
 
 protocol WatchListRepositoryProtocol {
-  func fetchWatchList() -> [MovieDetailsModel]
-  func fetch(by id: Int) -> MovieDetailsModel?
-  func insert(movie: MovieDetailsModel)
-  func update(by id: Int, watched: Bool)
-  func delete(by id: Int)
+  func fetchWatchList() throws -> [MovieDetailsModel]
+  func fetch(by id: Int) throws -> MovieDetailsModel?
+  func addBookmark(movie: MovieDetailsModel) throws
+  func deleteBookmark(movie: MovieDetailsModel) throws
+  func markAsWatched(movie: MovieDetailsModel) throws
+  func markAsUnwatched(movie: MovieDetailsModel) throws
 }

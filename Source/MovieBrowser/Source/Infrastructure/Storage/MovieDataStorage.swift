@@ -15,12 +15,8 @@ class MovieDataStorage {
     self.context = context
   }
 
-  final func save() {
+  final func save() throws {
     guard context.hasChanges else { return }
-    do {
-      try context.save()
-    } catch {
-      debugPrint(error)
-    }
+    try context.save()
   }
 }

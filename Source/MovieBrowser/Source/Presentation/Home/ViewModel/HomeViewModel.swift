@@ -80,7 +80,7 @@ final class HomeViewModel: HomeViewModelProtocol {
   private func fetch() async {
     do {
       let content = try await homeContentUseCase.execute(category: currentCategory,
-                                                         page: page)
+                                                         page: 1)
       self.content = content
       let isMoviesEmpty = (content.movieCatalog[currentCategory]?.movies ?? []).isEmpty
       state = isMoviesEmpty ? .empty : .loaded(content: content)
@@ -94,7 +94,7 @@ final class HomeViewModel: HomeViewModelProtocol {
       return
     }
     do {
-      let catalog = try await movieCatalogUseCase.fetch(by: currentCategory, page: page)
+      let catalog = try await movieCatalogUseCase.fetch(by: currentCategory, page: 1)
       var currentCatalog = content?.movieCatalog ?? [:]
       currentCatalog[currentCategory] = catalog
       let updatedContent = HomeContentModel(rankedMovies: content?.rankedMovies ?? [],

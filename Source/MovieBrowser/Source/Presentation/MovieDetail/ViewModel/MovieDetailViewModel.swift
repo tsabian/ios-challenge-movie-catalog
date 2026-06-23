@@ -76,11 +76,10 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
 
     state = .loading
 
-    if let bookmark = watchListRepository.fetch(by: selectedMovie.id) {
-      isBookmark = true
-    }
-
     do {
+      if let _ = try watchListRepository.fetch(by: selectedMovie.id) {
+        isBookmark = true
+      }
       detail = try await detailUseCase.execute(movie: selectedMovie.id)
       await makePosterPreview()
       updateLoadState()
@@ -111,10 +110,19 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     return url
   }
 
-  func addWatchList() {
-    if let detail {
-      watchListRepository.insert(movie: detail)
-      isBookmark = true
+  func addOrRemoveWatchList() {
+    guard let detail else { return }
+
+    do {
+      if try watchListRepository.fetch(by: detail.id) != nil {
+        try watchListRepository.deleteBookmark(movie: detail)
+        isBookmark = false
+      } else {
+        try watchListRepository.addBookmark(movie: detail)
+        isBookmark = true
+      }
+    } catch {
+      state = .error
     }
   }
 

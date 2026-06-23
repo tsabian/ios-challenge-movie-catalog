@@ -18,5 +18,5 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   func requestReviews()
   func requestCast()
   func makeMovieURL() -> URL?
-  func addWatchList()
+  func addOrRemoveWatchList()
 }

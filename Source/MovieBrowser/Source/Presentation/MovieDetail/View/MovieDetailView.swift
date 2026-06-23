@@ -32,7 +32,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
         Button {
-          viewModel.addWatchList()
+          viewModel.addOrRemoveWatchList()
         } label: {
           Image(systemName: viewModel.isBookmark ? "bookmark.fill" : "bookmark")
         }
