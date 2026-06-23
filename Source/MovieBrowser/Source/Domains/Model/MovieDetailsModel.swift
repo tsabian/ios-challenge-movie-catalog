@@ -17,4 +17,6 @@ struct MovieDetailsModel: Identifiable, Hashable {
   let backdropPath: String?
   let posterPath: String?
   let rankAverage: Double
+
+  var watched: Bool = false
 }

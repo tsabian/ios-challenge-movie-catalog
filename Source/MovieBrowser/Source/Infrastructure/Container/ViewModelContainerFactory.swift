@@ -7,6 +7,7 @@
 
 import Core
 import Foundation
+import SwiftData
 import SwiftUI
 
 struct ViewModelDependencies {
@@ -17,6 +18,7 @@ struct ViewModelDependencies {
   let apiKey: String
   let language: String?
   let region: String?
+  let context: ModelContext
 }
 
 struct ViewModelContainerFactory {
@@ -62,7 +64,8 @@ struct ViewModelContainerFactory {
                                                       region: domain.region,
                                                       movie: movie,
                                                       provider: provider)
-    let builder = MovieDetailBuilder(builderDependencies: dependencies)
+    let builder = MovieDetailBuilder(builderDependencies: dependencies,
+                                     context: domain.context)
     return builder.build()
   }
 }

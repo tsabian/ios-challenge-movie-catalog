@@ -7,6 +7,7 @@
 
 import Core
 import Foundation
+import SwiftData
 import SwiftUI
 
 @MainActor
@@ -15,6 +16,9 @@ struct AppContainer {
   private let imageClient: ApiClientProtocol
   private let imageCache: NSCache<NSString, UIImage>
   private let dataCache: NSCache<NSString, NSData>
+  private let container: ModelContainer
+  private let modelContext: ModelContext
+
   let viewModelFactory: ViewModelContainerFactory
 
   static let live: AppContainer = .makeLive()
@@ -31,20 +35,29 @@ struct AppContainer {
                                             ])
     let imageCache = NSCache<NSString, UIImage>()
     let dataCache = NSCache<NSString, NSData>()
-    let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
-                                                      imageClient: imageClient,
-                                                      imageCache: imageCache,
-                                                      dataCache: dataCache,
-                                                      apiKey: env.value(for: .tmdbApiKey),
-                                                      language: env.language,
-                                                      region: env.region)
-    let viewModelFactory = ViewModelContainerFactory(domain: viewModelDependencies)
-    return .init(
-      apiClient: apiClient,
-      imageClient: imageClient,
-      imageCache: imageCache,
-      dataCache: dataCache,
-      viewModelFactory: viewModelFactory
-    )
+    do {
+      let modelContainer = try ModelContainer(for: MovieDetails.self)
+      let modelContext = ModelContext(modelContainer)
+      let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
+                                                        imageClient: imageClient,
+                                                        imageCache: imageCache,
+                                                        dataCache: dataCache,
+                                                        apiKey: env.value(for: .tmdbApiKey),
+                                                        language: env.language,
+                                                        region: env.region,
+                                                        context: modelContext)
+      let viewModelFactory = ViewModelContainerFactory(domain: viewModelDependencies)
+      return .init(
+        apiClient: apiClient,
+        imageClient: imageClient,
+        imageCache: imageCache,
+        dataCache: dataCache,
+        container: modelContainer,
+        modelContext: modelContext,
+        viewModelFactory: viewModelFactory
+      )
+    } catch {
+      fatalError("")
+    }
   }
 }

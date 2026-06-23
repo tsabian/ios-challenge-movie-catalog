@@ -12,9 +12,11 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   var movieTitle: String { get }
   var backdropPath: String? { get }
   var imagePreview: Image? { get }
+  var isBookmark: Bool { get }
 
   func loadIfNeeded() async
   func requestReviews()
   func requestCast()
   func makeMovieURL() -> URL?
+  func addWatchList()
 }

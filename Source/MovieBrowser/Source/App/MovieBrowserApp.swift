@@ -20,5 +20,6 @@ struct MovieBrowserApp: App {
         .preferredColorScheme(.dark)
         .environment(\.appContainer, .live)
     }
+    .modelContainer(for: MovieDetails.self)
   }
 }

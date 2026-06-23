@@ -23,6 +23,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published var backdropPath: String?
   @Published var movieTitle: String
   @Published private(set) var imagePreview: Image?
+  @Published private(set) var isBookmark: Bool = false
 
   private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
@@ -45,6 +46,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   private let reviewUseCase: FetchMovieReviewsUseCaseProtocol
   private let castUseCase: FetchCastUseCaseProtocol
   private let imageService: ImageLoadingServiceProtocol
+  private let watchListRepository: WatchListRepositoryProtocol
 
   private let selectedMovie: MovieModel
 
@@ -57,12 +59,14 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
        detailUseCase: FetchMovieDetailUseCaseProtocol,
        reviewUseCase: FetchMovieReviewsUseCaseProtocol,
        castUseCase: FetchCastUseCaseProtocol,
-       imageService: ImageLoadingServiceProtocol) {
+       imageService: ImageLoadingServiceProtocol,
+       watchListRepository: WatchListRepositoryProtocol) {
     self.selectedMovie = selectedMovie
     self.detailUseCase = detailUseCase
     self.reviewUseCase = reviewUseCase
     self.castUseCase = castUseCase
     self.imageService = imageService
+    self.watchListRepository = watchListRepository
     backdropPath = selectedMovie.backdropPath
     movieTitle = selectedMovie.title
   }
@@ -71,6 +75,10 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     guard case .idle = state else { return }
 
     state = .loading
+
+    if let bookmark = watchListRepository.fetch(by: selectedMovie.id) {
+      isBookmark = true
+    }
 
     do {
       detail = try await detailUseCase.execute(movie: selectedMovie.id)
@@ -101,6 +109,13 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       return nil
     }
     return url
+  }
+
+  func addWatchList() {
+    if let detail {
+      watchListRepository.insert(movie: detail)
+      isBookmark = true
+    }
   }
 
   private func makePosterPreview() async {

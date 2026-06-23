@@ -7,13 +7,17 @@
 
 import Core
 import Foundation
+import SwiftData
 import SwiftUI
 
 struct MovieDetailBuilder {
   private let builderDependencies: MovieDetailBuilderDependencies
+  private let context: ModelContext
 
-  init(builderDependencies: MovieDetailBuilderDependencies) {
+  init(builderDependencies: MovieDetailBuilderDependencies,
+       context: ModelContext) {
     self.builderDependencies = builderDependencies
+    self.context = context
   }
 
   func build() -> MovieDetailViewModel {
@@ -35,11 +39,17 @@ struct MovieDetailBuilder {
                                 detailUseCase: detailUseCase,
                                 reviewUseCase: movieUseCase,
                                 castUseCase: castUseCase,
-                                imageService: makeImageService())
+                                imageService: makeImageService(),
+                                watchListRepository: makeWatchListRepository())
   }
 
   private func makeImageService() -> ImageLoadingServiceProtocol {
     let repository = RemotePosterRepository(apiClient: builderDependencies.imageClient)
     return ImageLoadingService(repository: repository, cache: builderDependencies.provider)
+  }
+
+  private func makeWatchListRepository() -> WatchListRepository {
+    let dataSource = WatchListDataSource(context: context)
+    return WatchListRepository(dataSource: dataSource)
   }
 }

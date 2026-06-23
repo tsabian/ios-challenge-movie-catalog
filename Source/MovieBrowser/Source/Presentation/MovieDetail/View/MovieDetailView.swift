@@ -32,9 +32,9 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     .toolbar {
       ToolbarItemGroup(placement: .topBarTrailing) {
         Button {
-          debugPrint("Save to watch list")
+          viewModel.addWatchList()
         } label: {
-          Image(systemName: "bookmark.fill")
+          Image(systemName: viewModel.isBookmark ? "bookmark.fill" : "bookmark")
         }
 
         if let url = viewModel.makeMovieURL(),
@@ -74,7 +74,9 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
         viewModel: appContainer.viewModelFactory.makeRemotePoster()
       )
     case .error:
-      EmptyView()
+      AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
+                               message: String(localized: .tryAgainFewMinutes),
+                               imageName: .error)
     }
   }
 
