@@ -24,8 +24,8 @@ final class HomeViewModel: HomeViewModelProtocol {
   @Published private(set) var state: HomeState = .idle
   @Published private(set) var isLoadingNextPage = false
   @Published var currentCategory: MovieCategory = .nowPlaying
-  @Published var page: Int = 1
 
+  private var page: Int = 1
   private var content: HomeContentModel?
 
   init(homeContentUseCase: FetchHomeContentUseCaseProtocol,
@@ -49,7 +49,8 @@ final class HomeViewModel: HomeViewModelProtocol {
   func loadNextPage() async {
     guard !isLoadingNextPage,
           let content,
-          content.movieCatalog.page < content.movieCatalog.totalPages else {
+          let catalog = content.movieCatalog[currentCategory],
+          catalog.page < catalog.totalPages else {
       return
     }
 
@@ -59,13 +60,18 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
 
     do {
-      let nextPage = content.movieCatalog.page + 1
+      let nextPage = catalog.page + 1
+      debugPrint("Current Page: \(catalog.page), Next page \(nextPage) of \(catalog.totalPages)")
       let nextCatalog = try await movieCatalogUseCase.fetch(by: currentCategory,
                                                             page: nextPage)
       page = nextPage
       let updatedCatalog = makeUpdatedCatalog(content, nextCatalog)
-      state = .loaded(content: HomeContentModel(rankedMovies: content.rankedMovies,
-                                                movieCatalog: updatedCatalog))
+      var currentCatalog = content.movieCatalog
+      currentCatalog[currentCategory] = updatedCatalog
+      let updatedContent = HomeContentModel(rankedMovies: content.rankedMovies,
+                                            movieCatalog: currentCatalog)
+      self.content = updatedContent
+      state = .loaded(content: updatedContent)
     } catch {
       state = .loaded(content: content)
     }
@@ -73,20 +79,28 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   private func fetch() async {
     do {
-      let content = try await homeContentUseCase.execute(category: currentCategory, page: 1)
+      let content = try await homeContentUseCase.execute(category: currentCategory,
+                                                         page: page)
       self.content = content
-      state = content.movieCatalog.movies.isEmpty && content.rankedMovies.isEmpty ? .empty :
-        .loaded(content: content)
+      let isMoviesEmpty = (content.movieCatalog[currentCategory]?.movies ?? []).isEmpty
+      state = isMoviesEmpty ? .empty : .loaded(content: content)
     } catch {
       state = .error(error.localizedDescription)
     }
   }
 
   private func fetchCatalog() async {
+    if content?.movieCatalog[currentCategory] != nil {
+      return
+    }
     do {
       let catalog = try await movieCatalogUseCase.fetch(by: currentCategory, page: page)
-      state = .loaded(content: HomeContentModel(rankedMovies: content?.rankedMovies ?? [],
-                                                movieCatalog: catalog))
+      var currentCatalog = content?.movieCatalog ?? [:]
+      currentCatalog[currentCategory] = catalog
+      let updatedContent = HomeContentModel(rankedMovies: content?.rankedMovies ?? [],
+                                            movieCatalog: currentCatalog)
+      content = updatedContent
+      state = .loaded(content: updatedContent)
     } catch {
       state = .error(error.localizedDescription)
     }
@@ -94,7 +108,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   private func makeUpdatedCatalog(_ content: HomeContentModel,
                                   _ nextCatalog: MovieCatalogModel) -> MovieCatalogModel {
-    var movies = content.movieCatalog.movies
+    var movies = content.movieCatalog[currentCategory]?.movies ?? []
     movies.append(contentsOf: nextCatalog.movies)
     return MovieCatalogModel(page: nextCatalog.page,
                              movies: movies,

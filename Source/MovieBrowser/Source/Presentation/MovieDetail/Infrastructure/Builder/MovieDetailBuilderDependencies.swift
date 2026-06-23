@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MovieDetailBuilderDependencies {
   let apiClient: ApiClientProtocol
+  let imageClient: ApiClientProtocol
   let apiKey: String
   let language: String?
   let region: String?

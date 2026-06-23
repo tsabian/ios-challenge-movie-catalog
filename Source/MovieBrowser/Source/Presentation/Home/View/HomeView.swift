@@ -71,12 +71,25 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                        onCategorySelect: handleCategorySelect(_:))
         .frame(maxWidth: .infinity, alignment: .leading)
     case let .loaded(content):
+      loadedContent(content)
+    case .empty:
+      AlternativeFlowStateView(title: String(localized: .noResultsTitle),
+                               message: String(localized: .noResultsMessage))
+    case .error:
+      errorState()
+    }
+  }
+
+  private func loadedContent(_ content: HomeContentModel) -> some View {
+    VStack {
       RankedListPostersView(movies: content.rankedMovies,
                             tapAction: handleNavigate)
+
       CategoryView(currentCategory: $viewModel.currentCategory,
                    onCategorySelect: handleCategorySelect)
-      if !content.movieCatalog.movies.isEmpty {
-        LazyMovieGridView(movieCatalog: content.movieCatalog,
+
+      if let catalog = content.movieCatalog[viewModel.currentCategory] {
+        LazyMovieGridView(movieCatalog: catalog,
                           isLoadingNextPage: viewModel.isLoadingNextPage,
                           loadNextPage: viewModel.loadNextPage,
                           tapAction: handleNavigate)
@@ -84,11 +97,6 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
         AlternativeFlowStateView(title: String(localized: .noResultsTitle),
                                  message: String(localized: .noResultsMessage))
       }
-    case .empty:
-      AlternativeFlowStateView(title: String(localized: .noResultsTitle),
-                               message: String(localized: .noResultsMessage))
-    case .error:
-      errorState()
     }
   }
 

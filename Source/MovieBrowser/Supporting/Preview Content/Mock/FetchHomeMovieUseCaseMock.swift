@@ -6,7 +6,8 @@
 //
 
 final class FetchHomeMovieUseCaseMock: FetchHomeContentUseCaseProtocol {
-  var result: HomeContentModel = .init(rankedMovies: [], movieCatalog: .mock())
+  var result: HomeContentModel = .init(rankedMovies: [],
+                                       movieCatalog: [.nowPlaying: .mock()])
   func execute(category _: MovieCategory, page _: Int) async throws -> HomeContentModel {
     result
   }

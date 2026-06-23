@@ -18,6 +18,9 @@ struct FetchHomeContentUseCase: FetchHomeContentUseCaseProtocol {
       category: category,
       page: category == .topRated ? page + 1 : page
     )
-    return HomeContentModel(rankedMovies: topRatedMovies.movies, movieCatalog: catalog)
+    return HomeContentModel(
+      rankedMovies: topRatedMovies.movies,
+      movieCatalog: [category: catalog]
+    )
   }
 }

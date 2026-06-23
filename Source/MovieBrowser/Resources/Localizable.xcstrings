@@ -61,6 +61,17 @@
         }
       }
     },
+    "justWatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$(movieName)@ is currently available to stream in %2$(region)@. JustWatch helps you find out where you can legally watch your movies and series online. Visit JustWatch for more information."
+          }
+        }
+      }
+    },
     "latest" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -135,6 +146,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Popular"
+          }
+        }
+      }
+    },
+    "providers" : {
+      "comment" : "providers",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Providers"
           }
         }
       }
@@ -276,6 +299,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What do you want to watch?"
+          }
+        }
+      }
+    },
+    "youMightAlsoLike" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You might also like"
           }
         }
       }

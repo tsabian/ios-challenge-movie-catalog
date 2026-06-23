@@ -56,6 +56,7 @@ struct ViewModelContainerFactory {
   func makeMovieDetail(movie: MovieModel) -> MovieDetailViewModel {
     let provider = ResourceCacheProvider(cache: domain.imageCache)
     let dependencies = MovieDetailBuilderDependencies(apiClient: domain.apiClient,
+                                                      imageClient: domain.imageClient,
                                                       apiKey: domain.apiKey,
                                                       language: domain.language,
                                                       region: domain.region,

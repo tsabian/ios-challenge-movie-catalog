@@ -7,5 +7,5 @@
 
 struct HomeContentModel {
   let rankedMovies: [MovieModel]
-  let movieCatalog: MovieCatalogModel
+  let movieCatalog: [MovieCategory: MovieCatalogModel]
 }

@@ -8,6 +8,6 @@
 extension HomeContentModel {
   static func mock() -> Self {
     HomeContentModel(rankedMovies: .mock(type: .topRated),
-                     movieCatalog: .mock(type: .nowPlaying))
+                     movieCatalog: [.nowPlaying: .mock(type: .nowPlaying)])
   }
 }

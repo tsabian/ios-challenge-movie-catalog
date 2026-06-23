@@ -24,8 +24,8 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
 
   var body: some View {
     NavigationStack(path: $router.path) {
-      ScrollView(.vertical) {
-        VStack(spacing: 24) {
+      ScrollView(.vertical, showsIndicators: false) {
+        VStack(spacing: 15) {
           Text(.search)
             .font(MovieBrowserFontsStyle.title.self)
 

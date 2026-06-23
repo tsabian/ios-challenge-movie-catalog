@@ -39,7 +39,7 @@ struct MovieDetailBuilder {
   }
 
   private func makeImageService() -> ImageLoadingServiceProtocol {
-    let repository = RemotePosterRepository(apiClient: builderDependencies.apiClient)
+    let repository = RemotePosterRepository(apiClient: builderDependencies.imageClient)
     return ImageLoadingService(repository: repository, cache: builderDependencies.provider)
   }
 }

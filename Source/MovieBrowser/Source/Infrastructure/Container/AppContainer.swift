@@ -15,23 +15,22 @@ struct AppContainer {
   private let imageClient: ApiClientProtocol
   private let imageCache: NSCache<NSString, UIImage>
   private let dataCache: NSCache<NSString, NSData>
-
-  static let live: AppContainer = .init()
-
   let viewModelFactory: ViewModelContainerFactory
 
-  private init() {
+  static let live: AppContainer = .makeLive()
+
+  private static func makeLive() -> Self {
     let env = AppEnvironment.current.self
-    apiClient = ApiClientFactory.make(host: env.value(for: .tmdbApiBaseUrl),
-                                      pinnedPublicKeyBase64Hashes: [
-                                        env.value(for: .tmdbApiSslPinningKey)
-                                      ])
-    imageClient = ApiClientFactory.make(host: env.value(for: .tmdbImageBaseUrl),
-                                        pinnedPublicKeyBase64Hashes: [
-                                          env.value(for: .tmdbImageSslPinningKey)
-                                        ])
-    imageCache = .init()
-    dataCache = .init()
+    let apiClient = ApiClientFactory.make(host: env.value(for: .tmdbApiBaseUrl),
+                                          pinnedPublicKeyBase64Hashes: [
+                                            env.value(for: .tmdbApiSslPinningKey)
+                                          ])
+    let imageClient = ApiClientFactory.make(host: env.value(for: .tmdbImageBaseUrl),
+                                            pinnedPublicKeyBase64Hashes: [
+                                              env.value(for: .tmdbImageSslPinningKey)
+                                            ])
+    let imageCache = NSCache<NSString, UIImage>()
+    let dataCache = NSCache<NSString, NSData>()
     let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
                                                       imageClient: imageClient,
                                                       imageCache: imageCache,
@@ -39,6 +38,13 @@ struct AppContainer {
                                                       apiKey: env.value(for: .tmdbApiKey),
                                                       language: env.language,
                                                       region: env.region)
-    viewModelFactory = .init(domain: viewModelDependencies)
+    let viewModelFactory = ViewModelContainerFactory(domain: viewModelDependencies)
+    return .init(
+      apiClient: apiClient,
+      imageClient: imageClient,
+      imageCache: imageCache,
+      dataCache: dataCache,
+      viewModelFactory: viewModelFactory
+    )
   }
 }

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Core
 import Foundation
 import SwiftUI
 
@@ -73,7 +74,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
 
     do {
       detail = try await detailUseCase.execute(movie: selectedMovie.id)
-      imagePreview = await makePosterPreview()
+      await makePosterPreview()
       updateLoadState()
     } catch {
       state = .error
@@ -102,16 +103,18 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     return url
   }
 
-  private func makePosterPreview() async -> Image {
-    let imageDefault = Image("popcorn")
+  private func makePosterPreview() async {
+    imagePreview = Image("popcorn")
     guard let detail, let posterPath = detail.posterPath else {
-      return imageDefault
+      return
     }
     do {
-      let uiImage = try await imageService.fetchImage(from: posterPath, withSize: .small)
-      return Image(uiImage: uiImage)
+      let image = try await imageService.fetchImage(from: posterPath,
+                                                    withSize: .small)
+      let croppedImage = image.croppedToAspectRatio(ratio: 1)
+      imagePreview = Image(uiImage: croppedImage)
     } catch {
-      return imageDefault
+      debugPrint(error)
     }
   }
 

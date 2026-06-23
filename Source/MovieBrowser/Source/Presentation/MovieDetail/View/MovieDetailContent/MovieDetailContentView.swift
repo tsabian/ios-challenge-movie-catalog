@@ -108,24 +108,26 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
 
   private var info: some View {
     VStack {
-      HStack(alignment: .top, spacing: 12) {
-        ForEach(DetailInfo.allCases, id: \.self) { element in
-          VStack {
-            Text(element.title)
-              .font(MovieBrowserFontsStyle.body.bold())
-              .lineLimit(1)
-            Rectangle()
-              .fill(Color.accentLightGray)
-              .frame(maxWidth: .infinity)
-              .frame(height: currentInfo == element ? 5.0 : 0)
-              .opacity(currentInfo == element ? 1.0 : 0)
-              .animation(.easeInOut(duration: 0.4), value: currentInfo)
-          }
-          .contentShape(Rectangle())
-          .onTapGesture {
-            guard currentInfo != element else { return }
-            currentInfo = element
-            infoTapAction(element)
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(alignment: .top, spacing: 12) {
+          ForEach(DetailInfo.allCases, id: \.self) { element in
+            VStack {
+              Text(element.title)
+                .font(MovieBrowserFontsStyle.body.bold())
+                .lineLimit(1)
+              Rectangle()
+                .fill(Color.accentLightGray)
+                .frame(maxWidth: .infinity)
+                .frame(height: currentInfo == element ? 5.0 : 0)
+                .opacity(currentInfo == element ? 1.0 : 0)
+                .animation(.easeInOut(duration: 0.4), value: currentInfo)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+              guard currentInfo != element else { return }
+              currentInfo = element
+              infoTapAction(element)
+            }
           }
         }
       }
@@ -135,6 +137,8 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
       case .about: aboutMovie
       case .reviews: reviews
       case .cast: cast
+      case .providers: providers
+      case .mightAlsoLike: mightAlsoLike
       }
     }
     .frame(maxWidth: .infinity)
@@ -155,6 +159,18 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
   private var cast: some View {
     CastView(isLoading: contentState.isLoadingCast,
              cast: contentState.cast)
+  }
+
+  private var providers: some View {
+    AlternativeFlowStateView(title: String(localized: .providers),
+                             message: "",
+                             imageName: .folder)
+  }
+
+  private var mightAlsoLike: some View {
+    AlternativeFlowStateView(title: String(localized: .youMightAlsoLike),
+                             message: "",
+                             imageName: .folder)
   }
 }
 
