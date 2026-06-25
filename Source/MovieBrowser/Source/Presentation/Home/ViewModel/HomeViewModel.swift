@@ -44,10 +44,10 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   func fetch(category: MovieCategory) async {
     currentCategory = category
-    await fetchNextPage()
+    await fetchNextPage(for: category)
   }
 
-  func fetchNextPage() async {
+  func fetchNextPage(for category: MovieCategory) async {
     guard !isLoadingNextPage, var content else {
       return
     }
@@ -60,6 +60,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     do {
       try await nextPageMovieCatalogUseCase.execute(by: currentCategory,
                                                     content: &content)
+      guard currentCategory == category else { return }
       self.content = content
       state = .loaded(content: content)
     } catch UseCaseError.noMorePages {

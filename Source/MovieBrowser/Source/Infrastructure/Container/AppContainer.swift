@@ -60,7 +60,7 @@ struct AppContainer {
         viewModelFactory: viewModelFactory
       )
     } catch {
-      fatalError("")
+      fatalError("Failed to create SwiftData ModelContainer: \(error)")
     }
   }
 }

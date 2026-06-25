@@ -15,6 +15,7 @@ enum WatchListState {
   case error
 }
 
+@MainActor
 final class WatchListViewModel: WatchListViewModelProtocol {
   @Published private(set) var state: WatchListState = .idle
 

@@ -105,18 +105,6 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  func requestReviews() {
-    Task {
-      await loadReviewsIfNeeded()
-    }
-  }
-
-  func requestCast() {
-    Task {
-      await loadCastIfNeeded()
-    }
-  }
-
   func makeMovieURL() -> URL? {
     guard let detail,
           let urlComponents = URLComponents(string: hostUrlString),
@@ -135,33 +123,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  func requestRecomendations() {
-    Task {
-      await loadRecomendationsIfNeeded()
-    }
-  }
-
-  func requestWatchProviders() {
-    Task {
-      await loadWatchProvidersIfNeeded()
-    }
-  }
-
-  private func makePosterPreview() async {
-    imagePreview = UIImage(named: "popcorn")
-    guard let detail, let posterPath = detail.posterPath else {
-      return
-    }
-    do {
-      let image = try await imageService.fetchImage(from: posterPath,
-                                                    withSize: .small)
-      imagePreview = image.croppedToAspectRatio(ratio: 1)
-    } catch {
-      debugPrint(error)
-    }
-  }
-
-  private func loadReviewsIfNeeded() async {
+  func loadReviewsIfNeeded() async {
     guard canLoadMoreReviews, !isLoadingReviews else {
       return
     }
@@ -179,7 +141,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  private func loadCastIfNeeded() async {
+  func loadCastIfNeeded() async {
     guard cast.isEmpty, !isLoadingCast else {
       return
     }
@@ -195,8 +157,8 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  private func loadRecomendationsIfNeeded() async {
-    guard !isLoadingCast, let detail else {
+  func loadRecomendationsIfNeeded() async {
+    guard !isLoadingCast, recomendations == nil, let detail else {
       return
     }
     isLoadingRecomendations = true
@@ -210,8 +172,8 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  private func loadWatchProvidersIfNeeded() async {
-    guard !isLoadingCast, let detail else {
+  func loadWatchProvidersIfNeeded() async {
+    guard !isLoadingCast, watchProviders != nil, let detail else {
       return
     }
     isLoadingWatchProviders = true
@@ -222,6 +184,20 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       watchProviders = try await watchProviderUseCase.execute(movie: detail)
     } catch {
       state = .error
+    }
+  }
+
+  private func makePosterPreview() async {
+    imagePreview = UIImage(named: "popcorn")
+    guard let detail, let posterPath = detail.posterPath else {
+      return
+    }
+    do {
+      let image = try await imageService.fetchImage(from: posterPath,
+                                                    withSize: .small)
+      imagePreview = image.croppedToAspectRatio(ratio: 1)
+    } catch {
+      debugPrint(error)
     }
   }
 

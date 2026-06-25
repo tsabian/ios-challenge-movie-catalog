@@ -86,20 +86,44 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   private func handleRequest(info: DetailInfo) {
     switch info {
     case .reviews:
-      viewModel.requestReviews()
+      requestReviews()
     case .cast:
-      viewModel.requestCast()
+      requestCast()
     case .about:
       break
     case .providers:
-      viewModel.requestWatchProviders()
+      requestWatchProviders()
     case .recomendations:
-      viewModel.requestRecomendations()
+      requestRecomendations()
     }
   }
 
   private func handleReviewNextPage() {
-    viewModel.requestReviews()
+    requestReviews()
+  }
+
+  private func requestReviews() {
+    Task {
+      await viewModel.loadReviewsIfNeeded()
+    }
+  }
+
+  private func requestCast() {
+    Task {
+      await viewModel.loadCastIfNeeded()
+    }
+  }
+
+  private func requestWatchProviders() {
+    Task {
+      await viewModel.loadWatchProvidersIfNeeded()
+    }
+  }
+
+  private func requestRecomendations() {
+    Task {
+      await viewModel.loadRecomendationsIfNeeded()
+    }
   }
 }
 

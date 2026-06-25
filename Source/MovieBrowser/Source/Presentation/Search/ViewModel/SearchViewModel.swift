@@ -16,6 +16,7 @@ enum SearchState {
   case error(String)
 }
 
+@MainActor
 final class SearchViewModel: SearchViewModelProtocol {
   private let searchUseCase: SearchMovieUseCaseProtocol
   private let genreUseCase: FetchGenreUseCaseProtocol

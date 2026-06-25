@@ -15,7 +15,7 @@ final class FetchMovieReviewsUseCase: FetchMovieReviewsUseCaseProtocol {
   }
 
   func execute(movieID: Int) async throws -> ReviewModel {
-    guard currentPage < totalPages else {
+    guard currentPage == 0 || currentPage < totalPages else {
       throw UseCaseError.noMorePages
     }
     let nextPage = currentPage + 1

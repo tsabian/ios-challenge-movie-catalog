@@ -20,6 +20,8 @@ struct ContentView: View {
   @State private var selectedTab: AppTab = .home
   @State private var searchQuery = ""
   @State private var homeRouter = HomeRouter()
+  @State private var searchRouter = HomeRouter()
+  @State private var watchListRouter = HomeRouter()
 
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -32,7 +34,7 @@ struct ContentView: View {
         }.tag(AppTab.home)
 
       SearchView(viewModel: container.viewModelFactory.makeSearch(),
-                 router: $homeRouter,
+                 router: $searchRouter,
                  query: $searchQuery)
         .tabItem {
           Image(systemName: "magnifyingglass")
@@ -41,7 +43,7 @@ struct ContentView: View {
         .tag(AppTab.search)
 
       WatchListView(viewModel: container.viewModelFactory.makeWatchList(),
-                    router: $homeRouter)
+                    router: $watchListRouter)
         .tabItem {
           Image(systemName: "bookmark.fill")
           Text(.watchList)
@@ -50,6 +52,8 @@ struct ContentView: View {
     }
     .onChange(of: selectedTab) { _, _ in
       homeRouter.popToRoot()
+      searchRouter.popToRoot()
+      watchListRouter.popToRoot()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
   }

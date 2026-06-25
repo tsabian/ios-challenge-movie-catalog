@@ -16,10 +16,10 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   var isBookmark: Bool { get }
 
   func loadIfNeeded() async
-  func requestReviews()
-  func requestCast()
   func makeMovieURL() -> URL?
   func addOrRemoveWatchList()
-  func requestRecomendations()
-  func requestWatchProviders()
+  func loadCastIfNeeded() async
+  func loadReviewsIfNeeded() async
+  func loadWatchProvidersIfNeeded() async
+  func loadRecomendationsIfNeeded() async
 }

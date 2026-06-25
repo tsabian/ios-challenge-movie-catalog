@@ -61,7 +61,7 @@ public extension Endpoint {
     var request = URLRequest(url: url)
     request.httpMethod = method.rawValue
     request.setValue(acceptType.rawValue, forHTTPHeaderField: "Accept")
-    request.setValue(acceptType.rawValue, forHTTPHeaderField: "Content-Type")
+    request.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
     headers?.forEach { key, value in
       request.setValue(value, forHTTPHeaderField: key)
     }
