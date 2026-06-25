@@ -25,21 +25,24 @@ struct MovieDetailBuilder {
   }
 
   private func makeViewModelDependencies() -> MovieDetailsViewModelDependencies {
-    let repository = MovieRepository(dependencies: makeMovieRepository())
+    let movieRepository = makeMovieRepository()
     let watchListRepository = makeWatchListRepository()
-    let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
-    let castUseCase = FetchCastUseCase(repository: repository)
+
+    let movieUseCase = FetchMovieReviewsUseCase(repository: movieRepository)
+    let castUseCase = FetchCastUseCase(repository: movieRepository)
+    let recomendationUseCase = FetchMovieRecomendationsUse(movieRepository: movieRepository)
+    let watchProviderUseCase = FetchWatchProviderUseCase(repository: movieRepository)
     let detailUseCase = FetchMovieDetailUseCase(
-      repository: repository,
+      repository: movieRepository,
       watchListRepository: watchListRepository
     )
     let insertOrRemoveBookmarkUseCase = InsertOrRemoveBookmarkUseCase(
       watchListRepository: watchListRepository
     )
-    let recomendationUseCase = FetchMovieRecomendationsUse(movieRepository: repository)
-    let watchProviderUseCase = FetchWatchProviderUseCase(repository: repository)
+
     return .init(
       selectedMovie: builderDependencies.movie,
+      hostUrlString: builderDependencies.hostUrlString,
       detailUseCase: detailUseCase,
       reviewUseCase: movieUseCase,
       castUseCase: castUseCase,
@@ -50,9 +53,8 @@ struct MovieDetailBuilder {
     )
   }
 
-  private func makeMovieRepository() -> MovieRepositoryDependencies {
-    .init(
-      apiClient: builderDependencies.apiClient,
+  private func makeMovieRepository() -> MovieRepository {
+    let dependencies = MovieRepositoryDependencies(
       apiKey: builderDependencies.apiKey,
       language: builderDependencies.language,
       region: builderDependencies.region,
@@ -62,6 +64,8 @@ struct MovieDetailBuilder {
       castAdapter: .init(),
       watchProvidersAdapter: .init()
     )
+    return MovieRepository(apiClient: builderDependencies.apiClient,
+                           dependencies: dependencies)
   }
 
   private func makeImageService() -> ImageLoadingServiceProtocol {

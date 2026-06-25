@@ -8,59 +8,56 @@
 import Core
 import Foundation
 
-final class MovieRepository: MovieRepositoryProtocol {
+final class MovieRepository: NetworkRepository, MovieRepositoryProtocol {
   private let dependencies: MovieRepositoryDependencies
-  private let decoder: JSONDecoder
 
-  enum MovieRepositoryError: Error {
-    case invalidRequest
-    case invalidResponse(status: Int? = nil)
-  }
-
-  init(dependencies: MovieRepositoryDependencies,
-       decoder: JSONDecoder = JSONDecoder()) {
+  init(apiClient: ApiClientProtocol,
+       decoder: JSONDecoder = .init(),
+       dependencies: MovieRepositoryDependencies) {
     self.dependencies = dependencies
-    self.decoder = decoder
-    self.decoder.dateDecodingStrategy = .iso8601
+    super.init(apiClient: apiClient, decoder: decoder, dateDecodingStrategy: .iso8601)
   }
 
   func fetchMovies(category: MovieCategory, page: Int) async throws -> MovieCatalogModel {
-    let data = try await dependencies.apiClient.execute(endpoint: makeCatalogEndpoint(category,
-                                                                                      page: page))
-    let dto = try decoder.decode(MovieCatalogDto.self, from: data)
-    return dependencies.movieAdapter.adapt(dto: dto)
+    try await request(endpoint: makeCatalogEndpoint(category, page: page),
+                      decode: MovieCatalogDto.self) { dto in
+      dependencies.movieAdapter.adapt(dto: dto)
+    }
   }
 
   func requestDetail(id: Int) async throws -> MovieDetailsModel {
-    let data = try await dependencies.apiClient.execute(endpoint: makeDetailEndpoint(id))
-    let dto = try decoder.decode(MovieDetailDto.self, from: data)
-    return dependencies.detailAdapter.adapt(dto: dto)
+    try await request(endpoint: makeDetailEndpoint(id),
+                      decode: MovieDetailDto.self) { dto in
+      dependencies.detailAdapter.adapt(dto: dto)
+    }
   }
 
   func requestReviews(id: Int, page: Int) async throws -> ReviewModel {
-    let data = try await dependencies.apiClient.execute(endpoint: makeReviewsEndpoint(id, page))
-    let dto = try decoder.decode(ReviewCatalogDto.self, from: data)
-    return dependencies.reviewAdapter.adapt(dto: dto)
+    try await request(endpoint: makeReviewsEndpoint(id, page),
+                      decode: ReviewCatalogDto.self) { dto in
+      dependencies.reviewAdapter.adapt(dto: dto)
+    }
   }
 
   func requestCredits(id: Int) async throws -> CastCatalogModel {
-    let data = try await dependencies.apiClient.execute(endpoint: makeCreditsEndpoint(id))
-    let dto = try decoder.decode(CastingDto.self, from: data)
-    return dependencies.castAdapter.adapt(dto: dto)
+    try await request(endpoint: makeCreditsEndpoint(id),
+                      decode: CastingDto.self) { dto in
+      dependencies.castAdapter.adapt(dto: dto)
+    }
   }
 
   func requestRecomendations(id: Int, page: Int) async throws -> MovieCatalogModel {
-    let recomendationEndpoint = makeRecomendationsEndpoint(id, page)
-    let data = try await dependencies.apiClient.execute(endpoint: recomendationEndpoint)
-    let dto = try decoder.decode(MovieCatalogDto.self, from: data)
-    return dependencies.movieAdapter.adapt(dto: dto)
+    try await request(endpoint: makeRecomendationsEndpoint(id, page),
+                      decode: MovieCatalogDto.self) { dto in
+      dependencies.movieAdapter.adapt(dto: dto)
+    }
   }
 
   func requestProviders(id: Int) async throws -> WatchProvidersModel {
-    let watchProvidersEndpoint = makeWatchProvidersEndpoint(id)
-    let data = try await dependencies.apiClient.execute(endpoint: watchProvidersEndpoint)
-    let dto = try decoder.decode(WatchProvidersDto.self, from: data)
-    return dependencies.watchProvidersAdapter.adapt(dto: dto)
+    try await request(endpoint: makeWatchProvidersEndpoint(id),
+                      decode: WatchProvidersDto.self) { dto in
+      dependencies.watchProvidersAdapter.adapt(dto: dto)
+    }
   }
 
   private func makeCatalogEndpoint(_ category: MovieCategory, page: Int) -> Endpoint {

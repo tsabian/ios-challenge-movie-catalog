@@ -6,5 +6,5 @@
 //
 
 protocol FetchMovieRecomendationsUseCaseProtocol {
-  func execute(detail: MovieDetailsModel, page: Int) async throws -> MovieCatalogModel
+  func execute(detail: MovieDetailsModel) async throws -> MovieCatalogModel
 }

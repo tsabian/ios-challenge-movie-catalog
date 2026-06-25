@@ -18,20 +18,22 @@ enum HomeState {
 
 @MainActor
 final class HomeViewModel: HomeViewModelProtocol {
-  private let homeContentUseCase: FetchHomeContentUseCaseProtocol
-  private let movieCatalogUseCase: FetchMovieCatalogUseCaseProtocol
-
   @Published private(set) var state: HomeState = .idle
   @Published private(set) var isLoadingNextPage = false
+  @Published private(set) var canLoadNextPage = false
   @Published var currentCategory: MovieCategory = .nowPlaying
 
-  private var page: Int = 1
+  // MARK: - UseCases
+
+  private let homeContentUseCase: FetchHomeContentUseCaseProtocol
+  private let nextPageMovieCatalogUseCase: FetchNextPageMovieCatalogUseCaseProtocol
+
   private var content: HomeContentModel?
 
   init(homeContentUseCase: FetchHomeContentUseCaseProtocol,
-       movieCatalogUseCase: FetchMovieCatalogUseCaseProtocol) {
+       movieCatalogUseCase: FetchNextPageMovieCatalogUseCaseProtocol) {
     self.homeContentUseCase = homeContentUseCase
-    self.movieCatalogUseCase = movieCatalogUseCase
+    nextPageMovieCatalogUseCase = movieCatalogUseCase
   }
 
   func load() async {
@@ -43,28 +45,24 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   func select(category: MovieCategory) async {
     currentCategory = category
-    await fetchCatalog()
+    await fetchCatalog(category: category)
   }
 
-  func loadNextPage() async {
+  func fetchNextPage() async {
     guard !isLoadingNextPage,
           let content,
           let catalog = content.movieCatalog[currentCategory],
           catalog.page < catalog.totalPages else {
       return
     }
-
     isLoadingNextPage = true
     defer {
       isLoadingNextPage = false
     }
-
     do {
-      let nextPage = catalog.page + 1
-      debugPrint("Current Page: \(catalog.page), Next page \(nextPage) of \(catalog.totalPages)")
-      let nextCatalog = try await movieCatalogUseCase.fetch(by: currentCategory,
-                                                            page: nextPage)
-      page = nextPage
+      let nextCatalog = try await nextPageMovieCatalogUseCase.execute(by: currentCategory,
+                                                                      currentPage: catalog.page,
+                                                                      totalPages: catalog.totalPages)
       let updatedCatalog = makeUpdatedCatalog(content, nextCatalog)
       var currentCatalog = content.movieCatalog
       currentCatalog[currentCategory] = updatedCatalog
@@ -72,6 +70,8 @@ final class HomeViewModel: HomeViewModelProtocol {
                                             movieCatalog: currentCatalog)
       self.content = updatedContent
       state = .loaded(content: updatedContent)
+    } catch UseCaseError.noMorePages {
+      canLoadNextPage = false
     } catch {
       state = .loaded(content: content)
     }
@@ -79,8 +79,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
   private func fetch() async {
     do {
-      let content = try await homeContentUseCase.execute(category: currentCategory,
-                                                         page: 1)
+      let content = try await homeContentUseCase.execute(category: currentCategory)
       self.content = content
       let isMoviesEmpty = (content.movieCatalog[currentCategory]?.movies ?? []).isEmpty
       state = isMoviesEmpty ? .empty : .loaded(content: content)
@@ -89,12 +88,16 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
   }
 
-  private func fetchCatalog() async {
-    if content?.movieCatalog[currentCategory] != nil {
+  private func fetchCatalog(category: MovieCategory) async {
+    if content?.movieCatalog[category] != nil {
       return
     }
     do {
-      let catalog = try await movieCatalogUseCase.fetch(by: currentCategory, page: 1)
+      let requestCategory = category
+      let catalog = try await nextPageMovieCatalogUseCase.execute(by: requestCategory,
+                                                                  currentPage: 0,
+                                                                  totalPages: 1)
+      guard currentCategory == requestCategory else { return }
       var currentCatalog = content?.movieCatalog ?? [:]
       currentCatalog[currentCategory] = catalog
       let updatedContent = HomeContentModel(rankedMovies: content?.rankedMovies ?? [],

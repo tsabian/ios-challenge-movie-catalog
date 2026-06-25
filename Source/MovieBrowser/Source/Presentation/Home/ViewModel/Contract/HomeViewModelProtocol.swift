@@ -10,9 +10,10 @@ import Combine
 protocol HomeViewModelProtocol: ObservableObject {
   var state: HomeState { get }
   var isLoadingNextPage: Bool { get }
+  var canLoadNextPage: Bool { get }
   var currentCategory: MovieCategory { get set }
 
   func load() async
   func select(category: MovieCategory) async
-  func loadNextPage() async
+  func fetchNextPage() async
 }

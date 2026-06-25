@@ -6,7 +6,7 @@
 //
 
 import Core
-import SwiftUI
+import UIKit
 
 struct MovieDetailBuilderDependencies {
   let apiClient: ApiClientProtocol
@@ -16,4 +16,5 @@ struct MovieDetailBuilderDependencies {
   let region: String?
   let movie: MovieModel
   let provider: ResourceCacheProvider<UIImage>
+  let hostUrlString: String
 }

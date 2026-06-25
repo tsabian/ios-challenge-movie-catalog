@@ -39,7 +39,9 @@ final class SearchViewModel: SearchViewModelProtocol {
     state = .loading
     do {
       try await loadGenresIfNeeded()
-      let movies = try await searchUseCase.find(movie: title, page: page)
+      let requestTitle = title
+      let movies = try await searchUseCase.find(movie: requestTitle, page: page)
+      guard self.title == title else { return }
       state = movies.totalResults == 0 ? .empty : .loaded(content: movies)
     } catch {
       state = .error(error.localizedDescription)

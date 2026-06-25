@@ -12,7 +12,7 @@ final class HomeViewModelMock: HomeViewModelProtocol {
   @Published var state: HomeState = .idle
   @Published private(set) var isLoadingNextPage: Bool = false
   @Published var currentCategory: MovieCategory = .topRated
-  @Published var page = 1
+  @Published var canLoadNextPage: Bool = true
 
   func load() async {}
   func select(category _: MovieCategory) async {}
@@ -22,7 +22,7 @@ final class HomeViewModelMock: HomeViewModelProtocol {
     return self
   }
 
-  func loadNextPage() async {
+  func fetchNextPage() async {
     isLoadingNextPage = true
   }
 }

@@ -7,6 +7,7 @@
 
 struct MovieDetailsViewModelDependencies {
   let selectedMovie: MovieModel
+  let hostUrlString: String
   let detailUseCase: FetchMovieDetailUseCaseProtocol
   let reviewUseCase: FetchMovieReviewsUseCaseProtocol
   let castUseCase: FetchCastUseCaseProtocol

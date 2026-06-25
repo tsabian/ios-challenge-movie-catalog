@@ -9,7 +9,6 @@ import Core
 import Foundation
 
 struct MovieRepositoryDependencies {
-  let apiClient: ApiClientProtocol
   let apiKey: String
   let language: String?
   let region: String?

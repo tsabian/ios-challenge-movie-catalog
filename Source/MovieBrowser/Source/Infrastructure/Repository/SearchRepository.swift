@@ -8,23 +8,24 @@
 import Core
 import Foundation
 
-final class SearchRepository: SearchRepositoryProtocol {
+final class SearchRepository: NetworkRepository, SearchRepositoryProtocol {
   private let dependencies: SearchRepositoryDependencies
-  private let decoder: JSONDecoder
 
-  init(dependencies: SearchRepositoryDependencies,
-       decoder: JSONDecoder = JSONDecoder()) {
+  init(apiClient: ApiClientProtocol,
+       decoder: JSONDecoder = .init(),
+       dependencies: SearchRepositoryDependencies) {
     self.dependencies = dependencies
-    self.decoder = decoder
+    super.init(apiClient: apiClient, decoder: decoder)
   }
 
   func find(query: String, page: Int) async throws -> SearchMovieCatalogModel {
     let searchEndpoint = makeSearchEndpoint(query: query,
                                             includeAdult: dependencies.includeAdult,
                                             page: page)
-    let data = try await dependencies.apiClient.execute(endpoint: searchEndpoint)
-    let dto = try decoder.decode(MovieCatalogDto.self, from: data)
-    return dependencies.searchMovieAdapter.adapt(dto: dto)
+    return try await request(endpoint: searchEndpoint,
+                             decode: MovieCatalogDto.self) { dto in
+      dependencies.searchMovieAdapter.adapt(dto: dto)
+    }
   }
 
   private func makeSearchEndpoint(query: String, includeAdult: Bool, page: Int) -> Endpoint {

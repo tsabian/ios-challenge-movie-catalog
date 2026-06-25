@@ -30,25 +30,31 @@ struct SearchMovieBuilder {
   }
 
   func build() -> SearchViewModel {
+    let searchUseCase = SearchMovieUseCase(repository: makeSearchRepository())
+    let genreUseCase = FetchGenreUseCase(repository: makeGenreRepository())
+    return SearchViewModel(searchUseCase: searchUseCase, genreUseCase: genreUseCase)
+  }
+
+  private func makeSearchRepository() -> SearchRepository {
     let dependencies = SearchRepositoryDependencies(apiClient: apiClient,
                                                     apiKey: apiKey,
                                                     language: language,
                                                     region: region,
                                                     includeAdult: false,
                                                     searchMovieAdapter: .init())
-    let searchRepository = SearchRepository(dependencies: dependencies)
-    let genreDependencies = GenreRepositoryDependencies(
-      apiClient: apiClient,
+    return SearchRepository(apiClient: apiClient,
+                            dependencies: dependencies)
+  }
+
+  private func makeGenreRepository() -> GenreRepository {
+    let provider = ResourceCacheProvider<NSData>(cache: dataCache)
+    let dependencies = GenreRepositoryDependencies(
       apiKey: apiKey,
       language: language,
-      genreAdapter: .init()
+      genreAdapter: .init(),
+      genreProvider: provider
     )
-    let provider = ResourceCacheProvider<NSData>(cache: dataCache)
-    let genreRepository = GenreRepository(dependencies: genreDependencies,
-                                          genreProvider: provider)
-    let searchUseCase = SearchMovieUseCase(repository: searchRepository)
-    let genreUseCase = FetchGenreUseCase(repository: genreRepository)
-    return SearchViewModel(searchUseCase: searchUseCase,
-                           genreUseCase: genreUseCase)
+    return GenreRepository(apiClient: apiClient,
+                           dependencies: dependencies)
   }
 }

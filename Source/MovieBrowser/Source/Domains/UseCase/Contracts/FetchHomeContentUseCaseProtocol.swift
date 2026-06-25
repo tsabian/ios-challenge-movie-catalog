@@ -6,5 +6,5 @@
 //
 
 protocol FetchHomeContentUseCaseProtocol {
-  func execute(category: MovieCategory, page: Int) async throws -> HomeContentModel
+  func execute(category: MovieCategory) async throws -> HomeContentModel
 }

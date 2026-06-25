@@ -6,10 +6,11 @@
 //
 
 import Core
+import Foundation
 
 struct GenreRepositoryDependencies {
-  let apiClient: ApiClientProtocol
   let apiKey: String
   let language: String?
   let genreAdapter: GenreAdapter
+  let genreProvider: ResourceCacheProvider<NSData>
 }

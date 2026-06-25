@@ -19,6 +19,7 @@ struct ViewModelDependencies {
   let language: String?
   let region: String?
   let context: ModelContext
+  let hostURLString: String
 }
 
 struct ViewModelContainerFactory {
@@ -63,7 +64,8 @@ struct ViewModelContainerFactory {
                                                       language: domain.language,
                                                       region: domain.region,
                                                       movie: movie,
-                                                      provider: provider)
+                                                      provider: provider,
+                                                      hostUrlString: domain.hostURLString)
     let builder = MovieDetailBuilder(builderDependencies: dependencies,
                                      context: domain.context)
     return builder.build()

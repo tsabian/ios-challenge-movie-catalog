@@ -8,28 +8,33 @@
 import Core
 import Foundation
 
-final class GenreRepository: GenreRepositoryProtocol {
+final class GenreRepository: NetworkRepository, GenreRepositoryProtocol {
   private let dependencies: GenreRepositoryDependencies
-  private let decoder: JSONDecoder
   private let genreKey = NSString(string: "genreList")
-  private let genreProvider: ResourceCacheProvider<NSData>
 
-  init(dependencies: GenreRepositoryDependencies,
+  init(apiClient: ApiClientProtocol,
        decoder: JSONDecoder = .init(),
-       genreProvider: ResourceCacheProvider<NSData>) {
+       dependencies: GenreRepositoryDependencies) {
     self.dependencies = dependencies
-    self.decoder = decoder
-    self.genreProvider = genreProvider
+    super.init(apiClient: apiClient, decoder: decoder)
   }
 
   func fetch() async throws -> [GenreModel] {
-    let data: Data = if let cachedData = genreProvider.getObject(forKey: genreKey) {
+    let data: Data = if let cachedData = dependencies.genreProvider.getObject(
+      forKey: genreKey
+    ) {
       cachedData as Data
     } else {
-      try await dependencies.apiClient.execute(endpoint: makeGenreEndpoint())
+      try await requestAndPersist()
     }
-    let dto = try decoder.decode(GenreCatalogDto.self, from: data)
+    let dto = try decode(GenreCatalogDto.self, from: data)
     return dependencies.genreAdapter.adapt(dto: dto)
+  }
+
+  private func requestAndPersist() async throws -> Data {
+    let data = try await request(endpoint: makeGenreEndpoint())
+    dependencies.genreProvider.cache(object: data as NSData, for: genreKey)
+    return data
   }
 
   private func makeGenreEndpoint() -> Endpoint {

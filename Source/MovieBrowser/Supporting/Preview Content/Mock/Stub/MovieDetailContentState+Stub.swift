@@ -8,12 +8,16 @@
 extension MovieDetailContentState {
   static func mock(isLoadingReviews: Bool = false,
                    isLoadingCast: Bool = false,
+                   isLoadingRecomendations: Bool = false,
+                   isLoadingWatchProviders: Bool = false,
                    canLoadMoreReviews: Bool = true) -> Self {
     MovieDetailContentState(detail: .mock(),
                             reviews: ReviewModel.mock().reviews,
                             cast: .mock(),
                             isLoadingReviewsNextPage: isLoadingReviews,
                             isLoadingCast: isLoadingCast,
+                            isLoadingRecomendations: isLoadingRecomendations,
+                            isLoadingWatchProviders: isLoadingWatchProviders,
                             canLoadMoreReviews: canLoadMoreReviews)
   }
 }

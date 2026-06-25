@@ -6,10 +6,10 @@
 //
 
 final class FetchMovieDetailUseCase: FetchMovieDetailUseCaseProtocol {
-  private let repository: MovieRepositoryProtocol
+  private let repository: MovieDetailsRepositoryProtocol
   private let watchListRepository: WatchListRepositoryProtocol
 
-  init(repository: MovieRepositoryProtocol,
+  init(repository: MovieDetailsRepositoryProtocol,
        watchListRepository: WatchListRepositoryProtocol) {
     self.repository = repository
     self.watchListRepository = watchListRepository

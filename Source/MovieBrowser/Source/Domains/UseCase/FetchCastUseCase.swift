@@ -6,9 +6,9 @@
 //
 
 final class FetchCastUseCase: FetchCastUseCaseProtocol {
-  private let repository: MovieRepositoryProtocol
+  private let repository: MovieCreditsRepositoryProtocol
 
-  init(repository: MovieRepositoryProtocol) {
+  init(repository: MovieCreditsRepositoryProtocol) {
     self.repository = repository
   }
 

@@ -40,11 +40,11 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
         }
 
         if let url = viewModel.makeMovieURL(),
-           let imagePreview = viewModel.imagePreview {
+           let image = viewModel.imagePreview {
           ShareLink(item: url,
                     subject: Text(viewModel.movieTitle),
                     preview: SharePreview(viewModel.movieTitle,
-                                          image: imagePreview)) {
+                                          image: Image(uiImage: image))) {
             Image(systemName: "square.and.arrow.up")
           }
         }
@@ -93,7 +93,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
       break
     case .providers:
       viewModel.requestWatchProviders()
-    case .mightAlsoLike:
+    case .recomendations:
       viewModel.requestRecomendations()
     }
   }

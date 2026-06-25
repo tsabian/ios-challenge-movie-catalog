@@ -7,7 +7,7 @@
 
 import Combine
 
-enum WathcListState {
+enum WatchListState {
   case idle
   case loading
   case loaded(content: [MovieDetailsModel])
@@ -16,7 +16,7 @@ enum WathcListState {
 }
 
 final class WatchListViewModel: WatchListViewModelProtocol {
-  @Published private(set) var state: WathcListState = .idle
+  @Published private(set) var state: WatchListState = .idle
 
   private let repository: WatchListRepositoryProtocol
 

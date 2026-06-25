@@ -8,10 +8,10 @@
 import Foundation
 
 final class FetchWatchProviderUseCase: FetchWatchProviderUseCaseProtocol {
-  private let repository: MovieRepositoryProtocol
+  private let repository: MovieProviderRepositoryProtocol
   private let locale: Locale
 
-  init(repository: MovieRepositoryProtocol,
+  init(repository: MovieProviderRepositoryProtocol,
        locale: Locale = .current) {
     self.repository = repository
     self.locale = locale

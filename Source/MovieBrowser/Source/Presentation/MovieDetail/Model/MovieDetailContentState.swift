@@ -13,5 +13,7 @@ struct MovieDetailContentState {
   var watchProviders: WatchProviderResultModel?
   var isLoadingReviewsNextPage: Bool
   var isLoadingCast: Bool
+  var isLoadingRecomendations: Bool
+  var isLoadingWatchProviders: Bool
   var canLoadMoreReviews: Bool
 }

@@ -92,7 +92,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
       if let catalog = content.movieCatalog[viewModel.currentCategory] {
         LazyMovieGridView(movieCatalog: catalog,
                           isLoadingNextPage: viewModel.isLoadingNextPage,
-                          loadNextPage: viewModel.loadNextPage,
+                          loadNextPage: viewModel.fetchNextPage,
                           tapAction: handleNavigate)
       } else {
         AlternativeFlowStateView(title: String(localized: .noResultsTitle),

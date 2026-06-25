@@ -12,7 +12,7 @@ enum DetailInfo: String, CaseIterable {
   case reviews
   case cast
   case providers
-  case mightAlsoLike
+  case recomendations
 
   var title: String {
     switch self {
@@ -20,7 +20,7 @@ enum DetailInfo: String, CaseIterable {
     case .reviews: String(localized: .reviews)
     case .cast: String(localized: .cast)
     case .providers: String(localized: .watchNow)
-    case .mightAlsoLike: String(localized: .youMightAlsoLike)
+    case .recomendations: String(localized: .youMightAlsoLike)
     }
   }
 }

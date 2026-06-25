@@ -6,7 +6,11 @@
 //
 
 struct WatchListBuilder {
-  let repository: WatchListRepositoryProtocol
+  private let repository: WatchListRepositoryProtocol
+
+  init(repository: WatchListRepositoryProtocol) {
+    self.repository = repository
+  }
 
   func build() -> WatchListViewModel {
     WatchListViewModel(repository: repository)

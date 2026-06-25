@@ -8,11 +8,11 @@
 import Combine
 
 final class WatchListViewModelMock: WatchListViewModelProtocol {
-  @Published var state: WathcListState = .idle
+  @Published var state: WatchListState = .idle
 
   func loadIfNeeded() {}
 
-  func update(state: WathcListState) -> Self {
+  func update(state: WatchListState) -> Self {
     self.state = state
     return self
   }

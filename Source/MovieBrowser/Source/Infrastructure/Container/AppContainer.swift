@@ -38,14 +38,17 @@ struct AppContainer {
     do {
       let modelContainer = try ModelContainer(for: MovieDetails.self)
       let modelContext = ModelContext(modelContainer)
-      let viewModelDependencies = ViewModelDependencies(apiClient: apiClient,
-                                                        imageClient: imageClient,
-                                                        imageCache: imageCache,
-                                                        dataCache: dataCache,
-                                                        apiKey: env.value(for: .tmdbApiKey),
-                                                        language: env.language,
-                                                        region: env.region,
-                                                        context: modelContext)
+      let viewModelDependencies = ViewModelDependencies(
+        apiClient: apiClient,
+        imageClient: imageClient,
+        imageCache: imageCache,
+        dataCache: dataCache,
+        apiKey: env.value(for: .tmdbApiKey),
+        language: env.language,
+        region: env.region,
+        context: modelContext,
+        hostURLString: env.value(for: .tmdbHost)
+      )
       let viewModelFactory = ViewModelContainerFactory(domain: viewModelDependencies)
       return .init(
         apiClient: apiClient,

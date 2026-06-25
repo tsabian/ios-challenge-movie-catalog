@@ -124,7 +124,7 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
       case .reviews: reviews
       case .cast: cast
       case .providers: providers
-      case .mightAlsoLike: mightAlsoLike
+      case .recomendations: recomendations
       }
     }
     .frame(maxWidth: .infinity)
@@ -174,13 +174,13 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
   }
 
   private var providers: some View {
-    WatchProvidersView(isLoading: contentState.isLoadingCast,
+    WatchProvidersView(isLoading: contentState.isLoadingWatchProviders,
                        providers: contentState.watchProviders)
   }
 
-  private var mightAlsoLike: some View {
+  private var recomendations: some View {
     RecomendationsView(movieCatalog: contentState.recomendations,
-                       isLoading: contentState.isLoadingCast,
+                       isLoading: contentState.isLoadingRecomendations,
                        handleDetail: handleDetail)
   }
 
