@@ -15,7 +15,7 @@ final class HomeViewModelMock: HomeViewModelProtocol {
   @Published var canLoadNextPage: Bool = true
 
   func load() async {}
-  func select(category _: MovieCategory) async {}
+  func fetch(category _: MovieCategory) async {}
 
   func change(state: HomeState) -> Self {
     self.state = state

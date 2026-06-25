@@ -6,6 +6,6 @@
 //
 
 protocol FetchNextPageMovieCatalogUseCaseProtocol {
-  func execute(by category: MovieCategory, currentPage page: Int,
-               totalPages: Int) async throws -> MovieCatalogModel
+  func execute(by category: MovieCategory,
+               content: inout HomeContentModel) async throws
 }

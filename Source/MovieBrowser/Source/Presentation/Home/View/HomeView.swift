@@ -113,7 +113,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
 
   private func handleCategorySelect(_ category: MovieCategory) {
     Task {
-      await viewModel.select(category: category)
+      await viewModel.fetch(category: category)
     }
   }
 
