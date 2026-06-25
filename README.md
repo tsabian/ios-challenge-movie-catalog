@@ -1,76 +1,235 @@
-# ios-challenge-movie-catalog
+# MovieBrowser
 
-Você deverá desenvolver um aplicativo iOS chamado MovieBrowser, que permite ao usuário visualizar uma lista de filmes, pesquisar títulos e salvar favoritos.
+Aplicativo iOS em SwiftUI para explorar o catálogo do TMDB, pesquisar filmes, abrir detalhes, ver elenco, reviews, recomendações, provedores de streaming e manter uma lista local de favoritos.
 
-## Abordagem de Configuração do Projeto
+O projeto foi estruturado como uma aplicação de catálogo com separação clara entre apresentação, domínio e infraestrutura. A configuração do Xcode é declarativa via XcodeGen e o módulo compartilhado `Core` fica isolado como Swift Package.
 
-### XcodeGen
+|   |   |   |
+|---|---|---|
+| ![imagem1](assets/print-1.png) | ![imagem1](assets/print-2.png) | ![imagem1](assets/print-3.png) |
+| ![imagem1](assets/print-4.png) | ![imagem1](assets/print-5.png) | ![imagem1](assets/print-6.png) |
 
-O projeto utiliza **XcodeGen** para geração automatizada do arquivo de projeto Xcode (`.xcodeproj`). Esta abordagem oferece os seguintes benefícios:
+## Stack
 
-- **Declarativo**: O projeto é definido em um arquivo `project.yml` legível, evitando conflitos frequentes em arquivos `.pbxproj` binários.
-- **Versionamento**: Como `project.yml` é um arquivo de texto, facilita o rastreamento de mudanças no controle de versão.
-- **Automação**: Reduz erros manuais ao adicionar arquivos, targets e dependências.
-- **Consistência**: Garante que todos os desenvolvedores trabalhem com a mesma configuração de projeto.
+- Swift 6
+- SwiftUI
+- Combine para publicação de estado nas ViewModels
+- Swift Concurrency com `async/await`
+- SwiftData para persistência da watchlist
+- Swift Package Manager para o módulo `Core`
+- XcodeGen para gerar o `.xcodeproj`
+- SwiftLint e SwiftFormat em build scripts
+- Swift Testing nos testes do módulo `Core`
 
-Para gerar o projeto, execute:
+## Estrutura do Repositório
+
+```text
+.
+├── project.yml
+├── project.options.yml
+├── makefile
+└── Source
+    ├── Core
+    │   ├── Sources/Core
+    │   └── Tests/CoreTests
+    ├── MovieBrowser
+    │   ├── Source/App
+    │   ├── Source/Domains
+    │   ├── Source/Infrastructure
+    │   ├── Source/Presentation
+    │   ├── Resources
+    │   └── Supporting
+    ├── MovieBrowserTests
+    ├── MovieBrowserUITests
+    ├── project.targets.yml
+    ├── project.packages.yml
+    ├── project.schemes.yml
+    └── project.templates.yml
+```
+
+## Arquitetura
+
+O app segue uma arquitetura em camadas com MVVM na apresentação e dependências orientadas por protocolos.
+
+### App
+
+`Source/MovieBrowser/Source/App` concentra o ponto de entrada e a composição inicial:
+
+- `MovieBrowserApp` inicializa a aplicação SwiftUI, aplica o tema escuro e injeta o `AppContainer`.
+- `RootView` controla o estado inicial de splash/carregamento.
+- `ContentView` organiza as abas principais: filmes, busca e watchlist.
+- `HomeRouter` usa `NavigationStack` por fluxo para abrir detalhes de filmes e limpar navegação ao trocar de aba.
+
+### Presentation
+
+`Source/MovieBrowser/Source/Presentation` contém telas, componentes reutilizáveis, estados de UI e ViewModels.
+
+As ViewModels são `@MainActor`, expõem estado por `@Published` e dependem de contratos:
+
+- `HomeViewModel` carrega conteúdo inicial e paginação por categoria.
+- `SearchViewModel` executa busca, carrega gêneros sob demanda e pagina resultados.
+- `MovieDetailViewModel` coordena detalhes, preview de imagem, reviews, elenco, recomendações, provedores e bookmark.
+- `WatchListViewModel` lê a lista persistida de favoritos.
+
+Cada tela possui um protocolo de ViewModel em `ViewModel/Contract`, o que facilita mocks, previews e testes.
+
+### Domain
+
+`Source/MovieBrowser/Source/Domains` representa a regra de aplicação:
+
+- `Model`: modelos usados pela UI e pelos casos de uso.
+- `UseCase`: operações como buscar home, detalhes, reviews, cast, recomendações, provedores, gêneros, pesquisa e inserir/remover bookmark.
+- `Interfaces`: contratos de repositórios que blindam o domínio contra detalhes de rede, cache ou persistência.
+
+Os UseCases recebem protocolos de repositório e mantêm a camada de domínio independente da implementação concreta. Um exemplo é `FetchMovieDetailUseCase`, que busca os detalhes remotos e cruza o resultado com a watchlist local para marcar `isBookmark`.
+
+### Infrastructure
+
+`Source/MovieBrowser/Source/Infrastructure` contém implementações concretas:
+
+- `Repository`: chamadas remotas e persistência local.
+- `Endpoint`: definição de rotas do TMDB e montagem de query params.
+- `Dto`: contratos de resposta da API.
+- `Adapter`: conversão de DTOs ou entidades SwiftData para modelos de domínio.
+- `Storage`: acesso ao SwiftData para watchlist.
+- `Service`: carregamento de imagens.
+- `Container` e `Builder`: composição das dependências por feature.
+- `Environment`: leitura de chaves e URLs do `Info.plist`.
+
+O `AppContainer` cria os clientes HTTP, caches, serviço de imagem, `ModelContainer` do SwiftData e a `ViewModelContainerFactory`. A factory delega a montagem de cada fluxo para builders específicos, mantendo a inicialização fora das Views.
+
+### Core
+
+`Source/Core` é um Swift Package independente com utilitários compartilhados:
+
+- `ApiClient`, implementado como `actor`, para execução assíncrona de requests.
+- `Endpoint`, `HTTPMethod` e contratos de networking.
+- `PinnedSessionDelegate` para SSL pinning por hash SHA-256 da SubjectPublicKeyInfo.
+- `Reachability` para checagem de conectividade.
+- `ResourceCacheProvider` para cache em memória.
+- extensões de `Bundle`, `Date`, `Int`, `String` e `UIImage`.
+
+O módulo possui testes próprios para `ApiClient`, SSL pinning e extensões.
+
+## Fluxo de Dados
+
+O fluxo principal segue esta direção:
+
+```text
+SwiftUI View
+  -> ViewModelProtocol
+  -> ViewModel
+  -> UseCaseProtocol
+  -> UseCase
+  -> RepositoryProtocol
+  -> Repository / DataSource
+  -> ApiClient, SwiftData ou Cache
+```
+
+Para respostas remotas, os repositórios decodificam DTOs e usam adapters antes de devolver modelos de domínio:
+
+```text
+TMDB API -> DTO -> Adapter -> Domain Model -> UseCase -> ViewModel State -> View
+```
+
+## Features Implementadas
+
+- Home com categorias de filmes: em cartaz, populares, mais bem avaliados e próximos lançamentos.
+- Paginação de catálogo por categoria.
+- Busca de filmes com paginação.
+- Detalhe do filme com informações, imagem, elenco, reviews, recomendações e provedores.
+- Favoritos/watchlist local com SwiftData.
+- Cache em memória para imagens e dados auxiliares.
+- Previews com mocks e fixtures JSON em `Supporting/Preview Content`.
+- UI em modo escuro, orientação portrait e fontes customizadas.
+- Localização via String Catalog em `Resources/Localizable.xcstrings`.
+
+## Networking e Segurança
+
+A comunicação com o TMDB usa o módulo `Core`:
+
+- `Endpoint` monta URL, método, headers, query params e body.
+- `ApiClient` valida conectividade, resposta HTTP e status code 2xx.
+- `ApiClientFactory` cria sessões com `PinnedSessionDelegate`.
+- O pinning fixa o hash SHA-256 da chave pública SPKI, não o certificado inteiro.
+- O `make generate` calcula os pins atuais de `api.themoviedb.org` e `image.tmdb.org` via `openssl` e injeta nos `.xcconfig`.
+
+As chaves e URLs são lidas do `Info.plist` por `AppEnvironment`, com valores vindos dos arquivos `.xcconfig` gerados.
+
+## Configuração
+
+Crie os arquivos de ambiente na raiz do repositório antes de gerar o projeto:
+
+```text
+.env
+.env.Debug
+```
+
+Eles devem fornecer os valores usados pelo `project.yml` e pelo `Info.plist`, por exemplo:
+
+```text
+BUNDLE_ID_PREFIX = com.seu.bundle
+DEVELOPMENT_TEAM = SEU_TEAM_ID
+API_BASE_URL = https://api.themoviedb.org
+IMG_HOST = https://image.tmdb.org
+HOST = https://www.themoviedb.org
+API_KEY = sua_api_key
+API_TOKEN = seu_token
+```
+
+Depois gere o projeto:
+
 ```bash
 make generate
 ```
 
-Se quiser executar o XcodeGen manualmente (sem Makefile), use:
+Abra no Xcode:
+
 ```bash
-xcodegen generate --project Source/
+make open
 ```
 
-### SwiftLint e SwiftFormat
+Ou execute o fluxo completo:
 
-O projeto utiliza **SwiftLint** e **SwiftFormat** para garantir qualidade e padronização do código:
-
-#### SwiftLint
-- **Análise estática**: Identifica violações de estilo e boas práticas de Swift.
-- **Configuração**: Regras definidas em `.swiftlint.yml` para manter consistência.
-- **Integração em Build Phases**: Executado automaticamente durante o processo de build como uma fase de script, validando o código antes da compilação.
-- **Comando**: `swiftlint lint` é executado em tempo de build para verificar violações.
-
-#### SwiftFormat
-- **Formatação automática**: Aplica automaticamente convenções de estilo ao código.
-- **Integração em Build Phases**: Configurado como uma fase de script no build para aplicar formatação antes da compilação.
-- **Comando**: `swiftformat .` é executado em tempo de build para formatar todos os arquivos Swift.
-- **Decisão de design**: Garante que o código seja legível e siga um padrão único em todo o projeto.
-- **Compatibilidade**: Funciona em conjunto com SwiftLint para uma experiência coesa.
-
-## Comandos do Makefile
-
-O projeto possui um `makefile` com comandos para automatizar tarefas comuns de configuração e desenvolvimento.
-
-| Comando        | Descrição |
-|----------------|-----------|
-| `make install` | Instala as ferramentas necessárias via Homebrew: **SwiftLint**, **SwiftFormat** e **XcodeGen**. Requer o Homebrew instalado. |
-| `make clean`   | Remove artefatos gerados no repositório: `Source/*.xcodeproj`, `DerivedData`, diretórios `build`, `.build` e `.swiftpm`. |
-| `make setup`   | Executa `install` e `clean` em sequência, preparando o ambiente do zero. |
-| `make generate`| Injeta `TMDB_SSL_PINNING_KEY`, `API_TOKEN` e `API_KEY` nos `.xcconfig` de Debug/Release e gera o `.xcodeproj` via `xcodegen generate --project Source/`. |
-| `make open`    | Abre o projeto `MovieBrowser.xcodeproj` no Xcode. |
-| `make start`   | Executa `setup`, `generate` e `open` em sequência — fluxo completo para iniciar o desenvolvimento. |
-| `make reset`   | Executa `clean` e depois `start` para recriar totalmente o ambiente e abrir o projeto. |
-
-### Uso rápido
-
-Para configurar e abrir o projeto do zero:
 ```bash
 make start
 ```
 
-Para apenas regenerar o projeto Xcode:
+## Comandos
+
+| Comando | Descrição |
+| --- | --- |
+| `make install` | Instala SwiftLint, SwiftFormat e XcodeGen via Homebrew. |
+| `make clean` | Remove projeto gerado, DerivedData e artefatos de build. |
+| `make setup` | Executa instalação de ferramentas e limpeza. |
+| `make generate` | Gera `.xcconfig`, injeta pins SSL e cria o `.xcodeproj` via XcodeGen. |
+| `make open` | Abre `Source/MovieBrowser.xcodeproj` no Xcode. |
+| `make start` | Executa setup, generate e open. |
+| `make reset` | Limpa tudo e recria o ambiente. |
+
+## Qualidade e Testes
+
+SwiftLint e SwiftFormat são aplicados por scripts em `Source/Scripts` configurados no template `LintAndFormat` do XcodeGen.
+
+Para testar o pacote `Core`:
+
 ```bash
-make generate
+cd Source/Core
+swift test
 ```
 
-Para resetar totalmente o ambiente e abrir o projeto novamente:
-```bash
-make reset
-```
+Os testes do app e de UI ficam em:
 
-## ApiClient Layer
+- `Source/MovieBrowserTests`
+- `Source/MovieBrowserUITests`
 
-Este projeto implementa pinning de chave pública para conexões HTTPS usando URLSessionDelegate. Em vez de fixar o certificado inteiro, fixamos o hash SHA‑256 da SubjectPublicKeyInfo (SPKI) da chave pública do servidor.
+## Decisões de Engenharia
+
+- XcodeGen evita versionar `.pbxproj` e reduz conflitos na configuração do projeto.
+- O pacote `Core` isola networking, cache e extensões reutilizáveis.
+- UseCases protegem a regra de negócio de detalhes de rede e persistência.
+- Repositórios e DataSources ficam atrás de protocolos para facilitar mocks.
+- Builders por feature centralizam composição de dependências e mantêm Views simples.
+- DTOs não vazam para a apresentação; adapters fazem a tradução para modelos de domínio.
+- SwiftData é usado apenas na infraestrutura local da watchlist.
+- SSL pinning por SPKI reduz acoplamento ao certificado específico e mantém validação forte da chave pública.
