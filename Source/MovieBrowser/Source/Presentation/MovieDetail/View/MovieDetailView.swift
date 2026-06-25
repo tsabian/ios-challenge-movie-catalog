@@ -16,6 +16,8 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 
 struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
+  @Environment(HomeRouter.self) private var homeRouter
+
   @StateObject private var viewModel: ViewModel
 
   init(viewModel: @autoclosure @escaping () -> ViewModel) {
@@ -73,6 +75,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
         loadReviewNextPage: handleReviewNextPage,
         viewModel: appContainer.viewModelFactory.makeRemotePoster()
       )
+      .environment(homeRouter)
     case .error:
       AlternativeFlowStateView(title: String(localized: .somethingWentWrong),
                                message: String(localized: .tryAgainFewMinutes),
@@ -89,9 +92,9 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     case .about:
       break
     case .providers:
-      break
+      viewModel.requestWatchProviders()
     case .mightAlsoLike:
-      break
+      viewModel.requestRecomendations()
     }
   }
 

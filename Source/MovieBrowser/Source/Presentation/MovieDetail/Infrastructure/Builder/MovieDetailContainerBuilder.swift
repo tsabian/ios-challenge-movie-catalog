@@ -21,7 +21,37 @@ struct MovieDetailBuilder {
   }
 
   func build() -> MovieDetailViewModel {
-    let dependencies = MovieRepositoryDependencies(
+    .init(dependencies: makeViewModelDependencies())
+  }
+
+  private func makeViewModelDependencies() -> MovieDetailsViewModelDependencies {
+    let repository = MovieRepository(dependencies: makeMovieRepository())
+    let watchListRepository = makeWatchListRepository()
+    let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
+    let castUseCase = FetchCastUseCase(repository: repository)
+    let detailUseCase = FetchMovieDetailUseCase(
+      repository: repository,
+      watchListRepository: watchListRepository
+    )
+    let insertOrRemoveBookmarkUseCase = InsertOrRemoveBookmarkUseCase(
+      watchListRepository: watchListRepository
+    )
+    let recomendationUseCase = FetchMovieRecomendationsUse(movieRepository: repository)
+    let watchProviderUseCase = FetchWatchProviderUseCase(repository: repository)
+    return .init(
+      selectedMovie: builderDependencies.movie,
+      detailUseCase: detailUseCase,
+      reviewUseCase: movieUseCase,
+      castUseCase: castUseCase,
+      imageService: makeImageService(),
+      insertRemoveBookmarkUseCase: insertOrRemoveBookmarkUseCase,
+      recomendationsUseCase: recomendationUseCase,
+      watchedProviderUseCase: watchProviderUseCase
+    )
+  }
+
+  private func makeMovieRepository() -> MovieRepositoryDependencies {
+    .init(
       apiClient: builderDependencies.apiClient,
       apiKey: builderDependencies.apiKey,
       language: builderDependencies.language,
@@ -29,23 +59,15 @@ struct MovieDetailBuilder {
       movieAdapter: .init(),
       detailAdapter: .init(),
       reviewAdapter: .init(),
-      castAdapter: .init()
+      castAdapter: .init(),
+      watchProvidersAdapter: .init()
     )
-    let repository = MovieRepository(dependencies: dependencies)
-    let detailUseCase = FetchMovieDetailUseCase(repository: repository)
-    let movieUseCase = FetchMovieReviewsUseCase(repository: repository)
-    let castUseCase = FetchCastUseCase(repository: repository)
-    return MovieDetailViewModel(selectedMovie: builderDependencies.movie,
-                                detailUseCase: detailUseCase,
-                                reviewUseCase: movieUseCase,
-                                castUseCase: castUseCase,
-                                imageService: makeImageService(),
-                                watchListRepository: makeWatchListRepository())
   }
 
   private func makeImageService() -> ImageLoadingServiceProtocol {
     let repository = RemotePosterRepository(apiClient: builderDependencies.imageClient)
-    return ImageLoadingService(repository: repository, cache: builderDependencies.provider)
+    return ImageLoadingService(repository: repository,
+                               cache: builderDependencies.provider)
   }
 
   private func makeWatchListRepository() -> WatchListRepository {

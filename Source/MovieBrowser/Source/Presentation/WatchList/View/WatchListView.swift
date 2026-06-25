@@ -10,7 +10,7 @@ import SwiftUI
 struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
   @StateObject var viewModel: ViewModel
-  @Binding private var router: WatchListRouter
+  @Binding private var router: HomeRouter
 
   private let columns = [
     GridItem(spacing: 10),
@@ -18,7 +18,7 @@ struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
   ]
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
-       router: Binding<WatchListRouter>) {
+       router: Binding<HomeRouter>) {
     _viewModel = StateObject(wrappedValue: viewModel())
     _router = router
   }
@@ -33,13 +33,13 @@ struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
         content()
         Spacer()
       }
-      .navigationDestination(for: WatchListFeatures.self) { route in
+      .navigationDestination(for: HomeRouterFeatures.self) { route in
         switch route {
         case let .openDetails(movie):
           MovieDetailView(
             viewModel: appContainer.viewModelFactory
-              .makeMovieDetail(
-                movie: viewModel.makeMovie(from: movie)))
+              .makeMovieDetail(movie: movie))
+            .environment(router)
         }
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -87,7 +87,7 @@ struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
           .clipShape(Rectangle())
           .frame(width: 160, height: 120)
           .onTapGesture {
-            router.navigation(to: .openDetails(movie: movie))
+            router.navigation(to: .openDetails(movie: viewModel.makeMovie(from: movie)))
           }
         }
       }

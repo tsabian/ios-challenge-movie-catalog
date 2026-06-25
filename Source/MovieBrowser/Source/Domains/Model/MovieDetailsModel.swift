@@ -18,5 +18,6 @@ struct MovieDetailsModel: Identifiable, Hashable {
   let posterPath: String?
   let rankAverage: Double
 
+  var isBookmark: Bool = false
   var watched: Bool = false
 }

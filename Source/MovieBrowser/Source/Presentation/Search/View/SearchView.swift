@@ -10,12 +10,12 @@ import SwiftUI
 struct SearchView<ViewModel: SearchViewModelProtocol>: View {
   @Environment(\.appContainer) private var appContainer
   @StateObject private var viewModel: ViewModel
-  @Binding private var router: SearchRouter
+  @Binding private var router: HomeRouter
   @Binding private var query: String
   @FocusState private var isSearchFieldFocused: Bool
 
   init(viewModel: @autoclosure @escaping () -> ViewModel,
-       router: Binding<SearchRouter>,
+       router: Binding<HomeRouter>,
        query: Binding<String>) {
     _viewModel = StateObject(wrappedValue: viewModel())
     _router = router
@@ -39,12 +39,13 @@ struct SearchView<ViewModel: SearchViewModelProtocol>: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding([.leading, .trailing], 22)
       }
-      .navigationDestination(for: SearchRouterFeatures.self) { router in
-        switch router {
+      .navigationDestination(for: HomeRouterFeatures.self) { route in
+        switch route {
         case let .openDetails(selectedMovie):
           MovieDetailView(
             viewModel: appContainer.viewModelFactory.makeMovieDetail(movie: selectedMovie)
           )
+          .environment(router)
         }
       }
       .background {

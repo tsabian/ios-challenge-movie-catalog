@@ -44,7 +44,7 @@ struct SearchField: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 4)
         }
-        TextField("", text: $searchText)
+        TextField(String(), text: $searchText)
           .foregroundStyle(Color.white)
           .tint(Color.white)
           .focused($isSearchFocused)

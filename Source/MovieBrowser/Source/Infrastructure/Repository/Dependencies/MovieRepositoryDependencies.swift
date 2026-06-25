@@ -17,4 +17,5 @@ struct MovieRepositoryDependencies {
   let detailAdapter: MovieDetailAdapter
   let reviewAdapter: ReviewAdapter
   let castAdapter: CastAdapter
+  let watchProvidersAdapter: WatchProviderAdapter
 }

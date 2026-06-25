@@ -12,4 +12,6 @@ protocol MovieRepositoryProtocol {
   func requestDetail(id: Int) async throws -> MovieDetailsModel
   func requestReviews(id: Int, page: Int) async throws -> ReviewModel
   func requestCredits(id: Int) async throws -> CastCatalogModel
+  func requestRecomendations(id: Int, page: Int) async throws -> MovieCatalogModel
+  func requestProviders(id: Int) async throws -> WatchProvidersModel
 }

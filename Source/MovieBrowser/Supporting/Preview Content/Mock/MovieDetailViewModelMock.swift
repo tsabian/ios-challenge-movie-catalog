@@ -39,4 +39,8 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
   func addOrRemoveWatchList() {
     isBookmark.toggle()
   }
+
+  func requestRecomendations() {}
+
+  func requestWatchProviders() {}
 }

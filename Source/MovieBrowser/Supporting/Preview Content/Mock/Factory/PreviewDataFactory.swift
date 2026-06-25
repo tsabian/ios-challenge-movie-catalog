@@ -49,6 +49,14 @@ struct PreviewDataFactory {
     try decode("genre.json")
   }
 
+  func makeWatchProvider() throws -> WatchProvidersDto {
+    try decode("movie-watch-provider.json")
+  }
+
+  func makeRecomendation() throws -> MovieCatalogDto {
+    try decode("recommendations.json")
+  }
+
   private func decode<T: Decodable>(_ file: String, using decoder: JSONDecoder = .init()) throws -> T {
     do {
       return try bundle.decode(file, using: decoder)

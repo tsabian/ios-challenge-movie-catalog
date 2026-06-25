@@ -19,4 +19,8 @@ final class HomeRouter: AppNavitagionRouterProtocol {
   func navigation(to feature: HomeRouterFeatures) {
     path.append(feature)
   }
+
+  func popToRoot() {
+    path.removeAll()
+  }
 }

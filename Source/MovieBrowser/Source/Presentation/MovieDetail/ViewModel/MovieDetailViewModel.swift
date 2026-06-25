@@ -20,16 +20,28 @@ enum MovieDetailState {
 @MainActor
 final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   @Published private(set) var state: MovieDetailState = .idle
-  @Published var backdropPath: String?
-  @Published var movieTitle: String
   @Published private(set) var imagePreview: Image?
   @Published private(set) var isBookmark: Bool = false
+  @Published var backdropPath: String?
+  @Published var movieTitle: String
 
   private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
   private var cast = [CastModel]()
+  private var recomendations: MovieCatalogModel?
+  private var watchProviders: WatchProviderResultModel?
   private var currentPage = 0
   private var totalPages: Int?
+
+  private let detailUseCase: FetchMovieDetailUseCaseProtocol
+  private let reviewUseCase: FetchMovieReviewsUseCaseProtocol
+  private let castUseCase: FetchCastUseCaseProtocol
+  private let imageService: ImageLoadingServiceProtocol
+  private let selectedMovie: MovieModel
+  private let insertRemoveBookmarkUseCase: InsertOrRemoveBookmarkUseCaseProtocol
+  private let recomendationsUseCase: FetchMovieRecomendationsUseCaseProtocol
+  private let watchProviderUseCase: FetchWatchProviderUseCaseProtocol
+
   private var isLoadingReviews: Bool = false {
     didSet {
       updateLoadState()
@@ -42,31 +54,20 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  private let detailUseCase: FetchMovieDetailUseCaseProtocol
-  private let reviewUseCase: FetchMovieReviewsUseCaseProtocol
-  private let castUseCase: FetchCastUseCaseProtocol
-  private let imageService: ImageLoadingServiceProtocol
-  private let watchListRepository: WatchListRepositoryProtocol
-
-  private let selectedMovie: MovieModel
-
   private var canLoadMoreReviews: Bool {
     guard let totalPages else { return true }
     return currentPage < totalPages
   }
 
-  init(selectedMovie: MovieModel,
-       detailUseCase: FetchMovieDetailUseCaseProtocol,
-       reviewUseCase: FetchMovieReviewsUseCaseProtocol,
-       castUseCase: FetchCastUseCaseProtocol,
-       imageService: ImageLoadingServiceProtocol,
-       watchListRepository: WatchListRepositoryProtocol) {
-    self.selectedMovie = selectedMovie
-    self.detailUseCase = detailUseCase
-    self.reviewUseCase = reviewUseCase
-    self.castUseCase = castUseCase
-    self.imageService = imageService
-    self.watchListRepository = watchListRepository
+  init(dependencies: MovieDetailsViewModelDependencies) {
+    selectedMovie = dependencies.selectedMovie
+    detailUseCase = dependencies.detailUseCase
+    reviewUseCase = dependencies.reviewUseCase
+    castUseCase = dependencies.castUseCase
+    imageService = dependencies.imageService
+    insertRemoveBookmarkUseCase = dependencies.insertRemoveBookmarkUseCase
+    watchProviderUseCase = dependencies.watchedProviderUseCase
+    recomendationsUseCase = dependencies.recomendationsUseCase
     backdropPath = selectedMovie.backdropPath
     movieTitle = selectedMovie.title
   }
@@ -77,10 +78,8 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     state = .loading
 
     do {
-      if let _ = try watchListRepository.fetch(by: selectedMovie.id) {
-        isBookmark = true
-      }
       detail = try await detailUseCase.execute(movie: selectedMovie.id)
+      isBookmark = detail?.isBookmark ?? false
       await makePosterPreview()
       updateLoadState()
     } catch {
@@ -112,17 +111,22 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
 
   func addOrRemoveWatchList() {
     guard let detail else { return }
-
     do {
-      if try watchListRepository.fetch(by: detail.id) != nil {
-        try watchListRepository.deleteBookmark(movie: detail)
-        isBookmark = false
-      } else {
-        try watchListRepository.addBookmark(movie: detail)
-        isBookmark = true
-      }
+      isBookmark = try insertRemoveBookmarkUseCase.execute(detail: detail)
     } catch {
       state = .error
+    }
+  }
+
+  func requestRecomendations() {
+    Task {
+      await loadRecomendationsIfNeeded()
+    }
+  }
+
+  func requestWatchProviders() {
+    Task {
+      await loadWatchProvidersIfNeeded()
     }
   }
 
@@ -178,6 +182,37 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     isLoadingCast = false
   }
 
+  private func loadRecomendationsIfNeeded() async {
+    guard !isLoadingCast, let detail else {
+      return
+    }
+    isLoadingCast = true
+    defer {
+      isLoadingCast = false
+    }
+    do {
+      recomendations = try await recomendationsUseCase.execute(detail: detail,
+                                                               page: 1)
+    } catch {
+      state = .error
+    }
+  }
+
+  private func loadWatchProvidersIfNeeded() async {
+    guard !isLoadingCast, let detail else {
+      return
+    }
+    isLoadingCast = true
+    defer {
+      isLoadingCast = false
+    }
+    do {
+      watchProviders = try await watchProviderUseCase.execute(movie: detail)
+    } catch {
+      state = .error
+    }
+  }
+
   private func updateLoadState() {
     guard let contentState = makeContentState() else {
       state = .error
@@ -191,6 +226,8 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     return MovieDetailContentState(detail: detail,
                                    reviews: reviews,
                                    cast: cast,
+                                   recomendations: recomendations,
+                                   watchProviders: watchProviders,
                                    isLoadingReviewsNextPage: isLoadingReviews,
                                    isLoadingCast: isLoadingCast,
                                    canLoadMoreReviews: canLoadMoreReviews)

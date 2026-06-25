@@ -14,8 +14,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
   ) -> Bool {
     let appearance = UITabBarAppearance()
     appearance.configureWithOpaqueBackground()
-    appearance.backgroundColor = UIColor.blue
-    appearance.shadowColor = nil // Remove linha cinza superior se quiser
+    appearance.backgroundColor = UIColor(named: "AccentColor")
+    appearance.shadowColor = nil
     appearance.shadowImage = nil
     UITabBar.appearance().standardAppearance = appearance
     UITabBar.appearance().scrollEdgeAppearance = appearance

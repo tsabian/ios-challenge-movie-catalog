@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: View {
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+  @Environment(HomeRouter.self) private var router
   @ScaledMetric(relativeTo: .body) private var posterWidth: CGFloat = 95
   @ScaledMetric(relativeTo: .body) private var posterHeight: CGFloat = 120
   @ScaledMetric(relativeTo: .body) private var backdropHeight: CGFloat = 210
@@ -173,15 +174,18 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
   }
 
   private var providers: some View {
-    AlternativeFlowStateView(title: String(localized: .providers),
-                             message: "",
-                             imageName: .folder)
+    WatchProvidersView(isLoading: contentState.isLoadingCast,
+                       providers: contentState.watchProviders)
   }
 
   private var mightAlsoLike: some View {
-    AlternativeFlowStateView(title: String(localized: .youMightAlsoLike),
-                             message: "",
-                             imageName: .folder)
+    RecomendationsView(movieCatalog: contentState.recomendations,
+                       isLoading: contentState.isLoadingCast,
+                       handleDetail: handleDetail)
+  }
+
+  private func handleDetail(_ movie: MovieModel) {
+    router.navigation(to: .openDetails(movie: movie))
   }
 }
 

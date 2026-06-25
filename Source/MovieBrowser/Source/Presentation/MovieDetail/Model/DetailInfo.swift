@@ -19,7 +19,7 @@ enum DetailInfo: String, CaseIterable {
     case .about: String(localized: .aboutMovie)
     case .reviews: String(localized: .reviews)
     case .cast: String(localized: .cast)
-    case .providers: String(localized: .providers)
+    case .providers: String(localized: .watchNow)
     case .mightAlsoLike: String(localized: .youMightAlsoLike)
     }
   }

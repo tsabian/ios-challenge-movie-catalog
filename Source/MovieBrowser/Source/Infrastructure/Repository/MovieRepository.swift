@@ -49,6 +49,20 @@ final class MovieRepository: MovieRepositoryProtocol {
     return dependencies.castAdapter.adapt(dto: dto)
   }
 
+  func requestRecomendations(id: Int, page: Int) async throws -> MovieCatalogModel {
+    let recomendationEndpoint = makeRecomendationsEndpoint(id, page)
+    let data = try await dependencies.apiClient.execute(endpoint: recomendationEndpoint)
+    let dto = try decoder.decode(MovieCatalogDto.self, from: data)
+    return dependencies.movieAdapter.adapt(dto: dto)
+  }
+
+  func requestProviders(id: Int) async throws -> WatchProvidersModel {
+    let watchProvidersEndpoint = makeWatchProvidersEndpoint(id)
+    let data = try await dependencies.apiClient.execute(endpoint: watchProvidersEndpoint)
+    let dto = try decoder.decode(WatchProvidersDto.self, from: data)
+    return dependencies.watchProvidersAdapter.adapt(dto: dto)
+  }
+
   private func makeCatalogEndpoint(_ category: MovieCategory, page: Int) -> Endpoint {
     MovieEndpoint(route: MovieApiRoute(category: category),
                   apiKey: dependencies.apiKey,
@@ -81,5 +95,23 @@ final class MovieRepository: MovieRepositoryProtocol {
       region: dependencies.region,
       page: nil
     )
+  }
+
+  private func makeRecomendationsEndpoint(_ id: Int, _ page: Int) -> Endpoint {
+    MovieEndpoint(
+      route: .recomendations(id: id),
+      apiKey: dependencies.apiKey,
+      language: dependencies.language,
+      region: dependencies.region,
+      page: page
+    )
+  }
+
+  private func makeWatchProvidersEndpoint(_ id: Int) -> Endpoint {
+    MovieEndpoint(route: .watchProviders(id: id),
+                  apiKey: dependencies.apiKey,
+                  language: nil,
+                  region: nil,
+                  page: nil)
   }
 }

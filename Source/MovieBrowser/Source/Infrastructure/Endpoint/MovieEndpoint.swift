@@ -16,6 +16,8 @@ enum MovieApiRoute {
   case details(id: Int)
   case reviews(id: Int)
   case credits(id: Int)
+  case recomendations(id: Int)
+  case watchProviders(id: Int)
 
   init(category: MovieCategory) {
     switch category {
@@ -54,6 +56,10 @@ struct MovieEndpoint: Endpoint {
       "/3/movie/\(id)/reviews"
     case let .credits(id):
       "/3/movie/\(id)/credits"
+    case let .recomendations(id):
+      "/3/movie/\(id)/recommendations"
+    case let .watchProviders(id):
+      "/3/movie/\(id)/watch/providers"
     }
   }
 

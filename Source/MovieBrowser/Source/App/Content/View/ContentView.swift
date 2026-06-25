@@ -11,7 +11,7 @@ import SwiftUI
 enum AppTab: Hashable {
   case home
   case search
-  case whatchList
+  case watchList
 }
 
 struct ContentView: View {
@@ -20,8 +20,6 @@ struct ContentView: View {
   @State private var selectedTab: AppTab = .home
   @State private var searchQuery = ""
   @State private var homeRouter = HomeRouter()
-  @State private var searchRouter = SearchRouter()
-  @State private var watchListRouter = WatchListRouter()
 
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -29,12 +27,12 @@ struct ContentView: View {
                router: $homeRouter,
                openSearch: searchHandle)
         .tabItem {
-          Image(systemName: "house.fill")
-          Text(.home)
+          Image(systemName: "movieclapper.fill")
+          Text(.movie)
         }.tag(AppTab.home)
 
       SearchView(viewModel: container.viewModelFactory.makeSearch(),
-                 router: $searchRouter,
+                 router: $homeRouter,
                  query: $searchQuery)
         .tabItem {
           Image(systemName: "magnifyingglass")
@@ -43,12 +41,15 @@ struct ContentView: View {
         .tag(AppTab.search)
 
       WatchListView(viewModel: container.viewModelFactory.makeWatchList(),
-                    router: $watchListRouter)
+                    router: $homeRouter)
         .tabItem {
           Image(systemName: "bookmark.fill")
           Text(.watchList)
         }
-        .tag(AppTab.whatchList)
+        .tag(AppTab.watchList)
+    }
+    .onChange(of: selectedTab) { _, _ in
+      homeRouter.popToRoot()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
   }

@@ -51,6 +51,7 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
           MovieDetailView(
             viewModel: appContainer.viewModelFactory.makeMovieDetail(movie: selectedMovie)
           )
+          .environment(router)
         }
       }
     }

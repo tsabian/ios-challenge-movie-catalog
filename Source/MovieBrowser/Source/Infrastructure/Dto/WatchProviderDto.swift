@@ -1,12 +1,12 @@
 //
-//  FlatrateDto.swift
+//  WatchProviderDto.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 22/06/26.
 //
 
-struct FlatrateDto: Decodable {
-  let logoPath: String?
+struct WatchProviderDto: Decodable {
+  let logoPath: String
   let providerID: Int
   let providerName: String
   let displayPriority: Int
