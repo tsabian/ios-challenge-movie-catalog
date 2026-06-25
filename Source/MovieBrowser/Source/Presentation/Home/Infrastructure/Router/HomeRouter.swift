@@ -13,7 +13,7 @@ enum HomeRouterFeatures: Hashable {
 
 @MainActor
 @Observable
-final class HomeRouter: AppNavitagionRouterProtocol {
+final class HomeRouter: AppNavigationRouterProtocol {
   var path: [HomeRouterFeatures] = []
 
   func navigation(to feature: HomeRouterFeatures) {

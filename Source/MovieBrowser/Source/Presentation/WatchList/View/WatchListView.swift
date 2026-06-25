@@ -74,8 +74,7 @@ struct WatchListView<ViewModel: WatchListViewModelProtocol>: View {
         ForEach(content, id: \.id) { movie in
           VStack(spacing: 4) {
             ZStack {
-              RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                               pathURLString: movie.backdropPath)
+              RemotePosterView(pathURLString: movie.backdropPath)
                 .frame(maxWidth: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }

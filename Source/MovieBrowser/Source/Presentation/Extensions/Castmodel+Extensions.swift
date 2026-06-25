@@ -1,5 +1,5 @@
 //
-//  Castmodel+Extensions.swift
+//  CastModel+Extensions.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 08/06/26.

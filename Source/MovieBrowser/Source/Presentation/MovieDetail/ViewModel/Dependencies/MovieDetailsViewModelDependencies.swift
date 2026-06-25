@@ -13,6 +13,6 @@ struct MovieDetailsViewModelDependencies {
   let castUseCase: FetchCastUseCaseProtocol
   let imageService: ImageLoadingServiceProtocol
   let insertRemoveBookmarkUseCase: InsertOrRemoveBookmarkUseCaseProtocol
-  let recomendationsUseCase: FetchMovieRecomendationsUseCaseProtocol
+  let recommendationsUseCase: FetchMovieRecommendationsUseCaseProtocol
   let watchedProviderUseCase: FetchWatchProviderUseCaseProtocol
 }

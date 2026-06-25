@@ -30,7 +30,7 @@ struct MovieDetailBuilder {
 
     let movieUseCase = FetchMovieReviewsUseCase(repository: movieRepository)
     let castUseCase = FetchCastUseCase(repository: movieRepository)
-    let recomendationUseCase = FetchMovieRecomendationsUse(movieRepository: movieRepository)
+    let recommendationUseCase = FetchMovieRecommendationsUseCase(movieRepository: movieRepository)
     let watchProviderUseCase = FetchWatchProviderUseCase(repository: movieRepository)
     let detailUseCase = FetchMovieDetailUseCase(
       repository: movieRepository,
@@ -46,9 +46,9 @@ struct MovieDetailBuilder {
       detailUseCase: detailUseCase,
       reviewUseCase: movieUseCase,
       castUseCase: castUseCase,
-      imageService: makeImageService(),
+      imageService: builderDependencies.imageService,
       insertRemoveBookmarkUseCase: insertOrRemoveBookmarkUseCase,
-      recomendationsUseCase: recomendationUseCase,
+      recommendationsUseCase: recommendationUseCase,
       watchedProviderUseCase: watchProviderUseCase
     )
   }
@@ -66,12 +66,6 @@ struct MovieDetailBuilder {
     )
     return MovieRepository(apiClient: builderDependencies.apiClient,
                            dependencies: dependencies)
-  }
-
-  private func makeImageService() -> ImageLoadingServiceProtocol {
-    let repository = RemotePosterRepository(apiClient: builderDependencies.imageClient)
-    return ImageLoadingService(repository: repository,
-                               cache: builderDependencies.provider)
   }
 
   private func makeWatchListRepository() -> WatchListRepository {

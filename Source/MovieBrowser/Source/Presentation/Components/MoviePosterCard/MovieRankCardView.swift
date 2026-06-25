@@ -19,8 +19,7 @@ struct MovieRankCardView: View {
 
   var body: some View {
     ZStack(alignment: .bottomLeading) {
-      RemotePosterView(viewModel: container.viewModelFactory.makeRemotePoster(),
-                       pathURLString: imageName)
+      RemotePosterView(pathURLString: imageName)
         .scaledToFill()
         .frame(width: posterWidth, height: posterHeight)
         .shadow(color: Color.accentColor.opacity(0.8), radius: 8, x: 0, y: 8)

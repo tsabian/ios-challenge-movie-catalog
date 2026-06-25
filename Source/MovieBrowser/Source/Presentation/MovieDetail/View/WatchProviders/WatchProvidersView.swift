@@ -69,11 +69,8 @@ struct WatchProvidersView: View {
         HStack {
           ForEach(collection, id: \.id) { provider in
             VStack {
-              RemotePosterView(
-                viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                pathURLString: provider.logoPath
-              )
-              .frame(width: 50, height: 50)
+              RemotePosterView(pathURLString: provider.logoPath)
+                .frame(width: 50, height: 50)
             }
           }
         }

@@ -80,8 +80,7 @@ struct LazyMovieGridView: View {
   LazyMovieGridView(
     movieCatalog: .mock(type: .nowPlaying),
     isLoadingNextPage: true) {
-      debugPrint("Loading next page")
+      await Task.yield()
     } tapAction: { _ in
-      debugPrint("tap action")
     }
 }

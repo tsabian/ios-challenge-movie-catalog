@@ -7,7 +7,7 @@
 
 import Core
 import Foundation
-import SwiftUI
+import UIKit
 
 final class ImageLoadingService: ImageLoadingServiceProtocol {
   private let repository: RemotePosterRepositoryProtocol

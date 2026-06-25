@@ -8,13 +8,11 @@
 import Core
 import Foundation
 import SwiftData
-import SwiftUI
 
 struct ViewModelDependencies {
   let apiClient: ApiClientProtocol
-  let imageClient: ApiClientProtocol
-  let imageCache: NSCache<NSString, UIImage>
   let dataCache: NSCache<NSString, NSData>
+  let imageLoadingService: ImageLoadingServiceProtocol
   let apiKey: String
   let language: String?
   let region: String?
@@ -24,6 +22,10 @@ struct ViewModelDependencies {
 
 struct ViewModelContainerFactory {
   private let domain: ViewModelDependencies
+
+  var imageLoadingService: ImageLoadingServiceProtocol {
+    domain.imageLoadingService
+  }
 
   init(domain: ViewModelDependencies) {
     self.domain = domain
@@ -50,21 +52,13 @@ struct ViewModelContainerFactory {
     return builder.build()
   }
 
-  func makeRemotePoster() -> RemotePosterViewModel {
-    let builder = RemotePosterContainerBuilder(apiClient: domain.imageClient,
-                                               cache: domain.imageCache)
-    return builder.build()
-  }
-
   func makeMovieDetail(movie: MovieModel) -> MovieDetailViewModel {
-    let provider = ResourceCacheProvider(cache: domain.imageCache)
     let dependencies = MovieDetailBuilderDependencies(apiClient: domain.apiClient,
-                                                      imageClient: domain.imageClient,
                                                       apiKey: domain.apiKey,
                                                       language: domain.language,
                                                       region: domain.region,
                                                       movie: movie,
-                                                      provider: provider,
+                                                      imageService: domain.imageLoadingService,
                                                       hostUrlString: domain.hostURLString)
     let builder = MovieDetailBuilder(builderDependencies: dependencies,
                                      context: domain.context)

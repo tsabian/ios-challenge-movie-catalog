@@ -1,5 +1,5 @@
 //
-//  RecomendationsView.swift
+//  RecommendationsView.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 23/06/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecomendationsView: View {
+struct RecommendationsView: View {
   @Environment(\.appContainer) private var appContainer
 
   private let movieCatalog: MovieCatalogModel?
@@ -37,8 +37,7 @@ struct RecomendationsView: View {
     VStack {
       ForEach(catalog.movies, id: \.id) { movie in
         VStack {
-          RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                           pathURLString: movie.backdropPath)
+          RemotePosterView(pathURLString: movie.backdropPath)
             .frame(maxWidth: .infinity)
             .cornerRadius(8)
 
@@ -58,9 +57,8 @@ struct RecomendationsView: View {
 }
 
 #Preview {
-  RecomendationsView(movieCatalog: .mock(),
-                     isLoading: false,
-                     handleDetail: { movie in
-                       debugPrint(movie)
-                     })
+  RecommendationsView(movieCatalog: .mock(),
+                      isLoading: false,
+                      handleDetail: { _ in
+                      })
 }

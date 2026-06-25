@@ -43,9 +43,7 @@ struct ReviewsView: View {
     HStack(alignment: .top, spacing: 12) {
       VStack(spacing: 24) {
         if let avatar = review.avatarPath {
-          RemotePosterView(
-            viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-            pathURLString: avatar)
+          RemotePosterView(pathURLString: avatar)
             .clipShape(Circle())
             .frame(width: 44, height: 44)
         } else {

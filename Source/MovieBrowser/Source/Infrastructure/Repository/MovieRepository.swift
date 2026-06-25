@@ -46,8 +46,8 @@ final class MovieRepository: NetworkRepository, MovieRepositoryProtocol {
     }
   }
 
-  func requestRecomendations(id: Int, page: Int) async throws -> MovieCatalogModel {
-    try await request(endpoint: makeRecomendationsEndpoint(id, page),
+  func requestRecommendations(id: Int, page: Int) async throws -> MovieCatalogModel {
+    try await request(endpoint: makeRecommendationsEndpoint(id, page),
                       decode: MovieCatalogDto.self) { dto in
       dependencies.movieAdapter.adapt(dto: dto)
     }
@@ -94,9 +94,9 @@ final class MovieRepository: NetworkRepository, MovieRepositoryProtocol {
     )
   }
 
-  private func makeRecomendationsEndpoint(_ id: Int, _ page: Int) -> Endpoint {
+  private func makeRecommendationsEndpoint(_ id: Int, _ page: Int) -> Endpoint {
     MovieEndpoint(
-      route: .recomendations(id: id),
+      route: .recommendations(id: id),
       apiKey: dependencies.apiKey,
       language: dependencies.language,
       region: dependencies.region,

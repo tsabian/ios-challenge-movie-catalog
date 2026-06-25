@@ -43,5 +43,5 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
 
   func loadWatchProvidersIfNeeded() async {}
 
-  func loadRecomendationsIfNeeded() async {}
+  func loadRecommendationsIfNeeded() async {}
 }

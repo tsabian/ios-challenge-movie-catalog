@@ -21,5 +21,5 @@ protocol MovieDetailViewModelProtocol: ObservableObject {
   func loadCastIfNeeded() async
   func loadReviewsIfNeeded() async
   func loadWatchProvidersIfNeeded() async
-  func loadRecomendationsIfNeeded() async
+  func loadRecommendationsIfNeeded() async
 }

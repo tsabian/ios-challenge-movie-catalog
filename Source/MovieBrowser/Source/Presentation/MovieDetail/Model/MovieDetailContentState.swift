@@ -9,11 +9,11 @@ struct MovieDetailContentState {
   let detail: MovieDetailsModel
   var reviews: [UserReviewModel]
   var cast: [CastModel]
-  var recomendations: MovieCatalogModel?
+  var recommendations: MovieCatalogModel?
   var watchProviders: WatchProviderResultModel?
   var isLoadingReviewsNextPage: Bool
   var isLoadingCast: Bool
-  var isLoadingRecomendations: Bool
+  var isLoadingRecommendations: Bool
   var isLoadingWatchProviders: Bool
   var canLoadMoreReviews: Bool
 }

@@ -11,7 +11,7 @@ typealias MovieRepositoryProtocol = MovieCatalogRepositoryProtocol &
   MovieCreditsRepositoryProtocol &
   MovieDetailsRepositoryProtocol &
   MovieProviderRepositoryProtocol &
-  MovieRecomendationsRepositoryProtocol &
+  MovieRecommendationsRepositoryProtocol &
   MovieReviewsRepositoryProtocol
 
 protocol MovieCatalogRepositoryProtocol: Sendable {
@@ -30,8 +30,8 @@ protocol MovieCreditsRepositoryProtocol {
   func requestCredits(id: Int) async throws -> CastCatalogModel
 }
 
-protocol MovieRecomendationsRepositoryProtocol {
-  func requestRecomendations(id: Int, page: Int) async throws -> MovieCatalogModel
+protocol MovieRecommendationsRepositoryProtocol {
+  func requestRecommendations(id: Int, page: Int) async throws -> MovieCatalogModel
 }
 
 protocol MovieProviderRepositoryProtocol {

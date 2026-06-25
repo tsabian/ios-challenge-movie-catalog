@@ -58,7 +58,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
 
     do {
-      try await nextPageMovieCatalogUseCase.execute(by: currentCategory,
+      try await nextPageMovieCatalogUseCase.execute(by: category,
                                                     content: &content)
       guard currentCategory == category else { return }
       self.content = content
@@ -79,15 +79,5 @@ final class HomeViewModel: HomeViewModelProtocol {
     } catch {
       state = .error(error.localizedDescription)
     }
-  }
-
-  private func makeUpdatedCatalog(_ content: HomeContentModel,
-                                  _ nextCatalog: MovieCatalogModel) -> MovieCatalogModel {
-    var movies = content.movieCatalog[currentCategory]?.movies ?? []
-    movies.append(contentsOf: nextCatalog.movies)
-    return MovieCatalogModel(page: nextCatalog.page,
-                             movies: movies,
-                             totalPages: nextCatalog.totalPages,
-                             totalResults: nextCatalog.totalResults)
   }
 }

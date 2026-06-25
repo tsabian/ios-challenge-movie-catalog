@@ -5,18 +5,15 @@
 //  Created by Tiago de Oliveira on 29/05/26.
 //
 
-import Core
 import SwiftUI
 
-struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: View {
+struct MovieDetailContentView: View {
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
   @Environment(HomeRouter.self) private var router
   @ScaledMetric(relativeTo: .body) private var posterWidth: CGFloat = 95
   @ScaledMetric(relativeTo: .body) private var posterHeight: CGFloat = 120
   @ScaledMetric(relativeTo: .body) private var backdropHeight: CGFloat = 210
   @State private var currentInfo: DetailInfo = .about
-
-  private let viewModel: () -> RemotePosterVM
 
   private var isAccessibilitySize: Bool {
     dynamicTypeSize.isAccessibilitySize
@@ -28,18 +25,15 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
 
   init(contentState: MovieDetailContentState,
        infoTapAction: @escaping (DetailInfo) -> Void,
-       loadReviewNextPage: @escaping () async -> Void,
-       viewModel: @autoclosure @escaping () -> RemotePosterVM) {
+       loadReviewNextPage: @escaping () async -> Void) {
     self.contentState = contentState
     self.infoTapAction = infoTapAction
     self.loadReviewNextPage = loadReviewNextPage
-    self.viewModel = viewModel
   }
 
   var body: some View {
     ZStack(alignment: .top) {
-      RemotePosterView(viewModel: viewModel(),
-                       pathURLString: contentState.detail.backdropPath)
+      RemotePosterView(pathURLString: contentState.detail.backdropPath)
         .scaledToFill()
         .frame(height: min(backdropHeight, 260))
         .frame(maxWidth: .infinity)
@@ -60,8 +54,7 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
     VStack(alignment: .leading) {
       ZStack {
         HStack(alignment: .top, spacing: 4) {
-          RemotePosterView(viewModel: viewModel(),
-                           pathURLString: contentState.detail.posterPath,
+          RemotePosterView(pathURLString: contentState.detail.posterPath,
                            size: .small)
             .frame(width: min(posterWidth, 130),
                    height: min(posterHeight, 165))
@@ -124,7 +117,7 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
       case .reviews: reviews
       case .cast: cast
       case .providers: providers
-      case .recomendations: recomendations
+      case .recommendations: recommendations
       }
     }
     .frame(maxWidth: .infinity)
@@ -178,10 +171,10 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
                        providers: contentState.watchProviders)
   }
 
-  private var recomendations: some View {
-    RecomendationsView(movieCatalog: contentState.recomendations,
-                       isLoading: contentState.isLoadingRecomendations,
-                       handleDetail: handleDetail)
+  private var recommendations: some View {
+    RecommendationsView(movieCatalog: contentState.recommendations,
+                        isLoading: contentState.isLoadingRecommendations,
+                        handleDetail: handleDetail)
   }
 
   private func handleDetail(_ movie: MovieModel) {
@@ -191,11 +184,9 @@ struct MovieDetailContentView<RemotePosterVM: RemotePosterViewModelProtocol>: Vi
 
 #Preview {
   MovieDetailContentView(contentState: .mock(),
-                         infoTapAction: { info in
-                           debugPrint("review tap \(info)")
+                         infoTapAction: { _ in
                          },
                          loadReviewNextPage: {
-                           debugPrint("review next page")
-                         },
-                         viewModel: RemotePosterViewModelMock())
+                           await Task.yield()
+                         })
 }

@@ -1,11 +1,11 @@
 //
-//  AppNavitagionRouterProtocol.swift
+//  AppNavigationRouterProtocol.swift
 //  MovieBrowser
 //
 //  Created by Tiago de Oliveira on 21/06/26.
 //
 
-protocol AppNavitagionRouterProtocol {
+protocol AppNavigationRouterProtocol {
   associatedtype Feature
   var path: [Feature] { get set }
 

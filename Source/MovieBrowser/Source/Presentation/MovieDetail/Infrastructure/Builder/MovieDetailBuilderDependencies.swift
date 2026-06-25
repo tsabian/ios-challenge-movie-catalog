@@ -6,15 +6,13 @@
 //
 
 import Core
-import UIKit
 
 struct MovieDetailBuilderDependencies {
   let apiClient: ApiClientProtocol
-  let imageClient: ApiClientProtocol
   let apiKey: String
   let language: String?
   let region: String?
   let movie: MovieModel
-  let provider: ResourceCacheProvider<UIImage>
+  let imageService: ImageLoadingServiceProtocol
   let hostUrlString: String
 }

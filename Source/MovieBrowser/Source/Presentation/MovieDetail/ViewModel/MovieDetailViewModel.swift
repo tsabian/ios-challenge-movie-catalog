@@ -28,8 +28,10 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   private var detail: MovieDetailsModel?
   private var reviews = [UserReviewModel]()
   private var cast = [CastModel]()
-  private var recomendations: MovieCatalogModel?
+  private var recommendations: MovieCatalogModel?
   private var watchProviders: WatchProviderResultModel?
+  private var currentReviewsPage = 0
+  private var totalReviewsPages = 1
 
   private let hostUrlString: String
   private let selectedMovie: MovieModel
@@ -41,7 +43,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   private let castUseCase: FetchCastUseCaseProtocol
   private let imageService: ImageLoadingServiceProtocol
   private let insertRemoveBookmarkUseCase: InsertOrRemoveBookmarkUseCaseProtocol
-  private let recomendationsUseCase: FetchMovieRecomendationsUseCaseProtocol
+  private let recommendationsUseCase: FetchMovieRecommendationsUseCaseProtocol
   private let watchProviderUseCase: FetchWatchProviderUseCaseProtocol
 
   // MARK: - Computed
@@ -52,7 +54,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  private var isLoadingRecomendations: Bool = false {
+  private var isLoadingRecommendations: Bool = false {
     didSet {
       updateLoadState()
     }
@@ -84,7 +86,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     imageService = dependencies.imageService
     insertRemoveBookmarkUseCase = dependencies.insertRemoveBookmarkUseCase
     watchProviderUseCase = dependencies.watchedProviderUseCase
-    recomendationsUseCase = dependencies.recomendationsUseCase
+    recommendationsUseCase = dependencies.recommendationsUseCase
     backdropPath = selectedMovie.backdropPath
     movieTitle = selectedMovie.title
     hostUrlString = dependencies.hostUrlString
@@ -124,7 +126,9 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
   }
 
   func loadReviewsIfNeeded() async {
-    guard canLoadMoreReviews, !isLoadingReviews else {
+    guard canLoadMoreReviews,
+          !isLoadingReviews,
+          currentReviewsPage < totalReviewsPages else {
       return
     }
     isLoadingReviews = true
@@ -132,7 +136,12 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
       isLoadingReviews = false
     }
     do {
-      let model = try await reviewUseCase.execute(movieID: selectedMovie.id)
+      let nextPage = currentReviewsPage + 1
+      let model = try await reviewUseCase.execute(movieID: selectedMovie.id,
+                                                  page: nextPage)
+      currentReviewsPage = nextPage
+      totalReviewsPages = model.totalPages
+      canLoadMoreReviews = currentReviewsPage < totalReviewsPages
       reviews.append(contentsOf: model.reviews)
     } catch UseCaseError.noMorePages {
       canLoadMoreReviews = false
@@ -157,23 +166,23 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
   }
 
-  func loadRecomendationsIfNeeded() async {
-    guard !isLoadingCast, recomendations == nil, let detail else {
+  func loadRecommendationsIfNeeded() async {
+    guard !isLoadingRecommendations, recommendations == nil, let detail else {
       return
     }
-    isLoadingRecomendations = true
+    isLoadingRecommendations = true
     defer {
-      isLoadingRecomendations = false
+      isLoadingRecommendations = false
     }
     do {
-      recomendations = try await recomendationsUseCase.execute(detail: detail)
+      recommendations = try await recommendationsUseCase.execute(detail: detail, page: 1)
     } catch {
       state = .error
     }
   }
 
   func loadWatchProvidersIfNeeded() async {
-    guard !isLoadingCast, watchProviders != nil, let detail else {
+    guard !isLoadingWatchProviders, watchProviders == nil, let detail else {
       return
     }
     isLoadingWatchProviders = true
@@ -197,7 +206,7 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
                                                     withSize: .small)
       imagePreview = image.croppedToAspectRatio(ratio: 1)
     } catch {
-      debugPrint(error)
+      imagePreview = UIImage(named: "popcorn")
     }
   }
 
@@ -214,11 +223,11 @@ final class MovieDetailViewModel: MovieDetailViewModelProtocol {
     return MovieDetailContentState(detail: detail,
                                    reviews: reviews,
                                    cast: cast,
-                                   recomendations: recomendations,
+                                   recommendations: recommendations,
                                    watchProviders: watchProviders,
                                    isLoadingReviewsNextPage: isLoadingReviews,
                                    isLoadingCast: isLoadingCast,
-                                   isLoadingRecomendations: isLoadingRecomendations,
+                                   isLoadingRecommendations: isLoadingRecommendations,
                                    isLoadingWatchProviders: isLoadingWatchProviders,
                                    canLoadMoreReviews: canLoadMoreReviews)
   }

@@ -7,30 +7,49 @@
 
 import SwiftUI
 
-struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
-  @StateObject private var viewModel: ViewModel
+enum RemotePosterState {
+  case idle
+  case loading
+  case loaded(image: UIImage)
+  case failed
+}
 
-  let pathURLString: String?
-  let size: TMDBImageSize
+struct RemotePosterView: View {
+  @Environment(\.appContainer) private var appContainer
+  @State private var state: RemotePosterState
 
-  init(viewModel: @autoclosure @escaping () -> ViewModel,
-       pathURLString: String?,
-       size: TMDBImageSize = .medium) {
-    _viewModel = StateObject(wrappedValue: viewModel())
+  private let pathURLString: String?
+  private let size: TMDBImageSize
+  private let imageService: ImageLoadingServiceProtocol?
+
+  init(pathURLString: String?,
+       size: TMDBImageSize = .medium,
+       imageService: ImageLoadingServiceProtocol? = nil,
+       initialState: RemotePosterState = .idle) {
     self.pathURLString = pathURLString
     self.size = size
+    self.imageService = imageService
+    _state = State(initialValue: initialState)
   }
 
   var body: some View {
     content
-      .task(id: pathURLString) {
-        await viewModel.load(from: pathURLString, size: size)
+      .task(id: cacheKey) {
+        await load()
       }
+  }
+
+  private var resolvedImageService: ImageLoadingServiceProtocol {
+    imageService ?? appContainer.viewModelFactory.imageLoadingService
+  }
+
+  private var cacheKey: String {
+    "\(size.rawValue):\(pathURLString ?? "")"
   }
 
   @ViewBuilder
   private var content: some View {
-    switch viewModel.state {
+    switch state {
     case .idle, .loading:
       Rectangle()
         .fill(Color.accentGray.opacity(0.3))
@@ -49,12 +68,38 @@ struct RemotePosterView<ViewModel: RemotePosterViewModelProtocol>: View {
         }
     }
   }
+
+  @MainActor
+  private func load() async {
+    guard let pathURLString, !pathURLString.isEmpty else {
+      state = .failed
+      return
+    }
+
+    state = .loading
+
+    do {
+      let image = try await resolvedImageService.fetchImage(from: pathURLString,
+                                                            withSize: size)
+      try Task.checkCancellation()
+      state = .loaded(image: image)
+    } catch is CancellationError {
+      return
+    } catch {
+      state = .failed
+    }
+  }
+}
+
+private struct PreviewImageService: ImageLoadingServiceProtocol {
+  func fetchImage(from _: String, withSize _: TMDBImageSize) async throws -> UIImage {
+    UIImage(named: "poster-w185-01") ?? UIImage()
+  }
 }
 
 #Preview {
   RemotePosterView(
-    viewModel: RemotePosterPreviewMockFactory.make(
-      state: .loaded(image: UIImage(named: "poster-w185-01") ?? UIImage())
-    ),
-    pathURLString: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png")
+    pathURLString: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+    imageService: PreviewImageService()
+  )
 }

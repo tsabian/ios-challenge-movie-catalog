@@ -72,8 +72,7 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
       MovieDetailContentView(
         contentState: contentState,
         infoTapAction: handleRequest,
-        loadReviewNextPage: handleReviewNextPage,
-        viewModel: appContainer.viewModelFactory.makeRemotePoster()
+        loadReviewNextPage: handleReviewNextPage
       )
       .environment(homeRouter)
     case .error:
@@ -93,8 +92,8 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
       break
     case .providers:
       requestWatchProviders()
-    case .recomendations:
-      requestRecomendations()
+    case .recommendations:
+      requestRecommendations()
     }
   }
 
@@ -120,9 +119,9 @@ struct MovieDetailView<ViewModel: MovieDetailViewModelProtocol>: View {
     }
   }
 
-  private func requestRecomendations() {
+  private func requestRecommendations() {
     Task {
-      await viewModel.loadRecomendationsIfNeeded()
+      await viewModel.loadRecommendationsIfNeeded()
     }
   }
 }

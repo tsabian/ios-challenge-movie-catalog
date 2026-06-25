@@ -51,8 +51,7 @@ struct MovieListView: View {
 
   private func movieRow(_ movie: SearchMovieResultModel) -> some View {
     HStack {
-      RemotePosterView(viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-                       pathURLString: movie.posterPath)
+      RemotePosterView(pathURLString: movie.posterPath)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .frame(width: 95, height: 120)
       VStack(alignment: .leading, spacing: 8) {
@@ -104,8 +103,7 @@ struct MovieListView: View {
     } makeMovieModel: { _ in
       .mock()
     } loadNextPage: {
-      debugPrint("Load Next Page")
-    } handleNavigate: { movie in
-      debugPrint("navigate to \(movie.title)")
+      await Task.yield()
+    } handleNavigate: { _ in
     }
 }

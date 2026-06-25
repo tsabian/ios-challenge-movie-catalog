@@ -8,14 +8,10 @@
 import Core
 import Foundation
 import SwiftData
-import SwiftUI
+import UIKit
 
 @MainActor
 struct AppContainer {
-  private let apiClient: ApiClientProtocol
-  private let imageClient: ApiClientProtocol
-  private let imageCache: NSCache<NSString, UIImage>
-  private let dataCache: NSCache<NSString, NSData>
   private let container: ModelContainer
   private let modelContext: ModelContext
 
@@ -34,15 +30,20 @@ struct AppContainer {
                                               env.value(for: .tmdbImageSslPinningKey)
                                             ])
     let imageCache = NSCache<NSString, UIImage>()
+    imageCache.countLimit = 150
     let dataCache = NSCache<NSString, NSData>()
+    dataCache.countLimit = 20
+    let imageProvider = ResourceCacheProvider<UIImage>(cache: imageCache)
+    let imageRepository = RemotePosterRepository(apiClient: imageClient)
+    let imageLoadingService = ImageLoadingService(repository: imageRepository,
+                                                  cache: imageProvider)
     do {
       let modelContainer = try ModelContainer(for: MovieDetails.self)
       let modelContext = ModelContext(modelContainer)
       let viewModelDependencies = ViewModelDependencies(
         apiClient: apiClient,
-        imageClient: imageClient,
-        imageCache: imageCache,
         dataCache: dataCache,
+        imageLoadingService: imageLoadingService,
         apiKey: env.value(for: .tmdbApiKey),
         language: env.language,
         region: env.region,
@@ -51,10 +52,6 @@ struct AppContainer {
       )
       let viewModelFactory = ViewModelContainerFactory(domain: viewModelDependencies)
       return .init(
-        apiClient: apiClient,
-        imageClient: imageClient,
-        imageCache: imageCache,
-        dataCache: dataCache,
         container: modelContainer,
         modelContext: modelContext,
         viewModelFactory: viewModelFactory

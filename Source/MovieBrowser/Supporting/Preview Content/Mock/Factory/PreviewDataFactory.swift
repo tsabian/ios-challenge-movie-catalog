@@ -53,7 +53,7 @@ struct PreviewDataFactory {
     try decode("movie-watch-provider.json")
   }
 
-  func makeRecomendation() throws -> MovieCatalogDto {
+  func makeRecommendation() throws -> MovieCatalogDto {
     try decode("recommendations.json")
   }
 

@@ -45,9 +45,7 @@ struct CastView: View {
     VStack(spacing: 2) {
       if let profilePath = element.profilePath {
         ZStack {
-          RemotePosterView(
-            viewModel: appContainer.viewModelFactory.makeRemotePoster(),
-            pathURLString: profilePath)
+          RemotePosterView(pathURLString: profilePath)
             .scaledToFill()
             .clipShape(Circle())
             .frame(width: 100, height: 100)
