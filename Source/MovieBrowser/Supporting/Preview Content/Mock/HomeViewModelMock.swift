@@ -22,7 +22,7 @@ final class HomeViewModelMock: HomeViewModelProtocol {
     return self
   }
 
-  func fetchNextPage() async {
+  func fetchNextPage(for _: MovieCategory) async {
     isLoadingNextPage = true
   }
 }

@@ -24,9 +24,6 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
     imagePreview = UIImage(named: "popcorn")
   }
 
-  func requestReviews() {}
-  func requestCast() {}
-
   func change(state: MovieDetailState) -> Self {
     self.state = state
     return self
@@ -40,7 +37,11 @@ final class MovieDetailViewModelMock: MovieDetailViewModelProtocol {
     isBookmark.toggle()
   }
 
-  func requestRecomendations() {}
+  func loadCastIfNeeded() async {}
 
-  func requestWatchProviders() {}
+  func loadReviewsIfNeeded() async {}
+
+  func loadWatchProvidersIfNeeded() async {}
+
+  func loadRecomendationsIfNeeded() async {}
 }

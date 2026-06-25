@@ -15,5 +15,5 @@ protocol HomeViewModelProtocol: ObservableObject {
 
   func load() async
   func fetch(category: MovieCategory) async
-  func fetchNextPage() async
+  func fetchNextPage(for category: MovieCategory) async
 }
