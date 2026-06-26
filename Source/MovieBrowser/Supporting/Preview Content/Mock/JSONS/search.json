@@ -1,0 +1,392 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/qO55CD8tgVL1T4WKn6zYFFiD6lL.jpg",
+            "genre_ids": [
+                28,
+                18,
+                80
+            ],
+            "id": 1439930,
+            "title": "O Justiceiro: Uma Última Morte",
+            "original_language": "en",
+            "original_title": "The Punisher: One Last Kill",
+            "overview": "Enquanto Frank Castle busca um significado além da vingança, uma força inesperada o arrasta de volta para a luta.",
+            "popularity": 134.3121,
+            "poster_path": "/ppRmgI2MbEOADvKKvlNoRJHPXOT.jpg",
+            "release_date": "2026-05-12",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.345,
+            "vote_count": 1662
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ziexSS07RmowuyqAdJMh1sGxjHg.jpg",
+            "genre_ids": [
+                28,
+                80,
+                18
+            ],
+            "id": 7220,
+            "title": "O Justiceiro",
+            "original_language": "en",
+            "original_title": "The Punisher",
+            "overview": "Após ter sua esposa e filho assassinados, Frank Castle decidiu por dedicar sua vida a eliminar o crime das ruas da cidade em que vive. Para tanto, Castle não apenas persegue os bandidos como também os elimina, usando sua experiência como agente secreto do FBI. Seu novo alvo é Howard Saint, um homem ligado ao submundo do crime que decide se vingar da sociedade após ter seu filho morto.",
+            "popularity": 7.8297,
+            "poster_path": "/9RQ6LDA2NG97cxL2bLw1O2R2nkp.jpg",
+            "release_date": "2004-10-22",
+            "softcore": false,
+            "video": false,
+            "vote_average": 6.4,
+            "vote_count": 3160
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/tFmrdnfXM0p6ihMTFpptYOKEfSl.jpg",
+            "genre_ids": [
+                28,
+                80,
+                18
+            ],
+            "id": 8867,
+            "title": "O Justiceiro",
+            "original_language": "en",
+            "original_title": "The Punisher",
+            "overview": "A polícia está em polvorosa devido a uma série de 125 assassinatos realizados. Decidido a acabar com a onda de crimes, Frank Castle toma a dianteira e passa a investigar o caso. Castle é um ex-policial que está em busca de vingança desde que sua esposa e filho foram assassinados, tendo a partir de então se dedicado a combater o crime nas ruas por conta própria. Quando Castle acredita estar com a organização quase destruída, ele passa a enfrentar um novo grupo criminoso, que pretende ocupar o lugar vago.",
+            "popularity": 3.974,
+            "poster_path": "/ymYOIoWu4bfHmU6XYInvpMDAevw.jpg",
+            "release_date": "1989-10-05",
+            "softcore": false,
+            "video": false,
+            "vote_average": 5.8,
+            "vote_count": 686
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/dqPZpQy6PJINOJtld17NgIERusH.jpg",
+            "genre_ids": [
+                28,
+                80
+            ],
+            "id": 13056,
+            "title": "O Justiceiro: Em Zona de Guerra",
+            "original_language": "en",
+            "original_title": "Punisher: War Zone",
+            "overview": "Depois de ter sido desfigurado pelo justiceiro Frank Castle, o poderoso chefe do crime organizado Billy Russoti muda seu nome para Jigsaw e sai em busca de vingança.",
+            "popularity": 4.0163,
+            "poster_path": "/2KL3iyDWRnrtHQTAg25YCXAcUxT.jpg",
+            "release_date": "2008-12-05",
+            "softcore": false,
+            "video": false,
+            "vote_average": 5.9,
+            "vote_count": 1319
+        },
+        {
+            "adult": true,
+            "backdrop_path": "/iBdd5heCvbniOAkBN4dWdmqMDof.jpg",
+            "genre_ids": [],
+            "id": 608038,
+            "title": "Punisher",
+            "original_language": "en",
+            "original_title": "Punisher",
+            "overview": "",
+            "popularity": 0.0,
+            "poster_path": "/dSZcp0Ea6Oe4OfqCJasz9OtFrrF.jpg",
+            "release_date": "2017-06-13",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                80,
+                18
+            ],
+            "id": 545753,
+            "title": "Punisher: Hell Tickets",
+            "original_language": "en",
+            "original_title": "Punisher: Hell Tickets",
+            "overview": "",
+            "popularity": 0.0193,
+            "poster_path": "/mcvdAOIn89PTiiEWLp0hDpleyii.jpg",
+            "release_date": "2008-09-01",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                37,
+                18
+            ],
+            "id": 1123243,
+            "title": "Johnny: The Punisher",
+            "original_language": "en",
+            "original_title": "Johnny: The Punisher",
+            "overview": "",
+            "popularity": 0.1339,
+            "poster_path": null,
+            "release_date": "2019-09-08",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [],
+            "id": 1714612,
+            "title": "The Courier Punisher",
+            "original_language": "tr",
+            "original_title": "The Courier Punisher",
+            "overview": "",
+            "popularity": 0.0314,
+            "poster_path": null,
+            "release_date": "",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                16
+            ],
+            "id": 1150560,
+            "title": "The Poultry Punisher",
+            "original_language": "en",
+            "original_title": "The Poultry Punisher",
+            "overview": "",
+            "popularity": 0.0071,
+            "poster_path": null,
+            "release_date": "2023-07-28",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/cDibut7TkBRhZb94sjusMGbBCVW.jpg",
+            "genre_ids": [],
+            "id": 1713573,
+            "title": "The Punisher: Dirty Laundry",
+            "original_language": "en",
+            "original_title": "The Punisher: Dirty Laundry",
+            "overview": "",
+            "popularity": 0.4572,
+            "poster_path": "/oNfPqOLgGF9eoPj7fszsmRpz8br.jpg",
+            "release_date": "2012-07-15",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.0,
+            "vote_count": 2
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [],
+            "id": 1342256,
+            "title": "Punisher: No Good Deed",
+            "original_language": "en",
+            "original_title": "Punisher: No Good Deed",
+            "overview": "",
+            "popularity": 0.0,
+            "poster_path": null,
+            "release_date": "",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 1704803,
+            "title": "Army of One: Punisher Origins",
+            "original_language": "en",
+            "original_title": "Army of One: Punisher Origins",
+            "overview": "",
+            "popularity": 0.1231,
+            "poster_path": null,
+            "release_date": "2004-09-07",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 1704799,
+            "title": "Keepin' It Real: 'Punisher' Stunts",
+            "original_language": "en",
+            "original_title": "Keepin' It Real: 'Punisher' Stunts",
+            "overview": "",
+            "popularity": 0.2067,
+            "poster_path": null,
+            "release_date": "2004-09-07",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                99
+            ],
+            "id": 1229183,
+            "title": "War Journal: On the Set of 'The Punisher'",
+            "original_language": "en",
+            "original_title": "War Journal: On the Set of 'The Punisher'",
+            "overview": "",
+            "popularity": 0.362,
+            "poster_path": "/5S5gDZJk5jllYRLm7sVdPLHUvkB.jpg",
+            "release_date": "2004-09-07",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/2jEd7cATK47PiRYlqXyfN2YFGrG.jpg",
+            "genre_ids": [
+                28,
+                80
+            ],
+            "id": 901008,
+            "title": "1986",
+            "original_language": "en",
+            "original_title": "1986",
+            "overview": "",
+            "popularity": 0.1317,
+            "poster_path": "/wpui7ptX213dD47H3NroZVdIgIS.jpg",
+            "release_date": "2021-11-19",
+            "softcore": false,
+            "video": false,
+            "vote_average": 1.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28
+            ],
+            "id": 935505,
+            "title": "女教師仕置人　復讐の女神",
+            "original_language": "ja",
+            "original_title": "女教師仕置人　復讐の女神",
+            "overview": "",
+            "popularity": 4.5244,
+            "poster_path": "/z6T7ZsZ9hEx4ssmeTuQhizdhJ2t.jpg",
+            "release_date": "1990-01-01",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28
+            ],
+            "id": 935508,
+            "title": "女教師仕置人 地獄の女神",
+            "original_language": "ja",
+            "original_title": "女教師仕置人 地獄の女神",
+            "overview": "",
+            "popularity": 3.9013,
+            "poster_path": "/uTR9osRcA5hKALePWTsyhZdNt56.jpg",
+            "release_date": "1990-06-01",
+            "softcore": false,
+            "video": false,
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                28,
+                80
+            ],
+            "id": 1450362,
+            "title": "First Round",
+            "original_language": "en",
+            "original_title": "First Round",
+            "overview": "",
+            "popularity": 0.1288,
+            "poster_path": "/6rHbUURFWETPehzFaVxpWYkoBA7.jpg",
+            "release_date": "2005-07-16",
+            "softcore": false,
+            "video": false,
+            "vote_average": 7.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/vSTvyLheFr6W3HkOVt8oHixuAiH.jpg",
+            "genre_ids": [
+                18
+            ],
+            "id": 454434,
+            "title": "Каратель",
+            "original_language": "ru",
+            "original_title": "Каратель",
+            "overview": "",
+            "popularity": 0.3222,
+            "poster_path": "/uEu7C02VfdtpFm7BBA2Vgg6PqHr.jpg",
+            "release_date": "1968-08-04",
+            "softcore": false,
+            "video": false,
+            "vote_average": 10.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/kvnRCizXDYpHl3vO8QqdAEpoaft.jpg",
+            "genre_ids": [
+                28,
+                18,
+                53
+            ],
+            "id": 257568,
+            "title": "응징자",
+            "original_language": "ko",
+            "original_title": "응징자",
+            "overview": "",
+            "popularity": 0.9048,
+            "poster_path": "/23E9Vc8CMOh1NTPLoN49UyIH3WP.jpg",
+            "release_date": "2013-10-30",
+            "softcore": false,
+            "video": false,
+            "vote_average": 6.1,
+            "vote_count": 29
+        }
+    ],
+    "total_pages": 2,
+    "total_results": 35
+}

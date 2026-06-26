@@ -1,0 +1,39 @@
+//
+//  SearchViewModelMock.swift
+//  MovieBrowser
+//
+//  Created by Tiago de Oliveira on 19/06/26.
+//
+
+import Combine
+
+final class SearchViewModelMock: SearchViewModelProtocol {
+  @Published var state: SearchState = .idle
+  @Published var page = 1
+  @Published var isLoadingNextPage = false
+
+  var getGenreNameResult = "Unknown"
+
+  func search(movie _: String) async {
+    state = .loaded(content: .mock())
+  }
+
+  func loadNextPage() async {}
+
+  func setStateView(state: SearchState) -> Self {
+    self.state = state
+    return self
+  }
+
+  func getGenreName(id _: Int) -> String {
+    getGenreNameResult
+  }
+
+  func reset() {
+    state = .idle
+  }
+
+  func makeMovieModel(from _: SearchMovieResultModel) -> MovieModel {
+    .mock()
+  }
+}

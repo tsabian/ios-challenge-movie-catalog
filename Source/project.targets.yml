@@ -1,0 +1,118 @@
+include:
+  - project.templates.yml
+
+targets:
+  MovieBrowser:
+    type: application
+    supportedDestinations: iOS
+    platform: iOS
+    sources:
+      - path: MovieBrowser
+        excludes:
+          - "**/Info.plist"
+      - path: MovieBrowser/Supporting/Info.plist
+        buildPhase: "none"
+    info:
+      path: MovieBrowser/Supporting/Info.plist
+      properties:
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
+        UIUserInterfaceStyle: Dark
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIAppFonts:
+          - "Montserrat-Regular.ttf"
+          - "Montserrat-Bold.ttf"
+          - "Montserrat-Light.ttf"
+          - "SpaceGrotesk-Regular.ttf"
+          - "SpaceGrotesk-Bold.ttf"
+          - "SpaceGrotesk-Light.ttf"
+        TMDB_IMG_SSL_PINNING_KEY: $(TMDB_IMG_SSL_PINNING_KEY)
+        TMDB_API_SSL_PINNING_KEY: $(TMDB_API_SSL_PINNING_KEY)
+        TMDB_API_KEY: $(API_KEY)
+        TMDB_API_TOKEN: $(API_TOKEN)
+        TMDB_API_BASE_URL: $(API_BASE_URL)
+        TMDB_IMG_BASE_URL: $(IMG_HOST)
+        TMDB_HOST: $(HOST)
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.entertainment
+        INFOPLIST_KEY_CFBundleDisplayName: $(PRODUCT_NAME)
+        INFOPLIST_FILE: MovieBrowser/Supporting/Info.plist
+        DEVELOPMENT_ASSET_PATHS: '"$(SRCROOT)/MovieBrowser/Supporting/Preview Content"'
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: ${DEVELOPMENT_TEAM}
+        ENABLE_PREVIEWS: YES
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        STRING_CATALOG_GENERATE_SYMBOLS: YES
+        SWIFT_GENERATE_STRING_CATALOG_SYMBOLS: YES
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_EMIT_LOC_STRINGS: YES
+        SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
+        SWIFT_VERSION: "6.0.3"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS: YES
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        LOCALIZATION_EXPORT_SUPPORTED_LANGUAGE_STRINGS: YES
+    configFiles:
+      Debug: MovieBrowser/Supporting/Configs/Debug.xcconfig
+      Release: MovieBrowser/Supporting/Configs/Release.xcconfig
+    dependencies:
+      - package: Core
+    templates:
+      - LintAndFormat
+
+  MovieBrowserTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MovieBrowserTests
+    dependencies:
+      - target: MovieBrowser
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      BUNDLE_LOADER: "$(TEST_HOST)"
+      CODE_SIGN_STYLE: Automatic
+      CURRENT_PROJECT_VERSION: 1
+      MARKETING_VERSION: "1.0"
+      PRODUCT_NAME: "$(TARGET_NAME)"
+      STRING_CATALOG_GENERATE_SYMBOLS: NO
+      SWIFT_APPROACHABLE_CONCURRENCY: YES
+      SWIFT_EMIT_LOC_STRINGS: NO
+      SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
+      SWIFT_VERSION: "6.0.3"
+      TARGETED_DEVICE_FAMILY: "1,2"
+      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/MovieBrowser.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MovieBrowser"
+    templates:
+      - LintAndFormat
+
+  MovieBrowserUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: MovieBrowserUITests
+    dependencies:
+      - target: MovieBrowser
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      CODE_SIGN_STYLE: Automatic
+      CURRENT_PROJECT_VERSION: 1
+      MARKETING_VERSION: "1.0"
+      PRODUCT_NAME: "$(TARGET_NAME)"
+      STRING_CATALOG_GENERATE_SYMBOLS: NO
+      SWIFT_APPROACHABLE_CONCURRENCY: YES
+      SWIFT_EMIT_LOC_STRINGS: NO
+      SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
+      SWIFT_VERSION: "6.0.3"
+      TARGETED_DEVICE_FAMILY: "1,2"
+      TEST_TARGET_NAME: MovieBrowser
+    templates:
+      - LintAndFormat``

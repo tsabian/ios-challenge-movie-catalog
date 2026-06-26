@@ -1,0 +1,7 @@
+name: MovieBrowser
+
+include:
+  - project.options.yml                      # options globais do projeto
+  - Source/project.packages.yml                     # dependências de pacotes
+  - Source/project.targets.yml               # targets e configurações específicas
+  - Source/project.schemes.yml                      # schemes e configs de execução

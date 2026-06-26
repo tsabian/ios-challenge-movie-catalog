@@ -1,0 +1,419 @@
+{
+  "dates": {
+    "maximum": "2026-06-24",
+    "minimum": "2026-06-03"
+  },
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/piV2OnzTZCyGBP9JCjlHIgKGlfo.jpg",
+      "genre_ids": [
+        28,
+        14,
+        878
+      ],
+      "id": 454639,
+      "title": "Mestres do Universo",
+      "original_language": "en",
+      "original_title": "Masters of the Universe",
+      "overview": "Adam caiu na Terra quando era criança e perdeu a espada mágica que o ligava a Eternia. Quase 20 anos depois, ele a recupera e retorna ao seu planeta natal para protegê-lo do malvado Esqueleto, mas primeiro precisa desvendar seu passado.",
+      "popularity": 35.6478,
+      "poster_path": "/dobbDBQC0G9m65pcVaDM2D2aMr8.jpg",
+      "release_date": "2026-06-04",
+      "softcore": false,
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/coyHrYHD2xHhDoYD6o4uwoJ2o7b.jpg",
+      "genre_ids": [
+        16,
+        10751,
+        35,
+        12
+      ],
+      "id": 1084244,
+      "title": "Toy Story 5",
+      "original_language": "en",
+      "original_title": "Toy Story 5",
+      "overview": "O trabalho de Buzz, Woody, Jessie e do resto da gangue fica exponencialmente mais difícil quando eles enfrentam uma nova ameaça à diversão: a tecnologia.",
+      "popularity": 31.5406,
+      "poster_path": "/dlZR5AE2NfKeZYxCKAvLGKSjncS.jpg",
+      "release_date": "2026-06-18",
+      "softcore": false,
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/5p6BsJtnPbglYN15MuiUEppPl0f.jpg",
+      "genre_ids": [
+        9648,
+        878,
+        53
+      ],
+      "id": 1275779,
+      "title": "Dia D",
+      "original_language": "en",
+      "original_title": "Disclosure Day",
+      "overview": "A existência de vida extraterrestre torna-se uma realidade inegável para todos os habitantes da Terra em um único instante. O mundo entra em colapso quando uma meteorologista, em plena transmissão ao vivo, é dominada por uma força invisível, perdendo a fala e emitindo sons perturbadores. Enquanto fenômenos inexplicáveis e sinais de controle mental em massa se espalham, um informante tenta expor segredos governamentais guardados por décadas. Diante da prova definitiva de que a humanidade não está sozinha, o pânico e o fascínio tomam conta de uma civilização confrontada pelo desconhecido.",
+      "popularity": 22.4786,
+      "poster_path": "/pmff1wjKrgJi92PPr346lAifzlg.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/pO7XVtgA6t5JbxY1S8Y4cQEFarR.jpg",
+      "genre_ids": [
+        35,
+        27
+      ],
+      "id": 1273221,
+      "title": "Todo Mundo em Pânico",
+      "original_language": "en",
+      "original_title": "Scary Movie",
+      "overview": "Vinte e seis anos depois de escaparem de um assassino mascarado suspeitosamente familiar, o Quarteto Fantástico está de volta à mira do criminoso, e nenhuma propriedade intelectual de filmes de terror está a salvo.",
+      "popularity": 19.9546,
+      "poster_path": "/e4rbDsUsLBSL5Jpfl1woX19sOiy.jpg",
+      "release_date": "2026-06-04",
+      "softcore": false,
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zdXnJqBaGFVtLoPNuMeKfEYUViZ.jpg",
+      "genre_ids": [
+        10749,
+        18
+      ],
+      "id": 11036,
+      "title": "Diário de uma Paixão",
+      "original_language": "en",
+      "original_title": "The Notebook",
+      "overview": "Na década de 40, o operário Noah Calhoun e a rica Allie estão desesperadamente apaixonados, mas os pais da jovem não aprovam o namoro. Quando Noah vai para a Segunda Guerra Mundial, parece ser o fim do romance. Enquanto isso, Allie se envolve com outro homem. Mas quando Noah retorna para a pequena cidade anos mais tarde, próximo ao casamento de Allie, logo se torna claro que a paixão ainda não acabou.",
+      "popularity": 18.5116,
+      "poster_path": "/hO6k34ZNDwWzgcnzFbqYf2Rjg5W.jpg",
+      "release_date": "2004-08-13",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.9,
+      "vote_count": 12538
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sT5Inhc0aaReSZoufWgfJTQUbKp.jpg",
+      "genre_ids": [
+        80,
+        53
+      ],
+      "id": 1340206,
+      "title": "O Afinador",
+      "original_language": "en",
+      "original_title": "Tuner",
+      "overview": "Niki é um afinador de pianos talentoso treinado por Harry. Sua audição excepcional chama a atenção de criminosos. Essa habilidade rara não só o ajuda a trabalhar com instrumentos de alto padrão, como pianos Steinway, mas também a abrir cofres com precisão. Ao longo do caminho, Niki conhece Ruthie, uma estudante de composição, e os dois criam uma conexão inesperada. Porém, sua vida dupla como arrombador começa a ameaçar o relacionamento, enquanto ele se envolve em situações cada vez mais perigosas.",
+      "popularity": 15.1033,
+      "poster_path": "/bq21NGxKqV6DgHfm5j48mscM7Ai.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.545,
+      "vote_count": 11
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2TWIlmhE06ghspeQLEX1VmnEBiE.jpg",
+      "genre_ids": [
+        10749,
+        35
+      ],
+      "id": 1455079,
+      "title": "Eu & Você na Toscana",
+      "original_language": "en",
+      "original_title": "You, Me & Tuscany",
+      "overview": "Depois de perder o emprego e o apartamento no mesmo dia, Anna toma a decisão mais impulsiva da sua vida: se instalar na vila de um homem que mal conhece, no coração da Toscana. Quando a mãe dele aparece na porta, Anna entra em pânico e inventa que é sua noiva. O plano começa a desmoronar quando Michael, o primo charmoso, chega para o fim de semana e Anna percebe que sustentar a mentira pode ser bem mais complicado do que ela esperava.",
+      "popularity": 10.3111,
+      "poster_path": "/i21UWr8sC65vN0Q8EY7H6PjTpv5.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.3,
+      "vote_count": 63
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oguoQWtQJcqIkmmUNbe3CmLx6AP.jpg",
+      "genre_ids": [
+        12,
+        14,
+        18,
+        10749
+      ],
+      "id": 24021,
+      "title": "A Saga Crepúsculo: Eclipse",
+      "original_language": "en",
+      "original_title": "The Twilight Saga: Eclipse",
+      "overview": "Bella mais uma vez encontra-se rodeada pelo perigo, já que Seattle está sendo devastada por uma sequência de misteriosos assassinatos e um malicioso vampiro continua em sua busca por vingança. Em meio a tudo isso, ela é forçada a escolher entre Edward e Jacob, sabendo que sua decisão tem o poder de incendiar a luta entre os vampiros e os lobisomens. Prestes a concluir a graduação, Bella tem que enfrentar a decisão mais importante da sua vida.",
+      "popularity": 10.7453,
+      "poster_path": "/a8qPjwfKA1MwjEoVPhTf1ptVzdE.jpg",
+      "release_date": "2010-06-30",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.194,
+      "vote_count": 9245
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/qA2TyqPldTtoTVY3LKrNIG5g6bH.jpg",
+      "genre_ids": [
+        18,
+        10749
+      ],
+      "id": 76,
+      "title": "Antes do Amanhecer",
+      "original_language": "en",
+      "original_title": "Before Sunrise",
+      "overview": "Jesse (Ethan Hawke), um jovem americano, e Celine (Julie Delpy), uma estudante francesa, se encontram casualmente no trem para Viena e logo começam a conversar. Ele a convence a desembarcar em Viena e gradativamente vão se envolvendo em uma paixão crescente. Mas existe uma verdade inevitável: no dia seguinte ela irá para Paris e ele voltará ao Estados Unidos. Com isso, resta aos dois apaixonados aproveitar o máximo o pouco tempo que lhes resta.",
+      "popularity": 9.8959,
+      "poster_path": "/gUD2xpkiWaCUabnwMgopECylsKc.jpg",
+      "release_date": "1995-07-27",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.0,
+      "vote_count": 4686
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/pvVpR8lPRAPbeVU6hqJwD4r9roo.jpg",
+      "genre_ids": [
+        35,
+        10749
+      ],
+      "id": 1581,
+      "title": "O Amor Não Tira Férias",
+      "original_language": "en",
+      "original_title": "The Holiday",
+      "overview": "Amanda Woods e Iris Simpkins estão desesperadas por mudanças de ares depois de uma série de problemas com os homens. Numa troca de residências temporária, Amanda viaja para Londres, enquanto Iris parte para Los Angeles, cidades que não conhecem, mas onde rapidamente se integram.",
+      "popularity": 7.6287,
+      "poster_path": "/4TvrnjDdIACRp9Jy4KWO3VxrUrg.jpg",
+      "release_date": "2006-12-22",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.099,
+      "vote_count": 5630
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/h2oRH3xY2DJx06EwdXq76tInFTH.jpg",
+      "genre_ids": [
+        10749,
+        35
+      ],
+      "id": 509,
+      "title": "Um Lugar Chamado Notting Hill",
+      "original_language": "en",
+      "original_title": "Notting Hill",
+      "overview": "Will, pacato dono de livraria especializada em guias de viagem, recebe a inesperada visita de uma cliente muito especial: a estrela de cinema americana Anna Scott. Dois ou três encontros fortuitos mais tarde, Will e Anna iniciam um relacionamento tenro, engraçado e cheio de idas e vindas.",
+      "popularity": 7.0148,
+      "poster_path": "/9yFgNvFK870icK6SvTdeVyEjXN4.jpg",
+      "release_date": "1999-07-30",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.27,
+      "vote_count": 6714
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rakS8RAhKOMIplBi4RbluQg4Xqn.jpg",
+      "genre_ids": [
+        27,
+        18,
+        878
+      ],
+      "id": 1284460,
+      "title": "Alpha",
+      "original_language": "fr",
+      "original_title": "Alpha",
+      "overview": "Alpha, uma adolescente de 13 anos em crise, vive com sua mãe solteira. A realidade delas toma contornos assustadores no dia em que Alpha aparece em casa com uma tatuagem no braço, em meio a uma epidemia de vírus mortal que se espalha petrificando as pessoas.",
+      "popularity": 5.4125,
+      "poster_path": "/iE3P4LFSJCBX5PRWxbPs7DQh7yI.jpg",
+      "release_date": "2026-06-04",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.304,
+      "vote_count": 115
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/u1c2DAXhpyAwFK8zljcMc4FFEc3.jpg",
+      "genre_ids": [
+        35,
+        10402,
+        18
+      ],
+      "id": 1284016,
+      "title": "Hit Para Dois",
+      "original_language": "en",
+      "original_title": "Power Ballad",
+      "overview": "Rick, um cantor de casamentos, apresenta uma de suas composições para Danny, um ex-astro pop adolescente que transforma a canção em um sucesso global e fica com todo o crédito. Em busca de justiça e reconhecimento, Rick mergulha em uma jornada obsessiva, sem perceber que pode acabar perdendo o que realmente importa em sua vida.",
+      "popularity": 4.5966,
+      "poster_path": "/u1nCYYMDSB6hZRefqgEghyOC0Ig.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fo6Gw1AylyRJSeKk6QqrKD3UUER.jpg",
+      "genre_ids": [
+        27,
+        53
+      ],
+      "id": 1339772,
+      "title": "The Devil's Bride",
+      "original_language": "id",
+      "original_title": "Pengantin Setan",
+      "overview": "A casa de Echa e Ariel era inicialmente harmoniosa. No entanto, sua vida se tornou assustadora depois que Echa foi perturbada por um gênio chamado Jin Dasim, que se apaixonou por ela.",
+      "popularity": 2.9207,
+      "poster_path": "/hiPlFLw5vVm2M8JBIFB2PJA5FE5.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.0,
+      "vote_count": 11
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/yGH7ke2rbeSI4IZx90UzIrMlWLq.jpg",
+      "genre_ids": [
+        27,
+        18,
+        53
+      ],
+      "id": 787747,
+      "title": "Segredo Obscuro",
+      "original_language": "en",
+      "original_title": "Shell",
+      "overview": "A atriz Samantha Lake é atraída para o universo glamouroso e misterioso de Zoe Shannon, CEO da renomada empresa de saúde e bem-estar Shell. No entanto, quando seus pacientes começam a desaparecer, incluindo a famosa estrela Chloe Benson, Samantha se vê envolvida em uma teia de mistérios e conspirações, levando-a a suspeitar que a Shell está escondendo um segredo perigoso e monstruoso.",
+      "popularity": 1.9074,
+      "poster_path": "/mlCDEXu7K1V2ggBFNf4k7umLhGR.jpg",
+      "release_date": "2026-06-18",
+      "softcore": false,
+      "video": false,
+      "vote_average": 5.208,
+      "vote_count": 60
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oiiQVnnEY4M2pz6iZkq59ls9fP.jpg",
+      "genre_ids": [
+        18
+      ],
+      "id": 1269644,
+      "title": "Uma Infância Alemã",
+      "original_language": "de",
+      "original_title": "Amrum",
+      "overview": "Verão de 1945. Nanning é um garoto de 12 anos que caça focas, pesca à noite e trabalha arduamente nos campos para ajudar a mãe a sustentar a família. Com a morte de Hitler, surgem conflitos novos, e um segredo de família ameaça destruir a frágil paz recém-descoberta na ilha de Amrum.",
+      "popularity": 1.9633,
+      "poster_path": "/veKogeWV5xVrg41HrLCspiwHNDy.jpg",
+      "release_date": "2026-06-18",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.101,
+      "vote_count": 69
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/49gNFL6rq4IBqj3MmFYvMRP8No4.jpg",
+      "genre_ids": [
+        18
+      ],
+      "id": 1053583,
+      "title": "8 Décadas de Amor",
+      "original_language": "es",
+      "original_title": "8",
+      "overview": "Octavio e Adela nasceram no mesmo dia, 14 de abril de 1931. Ao longo das oito décadas seguintes, suas vidas se entrelaçarão por meio de intensos encontros e desentendimentos em oito episódios. Uma apaixonante história de amor entre uma mulher corajosa e guerreira e um homem confrontado com suas contradições. Eles terão que enfrentar a realidade de famílias em lados opostos de um país que caminha lentamente para uma Guerra Civil, tendo como pano de fundo a história da Espanha e da Europa.",
+      "popularity": 1.1187,
+      "poster_path": "/u7wk4bVgcQAWc2lXeRRVaH8k5AP.jpg",
+      "release_date": "2026-06-04",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.286,
+      "vote_count": 14
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/skmFqH67nh8zJacf7WcR204Kgvl.jpg",
+      "genre_ids": [
+        14,
+        10749
+      ],
+      "id": 1354518,
+      "title": "100 Noites de Desejo",
+      "original_language": "en",
+      "original_title": "100 Nights of Hero",
+      "overview": "Duas mulheres casadas, Cherry e Hero, planejam um plano engenhoso para impedir que o lascivo Manfred seduza Cherry depois de apostar com o marido. Hero encanta Manfred com histórias convincentes para 100 noites.",
+      "popularity": 1.1672,
+      "poster_path": "/pn15z8LSALEBfuMZlVjx2SScWD4.jpg",
+      "release_date": "2026-06-04",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.0,
+      "vote_count": 19
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xnnBBwUq2FL2NhF6WTa27AetMqt.jpg",
+      "genre_ids": [
+        10749,
+        35,
+        18
+      ],
+      "id": 1168294,
+      "title": "(Quase) O amor da minha vida",
+      "original_language": "en",
+      "original_title": "Young Werther",
+      "overview": "Werther, um jovem escritor despreocupado e encantador, se depara com o amor de sua vida — apenas para descobrir que ela está noiva. Ignorando os conselhos do melhor amigo, Werther vira seu mundo de cabeça para baixo em uma tentativa equivocada e hilária de conquistar o coração dela.",
+      "popularity": 0.892,
+      "poster_path": "/531mYSPKTgWi0l3kXDy4mA5z4wG.jpg",
+      "release_date": "2026-06-11",
+      "softcore": false,
+      "video": false,
+      "vote_average": 4.7,
+      "vote_count": 6
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mccHZJMj3pHfHtbmG48txYdgamR.jpg",
+      "genre_ids": [
+        18,
+        10770
+      ],
+      "id": 1256192,
+      "title": "Ari",
+      "original_language": "fr",
+      "original_title": "Ari",
+      "overview": "Um jovem professor é expulso de casa após um colapso nervoso e encontra nos antigos amigos de infância o apoio necessário para atravessar esse momento delicado.",
+      "popularity": 0.8082,
+      "poster_path": "/knT2qs82x7tey0xOHgEkYua2bIs.jpg",
+      "release_date": "2026-06-18",
+      "softcore": false,
+      "video": false,
+      "vote_average": 5.2,
+      "vote_count": 2
+    }
+  ],
+  "total_pages": 3,
+  "total_results": 53
+}

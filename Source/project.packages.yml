@@ -1,0 +1,4 @@
+packages:
+  Core:
+    path: Core
+    excludeFromProject: false

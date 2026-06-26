@@ -1,0 +1,68 @@
+{
+    "adult": false,
+    "backdrop_path": "/qO55CD8tgVL1T4WKn6zYFFiD6lL.jpg",
+    "belongs_to_collection": null,
+    "budget": 0,
+    "genres": [
+        {
+            "id": 28,
+            "name": "Ação"
+        },
+        {
+            "id": 18,
+            "name": "Drama"
+        },
+        {
+            "id": 80,
+            "name": "Crime"
+        }
+    ],
+    "homepage": "",
+    "id": 1439930,
+    "imdb_id": "tt36042156",
+    "origin_country": [
+        "US"
+    ],
+    "original_language": "en",
+    "original_title": "The Punisher: One Last Kill",
+    "overview": "Enquanto Frank Castle busca um significado além da vingança, uma força inesperada o arrasta de volta para a luta.",
+    "popularity": 134.3121,
+    "poster_path": "/ppRmgI2MbEOADvKKvlNoRJHPXOT.jpg",
+    "production_companies": [
+        {
+            "id": 420,
+            "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+            "name": "Marvel Studios",
+            "origin_country": "US"
+        },
+        {
+            "id": 176762,
+            "logo_path": null,
+            "name": "Kevin Feige Productions",
+            "origin_country": "US"
+        }
+    ],
+    "production_countries": [
+        {
+            "iso_3166_1": "US",
+            "name": "United States of America"
+        }
+    ],
+    "release_date": "2026-05-12",
+    "revenue": 0,
+    "runtime": 51,
+    "softcore": false,
+    "spoken_languages": [
+        {
+            "english_name": "English",
+            "iso_639_1": "en",
+            "name": "English"
+        }
+    ],
+    "status": "Released",
+    "tagline": "Para encontrar a paz, ele deve perdê-la.",
+    "title": "O Justiceiro: Uma Última Morte",
+    "video": false,
+    "vote_average": 8.3,
+    "vote_count": 1659
+}

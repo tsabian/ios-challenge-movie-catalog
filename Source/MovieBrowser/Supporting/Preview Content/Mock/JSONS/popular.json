@@ -1,0 +1,417 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/wMrV8SLne1jHLeYS0lLrA1Tf86P.jpg",
+      "genre_ids": [
+        27,
+        9648
+      ],
+      "id": 1304313,
+      "title": "Maldição da Múmia",
+      "original_language": "en",
+      "original_title": "Lee Cronin's The Mummy",
+      "overview": "A filha de um jornalista desaparece num deserto sem deixar rastros, deixando a família dilacerada e em luto. Até que, oito anos mais tarde, a jovem garota reaparece, deixando todos chocados. O problema é que esse encontro aparentemente feliz se transforma em um pesadelo de proporções gigantes.",
+      "popularity": 742.7616,
+      "poster_path": "/ubN87iHY2DyWtwU2JHS0SQ1KqJu.jpg",
+      "release_date": "2026-04-16",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.048,
+      "vote_count": 1239
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/dd31qJxOarrHyGZwYsCzOjobQzP.jpg",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "id": 1380291,
+      "title": "Jack Ryan de Tom Clancy: Guerra Fantasma",
+      "original_language": "en",
+      "original_title": "Tom Clancy's Jack Ryan: Ghost War",
+      "overview": "Neste novo filme, Jack Ryan volta ao mundo da espionagem contra a sua vontade quando uma missão secreta internacional acaba revelando uma conspiração. Numa corrida contra o tempo, ele se junta aos seus aliados da CIA, Mike November e James Greer, e à perspicaz agente do MI6, Emma Marlowe, para combater uma unidade de operações secreta rebelde numa luta arriscada e extremamente pessoal.",
+      "popularity": 520.1658,
+      "poster_path": "/bPue4NKPiGNrIbZFeOsZfnovFAM.jpg",
+      "release_date": "2026-05-20",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.267,
+      "vote_count": 309
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/qO55CD8tgVL1T4WKn6zYFFiD6lL.jpg",
+      "genre_ids": [
+        28,
+        18,
+        80
+      ],
+      "id": 1439930,
+      "title": "O Justiceiro: Uma Última Morte",
+      "original_language": "en",
+      "original_title": "The Punisher: One Last Kill",
+      "overview": "Enquanto Frank Castle busca um significado além da vingança, uma força inesperada o arrasta de volta para a luta.",
+      "popularity": 394.6875,
+      "poster_path": "/ppRmgI2MbEOADvKKvlNoRJHPXOT.jpg",
+      "release_date": "2026-05-12",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.423,
+      "vote_count": 1222
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/9Z2uDYXqJrlmePznQQJhL6d92Rq.jpg",
+      "genre_ids": [
+        10751,
+        35,
+        12,
+        14,
+        16
+      ],
+      "id": 1226863,
+      "title": "Super Mario Galaxy: O Filme",
+      "original_language": "en",
+      "original_title": "The Super Mario Galaxy Movie",
+      "overview": "Depois de salvar o Reino dos Cogumelos, Mario e seus amigos se encontram em uma missão intergaláctica para deter um novo vilão ameaçador.",
+      "popularity": 356.5754,
+      "poster_path": "/b3WeTp42eJSRuE4UZfyPCOJW4c.jpg",
+      "release_date": "2026-04-01",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.0,
+      "vote_count": 1924
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8Tfys3mDZVp4tNoH2ktm06a0Tau.jpg",
+      "genre_ids": [
+        878,
+        12
+      ],
+      "id": 687163,
+      "title": "Devoradores de Estrelas",
+      "original_language": "en",
+      "original_title": "Project Hail Mary",
+      "overview": "Professor de ciências do ensino fundamental acorda em espaçonave a anos-luz da Terra sem memória de como foi parar ali. Aos poucos, lembra que foi recrutado para uma missão na qual precisa investigar o motivo pelo qual o Sol está morrendo.",
+      "popularity": 371.0794,
+      "poster_path": "/2i8uru7rlbHKaoIbC2V4FZLT7uW.jpg",
+      "release_date": "2026-03-19",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.632,
+      "vote_count": 4144
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rZfmzpixLKLR3Hg2u0WgC7XLFl8.jpg",
+      "genre_ids": [
+        27
+      ],
+      "id": 1339713,
+      "title": "Obsessão",
+      "original_language": "en",
+      "original_title": "Obsession",
+      "overview": "Sem grandes pretensões, um romântico incurável compra um brinquedo que promete realizar desejos únicos. Ele quebra o artefato misterioso enquanto pede para conquistar a crush e consegue exatamente o que desejava, mas descobre que a consequência é sinistra.",
+      "popularity": 370.7814,
+      "poster_path": "/bg2MyfDMoqJvqjRueaMN08hPquR.jpg",
+      "release_date": "2026-05-14",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.883,
+      "vote_count": 295
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zMwhWailP1WY7sb6AoE6b8ugoy.jpg",
+      "genre_ids": [
+        12,
+        16,
+        10751,
+        14
+      ],
+      "id": 1007757,
+      "title": "Como Mágica",
+      "original_language": "en",
+      "original_title": "Swapped",
+      "overview": "Uma pequena criatura da floresta e um pássaro majestoso trocam de corpo e precisam se unir para sobreviver à aventura mais incrível de suas vidas.",
+      "popularity": 314.3613,
+      "poster_path": "/7FBnCkYzHlVHEtuzTEiGgFhs8EQ.jpg",
+      "release_date": "2026-05-01",
+      "softcore": false,
+      "video": false,
+      "vote_average": 8.973,
+      "vote_count": 1400
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gRoZG3Z0zJxgElmTsVHOl2dNYXe.jpg",
+      "genre_ids": [
+        28,
+        80,
+        53
+      ],
+      "id": 1582770,
+      "title": "Dhurandhar: A Vingança",
+      "original_language": "hi",
+      "original_title": "धुरंधर: द रिवेंज",
+      "overview": "",
+      "popularity": 303.0759,
+      "poster_path": "/hsJG5r6etrMNwW00BVp4NC7zi67.jpg",
+      "release_date": "2026-03-18",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.3,
+      "vote_count": 92
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1x9e0qWonw634NhIsRdvnneeqvN.jpg",
+      "genre_ids": [
+        10749,
+        18
+      ],
+      "id": 1523145,
+      "title": "Um Amor de Mentiras",
+      "original_language": "ru",
+      "original_title": "Твоё сердце будет разбито",
+      "overview": "Polina, uma estudante do ensino médio, é salva do bullying em sua nova escola e faz um acordo com o principal valentão, Bars: ele deve fingir ser seu namorado e protegê-la, e ela deve fazer tudo o que ele mandar. Durante esse jogo, o casal desenvolve sentimentos verdadeiros, mas sua família e colegas de classe têm motivos para separá-los.",
+      "popularity": 251.3324,
+      "poster_path": "/hXNn25hE2SH2kHMPVOLjqDISSxf.jpg",
+      "release_date": "2026-03-26",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.744,
+      "vote_count": 80
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4EAAwpylq313qrDqpCxulUrXBNF.jpg",
+      "genre_ids": [
+        28,
+        14,
+        12
+      ],
+      "id": 931285,
+      "title": "Mortal Kombat 2",
+      "original_language": "en",
+      "original_title": "Mortal Kombat II",
+      "overview": "Os campeões favoritos dos fãs – agora acompanhados pelo próprio Johnny Cage – são colocados uns contra os outros numa sangrenta e derradeira batalha, sem regras ou limites, para derrotar o governo sombrio de Shao Kahn.",
+      "popularity": 212.6488,
+      "poster_path": "/iILiJSRViTEcF23MHhGCbVm3mfW.jpg",
+      "release_date": "2026-05-07",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.812,
+      "vote_count": 309
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/eNAFLrd1XAAD4hgdTPjewpzYU4W.jpg",
+      "genre_ids": [
+        35
+      ],
+      "id": 1320660,
+      "title": "पति पत्नी और वो दो",
+      "original_language": "hi",
+      "original_title": "पति पत्नी और वो दो",
+      "overview": "",
+      "popularity": 221.4795,
+      "poster_path": "/5MweEeMzPbueb65BcJpdiy0ihwU.jpg",
+      "release_date": "2026-05-15",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.667,
+      "vote_count": 3
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gkh6Nt8DtY1XT4gQsyFq9XAVJlJ.jpg",
+      "genre_ids": [
+        18,
+        35
+      ],
+      "id": 350,
+      "title": "O Diabo Veste Prada",
+      "original_language": "en",
+      "original_title": "The Devil Wears Prada",
+      "overview": "Andrea Sachs é uma jovem que conseguiu um emprego na Runaway Magazine, a mais importante revista de moda de Nova York. Ela passa a trabalhar como assistente de Miranda Priestly, principal executiva da revista. Apesar da chance que muitos sonhariam em conseguir, logo Andrea nota que trabalhar com Miranda não é tão simples assim.",
+      "popularity": 179.379,
+      "poster_path": "/fwaioeouE89lrcnckfluzIKMwSu.jpg",
+      "release_date": "2006-06-30",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.423,
+      "vote_count": 13563
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7OedxK0BvSKJ0ZWCPRYADViTBx6.jpg",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "id": 1228710,
+      "title": "Star Wars: O Mandaloriano e Grogu",
+      "original_language": "en",
+      "original_title": "The Mandalorian and Grogu",
+      "overview": "O maligno Império caiu e os senhores da guerra Imperiais ainda estão espalhados pela galáxia. Enquanto a jovem Nova República luta para proteger tudo pelo que a Rebelião batalhou, ela conta com a ajuda do lendário caçador de recompensas Mandaloriano Din Djarin e seu jovem aprendiz Grogu.",
+      "popularity": 186.7029,
+      "poster_path": "/dNwaS0tnwgQRaQFPY5MbGxdmYXr.jpg",
+      "release_date": "2026-05-21",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.768,
+      "vote_count": 257
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
+      "genre_ids": [
+        28,
+        14,
+        12
+      ],
+      "id": 460465,
+      "title": "Mortal Kombat",
+      "original_language": "en",
+      "original_title": "Mortal Kombat",
+      "overview": "O lutador de MMA Cole Young deve treinar para liberar seu verdadeiro poder para unir-se aos maiores campeões mundiais contra inimigos da Exoterra em uma batalha decisiva pelo universo.",
+      "popularity": 177.8506,
+      "poster_path": "/4nW5X9iBrMlHMDcTsEOQWXKu3TZ.jpg",
+      "release_date": "2021-04-15",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.03,
+      "vote_count": 6638
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oTE4lNs4PSG5iIWjqaTdCIFJ4Bs.jpg",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "id": 1318447,
+      "title": "O Jogo do Predador",
+      "original_language": "en",
+      "original_title": "Apex",
+      "overview": "Uma mulher em luto embarca sozinha em uma aventura pela natureza selvagem da Austrália, mas acaba se envolvendo em um jogo cruel de gato e rato com um assassino.",
+      "popularity": 157.2251,
+      "poster_path": "/mBcYPIubRBPTnTwWdj8OuEC1NHJ.jpg",
+      "release_date": "2026-04-24",
+      "softcore": false,
+      "video": false,
+      "vote_average": 6.689,
+      "vote_count": 1239
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/iN41Ccw4DctL8npfmYg1j5Tr1eb.jpg",
+      "genre_ids": [
+        878,
+        12,
+        14
+      ],
+      "id": 83533,
+      "title": "Avatar: Fogo e Cinzas",
+      "original_language": "en",
+      "original_title": "Avatar: Fire and Ash",
+      "overview": "Após a devastadora guerra contra a RDA e a perda de seu filho mais velho, Jake Sully e Neytiri enfrentam uma nova ameaça em Pandora: o Povo das Cinzas, uma tribo Na'vi violenta e sedenta por poder, liderada pela implacável Varang. A família de Jake deve lutar por sua sobrevivência e pelo futuro de Pandora em um conflito que os leva aos seus limites emocionais e físicos.",
+      "popularity": 151.7814,
+      "poster_path": "/3almrQT8GnrDjnQeWotdExjJhZm.jpg",
+      "release_date": "2025-12-17",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.503,
+      "vote_count": 3194
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7f9ZaTwyqQOJtNWUS7xZgWQOzSt.jpg",
+      "genre_ids": [
+        53
+      ],
+      "id": 1431071,
+      "title": "सिस्टम",
+      "original_language": "hi",
+      "original_title": "सिस्टम",
+      "overview": "",
+      "popularity": 163.174,
+      "poster_path": "/ddSTqsxOoXs77xnKpP7XBPqiero.jpg",
+      "release_date": "2026-05-22",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
+      "genre_ids": [
+        28,
+        80,
+        18,
+        53
+      ],
+      "id": 1419406,
+      "title": "A Sombra do Perigo",
+      "original_language": "zh",
+      "original_title": "捕风追影",
+      "overview": "Um policial aposentado, especialista em rastreamento, é convocado de volta à ativa em Macau para desmantelar uma gangue de ladrões de alta tecnologia, colocando suas táticas tradicionais contra a tecnologia avançada, num jogo de gato e rato com uma equipe de jovens detetives de elite.",
+      "popularity": 144.6409,
+      "poster_path": "/wqdHjQ1UpfQgS9jN9So5PLNTwoX.jpg",
+      "release_date": "2025-08-16",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.373,
+      "vote_count": 683
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hdLsZ3dCjKt5A6xDpoo3UFgcTSm.jpg",
+      "genre_ids": [
+        27,
+        28
+      ],
+      "id": 1426822,
+      "title": "O Monstro da Ilha",
+      "original_language": "en",
+      "original_title": "Mortal Game",
+      "overview": "Um grupo de caçadores viaja até uma misteriosa ilha para procurar por uma criatura lendária, mas descobrem que estão sendo usados como isca.",
+      "popularity": 131.1277,
+      "poster_path": "/mvGem9E8avZEg33F9csGHGBT7kM.jpg",
+      "release_date": "2026-04-29",
+      "softcore": false,
+      "video": false,
+      "vote_average": 4.917,
+      "vote_count": 12
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/bOy625BjpCskOWnx3tD09MsKVCb.jpg",
+      "genre_ids": [
+        35,
+        14
+      ],
+      "id": 1368881,
+      "title": "Primeiro as Damas",
+      "original_language": "en",
+      "original_title": "Ladies First",
+      "overview": "Um mulherengo arrogante e carismático vê sua vida de luxo, poder e lances casuais desmoronar quando acorda em um mundo paralelo onde são as mulheres que mandam.",
+      "popularity": 130.4128,
+      "poster_path": "/tW10rRdxMwJC4r1zldQzxcyzEUS.jpg",
+      "release_date": "2026-05-22",
+      "softcore": false,
+      "video": false,
+      "vote_average": 5.781,
+      "vote_count": 135
+    }
+  ],
+  "total_pages": 57055,
+  "total_results": 1141086
+}

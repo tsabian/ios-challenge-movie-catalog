@@ -1,0 +1,418 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/zMwhWailP1WY7sb6AoE6b8ugoy.jpg",
+            "genre_ids": [
+                12,
+                16,
+                10751,
+                14
+            ],
+            "id": 1007757,
+            "title": "Como Mágica",
+            "original_language": "en",
+            "original_title": "Swapped",
+            "overview": "Uma pequena criatura da floresta e um pássaro majestoso trocam de corpo e precisam se unir para sobreviver à aventura mais incrível de suas vidas.",
+            "popularity": 328.7016,
+            "poster_path": "/7FBnCkYzHlVHEtuzTEiGgFhs8EQ.jpg",
+            "release_date": "2026-05-01",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.972,
+            "vote_count": 1389
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg",
+            "genre_ids": [
+                18,
+                80
+            ],
+            "id": 278,
+            "title": "Um Sonho de Liberdade",
+            "original_language": "en",
+            "original_title": "The Shawshank Redemption",
+            "overview": "Em 1946, Andy Dufresne, um banqueiro jovem e bem sucedido, tem a sua vida radicalmente modificada ao ser condenado por um crime que nunca cometeu, o homicídio de sua esposa e do amante dela. Ele é mandado para uma prisão que é o pesadelo de qualquer detento, a Penitenciária Estadual de Shawshank, no Maine. Lá ele irá cumprir a pena perpétua. Andy logo será apresentado a Warden Norton, o corrupto e cruel agente penitenciário, que usa a Bíblia como arma de controle e ao Capitão Byron Hadley que trata os internos como animais. Andy faz amizade com Ellis Boyd Redding, um prisioneiro que cumpre pena há 20 anos e controla o mercado negro da instituição.",
+            "popularity": 71.0607,
+            "poster_path": "/umX3lBhHoTV7Lsci140Yr8VpXyN.jpg",
+            "release_date": "1994-09-23",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.721,
+            "vote_count": 30406
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/tSPT36ZKlP2WVHJLM4cQPLSzv3b.jpg",
+            "genre_ids": [
+                18,
+                80
+            ],
+            "id": 238,
+            "title": "O Poderoso Chefão",
+            "original_language": "en",
+            "original_title": "The Godfather",
+            "overview": "Em 1945, Don Corleone é o chefe de uma mafiosa família italiana de Nova York. Ele costuma apadrinhar várias pessoas, realizando importantes favores para elas, em troca de favores futuros. Com a chegada das drogas, as famílias começam uma disputa pelo promissor mercado. Quando Corleone se recusa a facilitar a entrada dos narcóticos na cidade, não oferecendo ajuda política e policial, sua família começa a sofrer atentados para que mudem de posição. É nessa complicada época que Michael, um herói de guerra nunca envolvido nos negócios da família, vê a necessidade de proteger o seu pai e tudo o que ele construiu ao longo dos anos.",
+            "popularity": 47.963,
+            "poster_path": "/oJagOzBu9Rdd9BrciseCm3U3MCU.jpg",
+            "release_date": "1972-03-14",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.687,
+            "vote_count": 22942
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/afHAM9qOTmrVDeaLIU7zfssotUY.jpg",
+            "genre_ids": [
+                878,
+                12
+            ],
+            "id": 687163,
+            "title": "Devoradores de Estrelas",
+            "original_language": "en",
+            "original_title": "Project Hail Mary",
+            "overview": "Professor de ciências do ensino fundamental acorda em espaçonave a anos-luz da Terra sem memória de como foi parar ali. Aos poucos, lembra que foi recrutado para uma missão na qual precisa investigar o motivo pelo qual o Sol está morrendo.",
+            "popularity": 402.5239,
+            "poster_path": "/2i8uru7rlbHKaoIbC2V4FZLT7uW.jpg",
+            "release_date": "2026-03-15",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.627,
+            "vote_count": 4117
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
+            "genre_ids": [
+                18,
+                80
+            ],
+            "id": 240,
+            "title": "O Poderoso Chefão: Parte II",
+            "original_language": "en",
+            "original_title": "The Godfather Part II",
+            "overview": "Após a máfia matar sua família, o jovem Vito foge da sua cidade na Sicília e vai para a América. Vito luta para manter sua família. Ele mata Black Hand Fanucci, que exigia dos comerciantes uma parte dos seus ganhos. Com a morte de Fanucci, o poderio de Vito cresce, mas sua família é o que mais importa para ele. Agora baseado no Lago Tahoe, Michael planeja fazer incursões em Las Vegas e Havana instalando negócios ligados ao lazer, mas descobre que aliados como Hyman Roth estão tentando matá-lo.",
+            "popularity": 28.1317,
+            "poster_path": "/3ViYPhSAPwH2avQjdMl49F8PklB.jpg",
+            "release_date": "1974-12-20",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.571,
+            "vote_count": 13908
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zb6fM1CX41D9rF9hdgclu0peUmy.jpg",
+            "genre_ids": [
+                18,
+                36,
+                10752
+            ],
+            "id": 424,
+            "title": "A Lista de Schindler",
+            "original_language": "en",
+            "original_title": "Schindler's List",
+            "overview": "O alemão Oskar Schindler viu na mão de obra judia uma solução barata e viável para lucrar com negócios durante a guerra. Com sua forte influência dentro do partido nazista, foi fácil conseguir as autorizações e abrir uma fábrica. O que poderia parecer uma atitude de um homem não muito bondoso, transformou-se em um dos maiores casos de amor à vida da História, pois este alemão abdicou de toda sua fortuna para salvar a vida de mais de mil judeus em plena luta contra o extermínio alemão.",
+            "popularity": 33.9015,
+            "poster_path": "/jbnF7dVi8iu80zTsWAC0Om8ZYOu.jpg",
+            "release_date": "1993-12-15",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.569,
+            "vote_count": 17455
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/w4bTBXcqXc2TUyS5Fc4h67uWbPn.jpg",
+            "genre_ids": [
+                18
+            ],
+            "id": 389,
+            "title": "12 Homens e uma Sentença",
+            "original_language": "en",
+            "original_title": "12 Angry Men",
+            "overview": "Um jovem porto-riquenho é acusado do brutal crime de ter matado o próprio pai. Quando ele vai a julgamento, doze jurados se reúnem para decidir a sentença, levando em conta que o réu deve ser considerado inocente até que se prove o contrário. Onze dos jurados têm plena certeza de que ele é culpado, e votam pela condenação, mas um jurado acha que é melhor investigar mais para que a sentença seja correta. Para isso ele terá que enfrentar diferentes interpretações dos fatos, e a má vontade dos outros jurados, que só querem ir logo para suas casas.",
+            "popularity": 21.1204,
+            "poster_path": "/aiHIhV8c45FzIlbqYlswrrNyQD6.jpg",
+            "release_date": "1957-04-10",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.561,
+            "vote_count": 9981
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/dyJvKsNs2KP8qQnAXbRwDjblViy.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                14
+            ],
+            "id": 129,
+            "title": "A Viagem de Chihiro",
+            "original_language": "ja",
+            "original_title": "千と千尋の神隠し",
+            "overview": "Chihiro e seus pais estão se mudando para uma cidade diferente. A caminho da nova casa, o pai decide pegar um atalho. Eles se deparam com uma mesa repleta de comida, embora ninguém esteja por perto. Chihiro sente o perigo, mas seus pais começam a comer. Quando anoitece, eles se transformam em porcos. Agora, apenas Chihiro pode salvá-los.",
+            "popularity": 35.5444,
+            "poster_path": "/ivHwYw3b03dFqRkcqaDSxjj2LQT.jpg",
+            "release_date": "2001-07-20",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.534,
+            "vote_count": 18310
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/cfT29Im5VDvjE0RpyKOSdCKZal7.jpg",
+            "genre_ids": [
+                28,
+                80,
+                53
+            ],
+            "id": 155,
+            "title": "Batman: O Cavaleiro das Trevas",
+            "original_language": "en",
+            "original_title": "The Dark Knight",
+            "overview": "Após dois anos desde o surgimento do Batman, os criminosos de Gotham City têm muito o que temer. Com a ajuda do tenente James Gordon e do promotor público Harvey Dent, Batman luta contra o crime organizado. Acuados com o combate, os chefes do crime aceitam a proposta feita pelo Coringa e o contratam para combater o Homem-Morcego.",
+            "popularity": 44.2747,
+            "poster_path": "/4lj1ikfsSmMZNyfdi8R8Tv5tsgb.jpg",
+            "release_date": "2008-07-16",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.531,
+            "vote_count": 35767
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/bVGHSe47W6oCQL1Q88pvRAet51A.jpg",
+            "genre_ids": [
+                18,
+                9648
+            ],
+            "id": 1330021,
+            "title": "Criaturas Extraordinariamente Brilhantes",
+            "original_language": "en",
+            "original_title": "Remarkably Bright Creatures",
+            "overview": "Uma viúva que trabalha como faxineira noturna em um aquário forma uma amizade improvável com um polvo gigante que a ajuda a desvendar o mistério do desaparecimento de seu filho décadas atrás.",
+            "popularity": 95.9692,
+            "poster_path": "/iMJaRPY4xx4lScIaIWd67yWJuqc.jpg",
+            "release_date": "2026-05-07",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.5,
+            "vote_count": 429
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/6N5d02quKqMKqvTpOdFmBDy9scY.jpg",
+            "genre_ids": [
+                35,
+                18,
+                10749
+            ],
+            "id": 19404,
+            "title": "Dilwale vai levar a noiva",
+            "original_language": "hi",
+            "original_title": "दिलवाले दुल्हनिया ले जायेंगे",
+            "overview": "Raj e Simran são dois jovens indianos vivendo em Londres que, acidentalmente, se conhecem durante uma viagem pela Europa. Eles se apaixonam, mas Simran está prometida a um indiano. Raj não desanima e segue seu amor até a Índia, onde os dois tentam convencer a todos que precisam ficar juntos.",
+            "popularity": 17.5245,
+            "poster_path": "/2CAL2433ZeIihfX1Hb2139CX0pW.jpg",
+            "release_date": "1995-10-20",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.512,
+            "vote_count": 4589
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/b6HWTOxn1xevvyHU2K9ICvaRU6g.jpg",
+            "genre_ids": [
+                14,
+                18,
+                80
+            ],
+            "id": 497,
+            "title": "À Espera de um Milagre",
+            "original_language": "en",
+            "original_title": "The Green Mile",
+            "overview": "Milagres acontecem em lugares inesperados, mesmo no bloco de celas para o corredor da morte na Penitenciária Cold Mountain. Lá, John Coffey, um gentil e gigante prisioneiro com poderes sobrenaturais, traz um senso de espírito e humanidade aos seus guardas e colegas de cela.",
+            "popularity": 29.1471,
+            "poster_path": "/14hEqW67IiHlKpzKMLUXyktzZIV.jpg",
+            "release_date": "1999-12-10",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.506,
+            "vote_count": 19251
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/xyWKrni8WrYzqn7ztvI5nIY0h62.jpg",
+            "genre_ids": [
+                35,
+                10749
+            ],
+            "id": 1181678,
+            "title": "¿Quieres ser mi hijo?",
+            "original_language": "en",
+            "original_title": "¿Quieres ser mi hijo?",
+            "overview": "",
+            "popularity": 14.0362,
+            "poster_path": "/9GuvODahvuFqdhuZ16aBLR4UJoP.jpg",
+            "release_date": "2023-09-21",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.499,
+            "vote_count": 346
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg",
+            "genre_ids": [
+                12,
+                14,
+                28
+            ],
+            "id": 122,
+            "title": "O Senhor dos Anéis: O Retorno do Rei",
+            "original_language": "en",
+            "original_title": "The Lord of the Rings: The Return of the King",
+            "overview": "O confronto final entre as forças do bem e do mal que lutam pelo controle do futuro da Terra-Média se aproxima. Sauron planeja um grande ataque a Minas Tirith, capital de Gondor, o que faz com que Gandalf e Pippin partam para o local na intenção de ajudar a resistência. Um exército é reunido por Théoden em Rohan, em mais uma tentativa de deter as forças de Sauron. Enquanto isso, Frodo, Sam e Gollum seguem sua viagem rumo à Montanha da Perdição para destruir o Um Anel.",
+            "popularity": 42.6119,
+            "poster_path": "/rU4oIKv5I4C59DpcXKmT7kNwGI0.jpg",
+            "release_date": "2003-12-17",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.5,
+            "vote_count": 26533
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+            "genre_ids": [
+                35,
+                53,
+                18
+            ],
+            "id": 496243,
+            "title": "Parasita",
+            "original_language": "ko",
+            "original_title": "기생충",
+            "overview": "Toda a família de Ki-taek está desempregada, vivendo num porão sujo e apertado. Uma obra do acaso faz com que o filho adolescente da família comece a dar aulas de inglês à garota de uma família rica. Fascinados com a vida luxuosa destas pessoas, pai, mãe, filho e filha bolam um plano para se infiltrarem também na família glamorosa, um a um. No entanto, os segredos e mentiras necessários à ascensão social custarão caro a todos.",
+            "popularity": 38.5178,
+            "poster_path": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+            "release_date": "2019-05-30",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.494,
+            "vote_count": 20623
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+            "genre_ids": [
+                53,
+                80,
+                35
+            ],
+            "id": 680,
+            "title": "Pulp Fiction: Tempo de Violência",
+            "original_language": "en",
+            "original_title": "Pulp Fiction",
+            "overview": "Vincent Vega e Jules Winnfield são dois assassinos profissionais que trabalham fazendo cobranças para Marsellus Wallace, um poderosos gângster. Vega é forçado a sair com a garota do chefe, temendo passar dos limites. Enquanto isso, o pugilista Butch Coolidge se mete em apuros por ganhar uma luta que deveria perder.",
+            "popularity": 35.513,
+            "poster_path": "/tptjnB2LDbuUWya9Cx5sQtv5hqb.jpg",
+            "release_date": "1994-09-10",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.5,
+            "vote_count": 30190
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/8x9iKH8kWA0zdkgNdpAew7OstYe.jpg",
+            "genre_ids": [
+                16,
+                10749,
+                18
+            ],
+            "id": 372058,
+            "title": "Your name.",
+            "original_language": "ja",
+            "original_title": "君の名は。",
+            "overview": "Mitsuha é a filha do prefeito de uma pequena cidade, mas sonha em tentar a sorte em Tóquio. Taki trabalha em um restaurante em Tóquio e deseja largar o seu emprego. Os dois não se conhecem, mas estão conectados pelas imagens de seus sonhos.",
+            "popularity": 28.2341,
+            "poster_path": "/eIm2nKC0125GyEPSWl6ODCA9J1S.jpg",
+            "release_date": "2016-08-26",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.479,
+            "vote_count": 12553
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/2ssWTSVklAEc98frZUQhgtGHx7s.jpg",
+            "genre_ids": [
+                12,
+                18,
+                878
+            ],
+            "id": 157336,
+            "title": "Interestelar",
+            "original_language": "en",
+            "original_title": "Interstellar",
+            "overview": "As reservas naturais da Terra estão chegando ao fim e um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand, Jenkins e Doyle, ele seguirá em busca de um novo lar.",
+            "popularity": 77.2339,
+            "poster_path": "/6ricSDD83BClJsFdGB6x7cM0MFQ.jpg",
+            "release_date": "2014-11-05",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.475,
+            "vote_count": 39811
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/Adrip2Jqzw56KeuV2nAxucKMNXA.jpg",
+            "genre_ids": [
+                37
+            ],
+            "id": 429,
+            "title": "Três Homens em Conflito",
+            "original_language": "it",
+            "original_title": "Il buono, il brutto, il cattivo",
+            "overview": "Durante o auge da Guerra Civil, um misterioso pistoleiro vaga pela fronteira do oeste. Ele não possui um lar, lealdade ou companhia... Até que encontra dois estrangeiros, que são tão brutos e desapegados quanto ele. Unidos pelo destino, os três homens juntam suas forças para tentar encontrar uma fortuna em ouro roubado. Mas trabalho em equipe não é uma coisa natural para voluntariosos pistoleiros, e eles logo descobrem que seu maior desafio é concentrar-se em sua perigosa missão — e em manterem-se vivos — atravessando um país arrasado pela guerra.",
+            "popularity": 20.7633,
+            "poster_path": "/n1nYQ9EX83BrixhBC1HIezzYu9O.jpg",
+            "release_date": "1966-12-23",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.47,
+            "vote_count": 9627
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/66Kn4XWhkuPkJxOJyPEx4U2CUfN.jpg",
+            "genre_ids": [
+                35,
+                18,
+                10749
+            ],
+            "id": 13,
+            "title": "Forrest Gump: O Contador de Histórias",
+            "original_language": "en",
+            "original_title": "Forrest Gump",
+            "overview": "Quarenta anos da história dos Estados Unidos, vistos pelos olhos de Forrest Gump, um rapaz com QI abaixo da média e com boas intenções. Por obra do acaso, ele consegue participar de momentos cruciais, como a Guerra do Vietnã e o Caso Watergate, mas continua pensando no seu amor de infância, Jenny Curran.",
+            "popularity": 31.8947,
+            "poster_path": "/d74WpIsH8379TIL4wUxDneRCYv2.jpg",
+            "release_date": "1994-06-23",
+            "softcore": false,
+            "video": false,
+            "vote_average": 8.5,
+            "vote_count": 29741
+        }
+    ],
+    "total_pages": 544,
+    "total_results": 10874
+}
